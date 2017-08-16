@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using JanuszMarcinik.Mvc.Domain.Application.Entities;
+using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
+using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Application
 {
@@ -15,7 +16,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application
         #region ApplicationProfile()
         public ApplicationProfile()
         {
-
+            CreateMap<Interviewee, IntervieweeViewModel>()
+                .Ignore(x => x.Educations)
+                .Ignore(x => x.MartialStatuses)
+                .Ignore(x => x.MaterialStatuses)
+                .Ignore(x => x.PlacesOfResidence)
+                .Ignore(x => x.Seniorities)
+                .Ignore(x => x.Sexes);
         }
         #endregion
     }

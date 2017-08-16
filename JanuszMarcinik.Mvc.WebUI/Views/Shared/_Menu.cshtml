@@ -21,7 +21,7 @@
                     }
                     @if (User.IsInRole("Ankieter"))
                     {
-                        <li>@Html.Bootstrap().ActionLink("Wyniki ankiet", MVC.Admin.Configuration.Index())</li>
+                        <li>@Html.Bootstrap().ActionLink("Wyniki ankiet", MVC.Application.Results.Interviewees())</li>
                     }
                 </ul>
             </li>

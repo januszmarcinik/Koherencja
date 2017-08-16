@@ -4,49 +4,118 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Linq;
+using JanuszMarcinik.Mvc.Domain.Application.DataSource;
 
-namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
+namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
 {
     public class IntervieweeViewModel
     {
         public int IntervieweeId { get; set; }
 
+        [DataSourceList(Order = 1)]
         public DateTime InterviewDate { get; set; }
 
         [Required(ErrorMessage = "Wybierz wiek")]
         [Display(Name = "Wiek")]
         [Range(minimum: 20, maximum: 67, ErrorMessage = "Wiek musi być z przedziału od 20 do 67 lat.")]
+        [DataSourceList(Order = 2)]
         public int Age { get; set; }
 
+        #region Sex
         [Required(ErrorMessage = "Wybierz płeć")]
         [Display(Name = "Płeć")]
         public int SexId { get; set; }
-        public IEnumerable<SelectListItem> Sexes { get; set; }
 
+        [Display(Name = "Płeć")]
+        [DataSourceList(Order = 3)]
+        public string SexName
+        {
+            get { return this.Sex != null ? this.Sex.Value : string.Empty; }
+        }
+
+        public BaseDictionary Sex { get; set; }
+        public IEnumerable<SelectListItem> Sexes { get; set; }
+        #endregion
+
+        #region Seniority
         [Required(ErrorMessage = "Wybierz staż pracy")]
         [Display(Name = "Staż pracy")]
         public int SeniorityId { get; set; }
-        public IEnumerable<SelectListItem> Seniorities { get; set; }
 
+        [Display(Name = "Staż pracy")]
+        [DataSourceList(Order = 4)]
+        public string SeniorityName
+        {
+            get { return this.Seniority != null ? this.Seniority.Value : string.Empty; }
+        }
+
+        public BaseDictionary Seniority { get; set; }
+        public IEnumerable<SelectListItem> Seniorities { get; set; }
+        #endregion
+
+        #region PlaceOfResidence
         [Required(ErrorMessage = "Wybierz miejsce zamieszkania")]
         [Display(Name = "Miejsce zamieszkania")]
         public int PlaceOfResidenceId { get; set; }
-        public IEnumerable<SelectListItem> PlacesOfResidence { get; set; }
 
+        [Display(Name = "Miejsce zamieszkania")]
+        [DataSourceList(Order = 5)]
+        public string PlaceOfResidenceName
+        {
+            get { return this.PlaceOfResidence != null ? this.PlaceOfResidence.Value : string.Empty; }
+        }
+
+        public BaseDictionary PlaceOfResidence { get; set; }
+        public IEnumerable<SelectListItem> PlacesOfResidence { get; set; }
+        #endregion
+
+        #region Education
         [Required(ErrorMessage = "Wybierz wykształcenie")]
         [Display(Name = "Wykształcenie")]
         public int EducationId { get; set; }
-        public IEnumerable<SelectListItem> Educations { get; set; }
 
+        [Display(Name = "Wykształcenie")]
+        [DataSourceList(Order = 6)]
+        public string EducationName
+        {
+            get { return this.Education != null ? this.Education.Value : string.Empty; }
+        }
+
+        public BaseDictionary Education { get; set; }
+        public IEnumerable<SelectListItem> Educations { get; set; }
+        #endregion
+
+        #region MartialStatus
         [Required(ErrorMessage = "Wybierz stan cywilny")]
         [Display(Name = "Stan cywilny")]
         public int MartialStatusId { get; set; }
-        public IEnumerable<SelectListItem> MartialStatuses { get; set; }
 
+        [Display(Name = "Stan cywilny")]
+        [DataSourceList(Order = 7)]
+        public string MartialStatusName
+        {
+            get { return this.MartialStatus != null ? this.MartialStatus.Value : string.Empty; }
+        }
+
+        public BaseDictionary MartialStatus { get; set; }
+        public IEnumerable<SelectListItem> MartialStatuses { get; set; }
+        #endregion
+
+        #region MyRegion
         [Required(ErrorMessage = "Wskaż ocenę swojego stanu materialnego")]
         [Display(Name = "Ocena swojego stanu materialnego")]
         public int MaterialStatusId { get; set; }
+
+        [Display(Name = "Ocena swojego stanu materialnego")]
+        [DataSourceList(Order = 8)]
+        public string MaterialStatusName
+        {
+            get { return this.MaterialStatus != null ? this.MaterialStatus.Value : string.Empty; }
+        }
+
+        public BaseDictionary MaterialStatus { get; set; }
         public IEnumerable<SelectListItem> MaterialStatuses { get; set; }
+        #endregion
 
         public void SetDictionaries(IEnumerable<BaseDictionary> dictionary)
         {

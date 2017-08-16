@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -261,6 +262,7 @@
     <Content Include="Areas\Account\Views\Manage\VerifyPhoneNumber.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Images\ep_naturalwhite.png" />
     <Content Include="Images\pink_dust.png" />
@@ -338,8 +340,10 @@
     <Compile Include="Areas\Application\ApplicationProfile.cs" />
     <Compile Include="Areas\Application\ApplicationAreaRegistration.cs" />
     <Compile Include="Areas\Application\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Application\Controllers\ResultsController.cs" />
     <Compile Include="Areas\Application\Controllers\SurveyController.cs" />
-    <Compile Include="Areas\Application\Models\Survey\IntervieweeViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Interviewees\IntervieweeDataSource.cs" />
+    <Compile Include="Areas\Application\Models\Interviewees\IntervieweeViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\SurveyViewModel.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="T4MVC\Account.AccountController.generated.cs">
@@ -386,6 +390,9 @@
     <Compile Include="T4MVC\Application.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="T4MVC\Application.ResultsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="T4MVC\Application.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -424,6 +431,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Views\Image\" />
+    <Folder Include="Areas\Application\Views\Results\" />
     <Folder Include="Areas\Application\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

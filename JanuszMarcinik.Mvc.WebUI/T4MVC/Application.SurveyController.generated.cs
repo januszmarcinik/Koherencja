@@ -144,10 +144,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
 
         [NonAction]
-        partial void IntervieweeInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.IntervieweeViewModel model);
+        partial void IntervieweeInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult IntervieweeInfo(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.IntervieweeViewModel model)
+        public override System.Web.Mvc.ActionResult IntervieweeInfo(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

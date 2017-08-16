@@ -49,8 +49,14 @@
                                 {
                                     @Html.Bootstrap().ListButton(row.ListText, row.ListAction)
                                 }
-                                @Html.Bootstrap().EditButton(row.EditAction)
-                                @Html.Bootstrap().DeleteButton(row.DeleteAction)
+                                @if (row.EditAction != null)
+                                {
+                                    @Html.Bootstrap().EditButton(row.EditAction)
+                                }
+                                @if (row.DeleteAction != null)
+                                {
+                                    @Html.Bootstrap().DeleteButton(row.DeleteAction)
+                                }
                             </div>
                         </td>
                     </tr>
@@ -62,8 +68,14 @@
     using (panel.BeginFooter())
     {
         <div class="btn-group">
-            @Html.Bootstrap().AddButton(Model.AddAction)
-            @Html.Bootstrap().BackButton(Model.BackAction)
+            @if (Model.AddAction != null)
+            {
+                @Html.Bootstrap().AddButton(Model.AddAction)
+            }
+            @if (Model.BackAction != null)
+            {
+                @Html.Bootstrap().BackButton(Model.BackAction)
+            }
         </div>
     }
 }
