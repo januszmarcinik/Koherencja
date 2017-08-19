@@ -26,9 +26,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public virtual ActionResult List(int questionId, AnswerDataSource datasource = null)
         {
             datasource.Data = Mapper.Map<List<AnswerViewModel>>(_answersRepository.GetList(questionId));
-            datasource.QuestionId = questionId;
-            datasource.QuestionText = _questionsRepository.GetById(questionId).Text;
             datasource.Initialize();
+
+            var question = _questionsRepository.GetById(questionId);
+            datasource.QuestionId = questionId;
+            datasource.QuestionText = question.Text;
+            datasource.QuestionnaireId = question.QuestionnaireId;
+
 
             return View(datasource);
         }
