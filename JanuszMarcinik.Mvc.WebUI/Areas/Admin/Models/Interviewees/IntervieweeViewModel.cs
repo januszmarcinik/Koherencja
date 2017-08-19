@@ -1,18 +1,20 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
+using JanuszMarcinik.Mvc.Domain.DataSource;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using System.Linq;
-using JanuszMarcinik.Mvc.Domain.DataSource;
+using System.Web.Mvc;
 
-namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
+namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
 {
     public class IntervieweeViewModel
     {
+        [Grid(DataType = GridDataType.PrimaryKey)]
         public int IntervieweeId { get; set; }
 
         [Grid(Order = 1)]
+        [Display(Name = "Data")]
         public DateTime InterviewDate { get; set; }
 
         [Required(ErrorMessage = "Wybierz wiek")]
@@ -101,7 +103,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public IEnumerable<SelectListItem> MartialStatuses { get; set; }
         #endregion
 
-        #region MyRegion
+        #region MaterialStatus
         [Required(ErrorMessage = "Wskaż ocenę swojego stanu materialnego")]
         [Display(Name = "Ocena swojego stanu materialnego")]
         public int MaterialStatusId { get; set; }

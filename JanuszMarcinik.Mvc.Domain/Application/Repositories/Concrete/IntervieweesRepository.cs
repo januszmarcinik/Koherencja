@@ -17,9 +17,21 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             return entity;
         }
 
+        public Interviewee GetById(int id)
+        {
+            return context.Interviewees.Find(id);
+        }
+
         public IEnumerable<Interviewee> GetList()
         {
             return context.Interviewees;
+        }
+
+        public void Delete(int id)
+        {
+            var entity = GetById(id);
+            context.Interviewees.Remove(entity);
+            context.SaveChanges();
         }
     }
 }

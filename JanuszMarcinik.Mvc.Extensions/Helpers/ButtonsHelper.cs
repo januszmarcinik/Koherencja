@@ -78,5 +78,12 @@ namespace JanuszMarcinik.Mvc.Extensions.Helpers
             return bootstrap.Button().Style(ButtonStyle.Danger).PrependIcon(FontAwesome.remove).Text("Usuń").TriggerModal("deleteConfirm");
         }
         #endregion
+
+        #region SubmitFilterButton()
+        public static BootstrapButton<TModel> SubmitFilterButton<TModel>(this BootstrapBase<TModel> bootstrap) where TModel : class
+        {
+            return bootstrap.SubmitButton().Text("Filtruj").PrependIcon(FontAwesome.filter).Style(ButtonStyle.Warning);
+        }
+        #endregion
     }
 }

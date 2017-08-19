@@ -19,9 +19,13 @@
                     {
                         <li>@Html.Bootstrap().ActionLink("Konfiguracja", MVC.Admin.Configuration.Index())</li>
                     }
-                    @if (User.IsInRole("Ankieter"))
+                    @*@if (User.IsInRole("Ankieter"))
                     {
                         <li>@Html.Bootstrap().ActionLink("Wyniki ankiet", MVC.Application.Results.Interviewees())</li>
+                    }*@
+                    @if (User.IsInRole("Ankieter"))
+                    {
+                        <li>@Html.Bootstrap().ActionLink("Ankieterzy", MVC.Admin.Interviewees.List())</li>
                     }
                 </ul>
             </li>

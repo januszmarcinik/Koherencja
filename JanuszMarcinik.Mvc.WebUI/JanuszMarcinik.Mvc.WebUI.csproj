@@ -261,6 +261,8 @@
     <Content Include="Areas\Admin\Views\Questions\List.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\List.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Interviewees\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Interviewees\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
@@ -329,6 +331,7 @@
     <Compile Include="Areas\Admin\Controllers\AnswersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConfigurationController.cs" />
     <Compile Include="Areas\Admin\Controllers\DictionariesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IntervieweesController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionnairesController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionsController.cs" />
     <Compile Include="Areas\Admin\Models\Answers\AnswerDataSource.cs" />
@@ -336,6 +339,8 @@
     <Compile Include="Areas\Admin\Models\DeleteConfirmViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Dictionaries\DictionaryDataSource.cs" />
     <Compile Include="Areas\Admin\Models\Dictionaries\DictionaryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Interviewees\IntervieweeDataSource.cs" />
+    <Compile Include="Areas\Admin\Models\Interviewees\IntervieweeViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Questionnaires\QuestionnaireDataSource.cs" />
     <Compile Include="Areas\Admin\Models\Questionnaires\QuestionnaireViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Questions\QuestionDataSource.cs" />
@@ -345,8 +350,6 @@
     <Compile Include="Areas\Application\Controllers\HomeController.cs" />
     <Compile Include="Areas\Application\Controllers\ResultsController.cs" />
     <Compile Include="Areas\Application\Controllers\SurveyController.cs" />
-    <Compile Include="Areas\Application\Models\Interviewees\IntervieweeDataSource.cs" />
-    <Compile Include="Areas\Application\Models\Interviewees\IntervieweeViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\SurveyViewModel.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="T4MVC\Account.AccountController.generated.cs">
@@ -381,6 +384,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Admin.DictionariesController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\Admin.IntervieweesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Admin.QuestionnairesController.generated.cs">
@@ -437,7 +443,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Account\Views\Image\" />
-    <Folder Include="Areas\Application\Views\Results\" />
     <Folder Include="Areas\Application\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

@@ -56,6 +56,7 @@ namespace T4MVC
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.AnswersController Answers = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_AnswersController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.ConfigurationController Configuration = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_ConfigurationController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.DictionariesController Dictionaries = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_DictionariesController();
+        public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.IntervieweesController Interviewees = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_IntervieweesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionnairesController Questionnaires = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionnairesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionsController Questions = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionsController();
         public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();

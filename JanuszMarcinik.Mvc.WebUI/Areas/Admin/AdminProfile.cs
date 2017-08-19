@@ -3,6 +3,7 @@ using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Answers;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Dictionaries;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions;
 
@@ -24,6 +25,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin
             CreateMap<Question, QuestionViewModel>();
             CreateMap<Answer, AnswerViewModel>();
             CreateMap<BaseDictionary, DictionaryViewModel>();
+            CreateMap<Interviewee, IntervieweeViewModel>()
+                .Ignore(x => x.Educations)
+                .Ignore(x => x.MartialStatuses)
+                .Ignore(x => x.MaterialStatuses)
+                .Ignore(x => x.PlacesOfResidence)
+                .Ignore(x => x.Seniorities)
+                .Ignore(x => x.Sexes);
         }
         #endregion
     }
