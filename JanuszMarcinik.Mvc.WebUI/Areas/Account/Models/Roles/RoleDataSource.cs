@@ -1,27 +1,19 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.DataSource;
-using System.Collections.Generic;
+﻿using JanuszMarcinik.Mvc.Domain.DataSource;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles
 {
     public class RoleDataSource : DataSource<RoleViewModel>
     {
-        public RoleDataSource() : base(new RoleViewModel()) { }
-
-        public List<RoleViewModel> Roles { get; set; }
-
-        public override void SetActions()
+        protected override void Filter()
         {
-            base.PrepareData(this.Roles);
+        }
 
-            foreach (var row in this.Data)
+        protected override void SetEditActions()
+        {
+            foreach (var row in this.Rows)
             {
-                row.EditAction = MVC.Account.Roles.Edit(row.PrimaryKeyId);
-                row.DeleteAction = MVC.Account.Roles.Delete(row.PrimaryKeyId);
+                row.EditAction = MVC.Account.Roles.Edit(row.PrimaryKey);
             }
-
-            this.AddAction = MVC.Account.Roles.Create();
-            this.BackAction = MVC.Account.Users.Index();
-            this.Title = "Role użytkowników";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Dictionaries;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -20,14 +21,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region List()
-        public virtual ActionResult List()
+        public virtual ActionResult List(DictionaryDataSource datasource = null)
         {
-            var dictionaries = _dictionariesRepository.GetList();
-            var model = new DictionaryDataSource();
-            model.Dictionaries = Mapper.Map<List<DictionaryViewModel>>(dictionaries);
-            model.SetActions();
+            datasource.Data = Mapper.Map<List<DictionaryViewModel>>(_dictionariesRepository.GetList());
+            datasource.Initialize();
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+            return View(datasource);
+        }
+
+        [HttpPost]
+        [ActionName("List")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(DictionaryDataSource datasource)
+        {
+            return List(datasource);
         }
         #endregion
 
@@ -87,19 +94,22 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region Delete()
-        public virtual ActionResult Delete(int id)
+        public virtual PartialViewResult Delete(int id)
         {
-            var dictionary = _dictionariesRepository.GetById(id);
-            var model = Mapper.Map<DictionaryViewModel>(dictionary);
+            var model = new DeleteConfirmViewModel()
+            {
+                Id = id,
+                ConfirmationText = "Czy na pewno usunąć pozycję z metryczki?",
+            };
 
-            return View(model);
+            return PartialView("_DeleteConfirm", model);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult DeleteConfirmed(int id)
+        public virtual ActionResult Delete(DeleteConfirmViewModel model)
         {
-            _dictionariesRepository.Delete(id);
+            _dictionariesRepository.Delete(model.Id);
 
             return RedirectToAction(MVC.Admin.Dictionaries.List());
         }

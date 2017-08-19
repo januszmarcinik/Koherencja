@@ -1,0 +1,19 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.DeleteConfirmViewModel
+
+@using (var modal = Html.Bootstrap().Begin(new Modal().Id("deleteConfirm").Size(ModalSize.Small)))
+{
+    using (var form = Html.Bootstrap().Begin(new Form()))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id)
+
+        @modal.Header(Model.ConfirmationText)
+        using (modal.BeginFooter())
+        {
+            <div class="btn-group">
+                @Html.Bootstrap().Button().Data(new { @dismiss = "modal" }).Text("Zamknij").PrependIcon(FontAwesome.close)
+                @Html.Bootstrap().SubmitButton().Style(ButtonStyle.Danger).Text("Usuń").PrependIcon(FontAwesome.check)
+            </div>
+        }
+    }
+}

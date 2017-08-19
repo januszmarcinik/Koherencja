@@ -45,14 +45,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         #endregion
 
         #region List()
-        public virtual ActionResult List()
+        public virtual ActionResult List(UserDataSource datasource = null)
         {
-            var users = UserManager.Users;
-            var model = new UserDataSource();
-            model.Users = Mapper.Map<List<UserViewModel>>(users);
-            model.SetActions();
+            datasource.Data = Mapper.Map<List<UserViewModel>>(UserManager.Users);
+            datasource.Initialize();
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+            return View(datasource);
+        }
+
+        [HttpPost]
+        [ActionName("List")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(UserDataSource datasource)
+        {
+            return List(datasource);
         }
         #endregion
 

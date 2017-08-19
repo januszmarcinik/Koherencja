@@ -6,7 +6,6 @@ using JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
@@ -23,14 +22,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         #endregion
 
         #region List()
-        public virtual ActionResult List()
+        public virtual ActionResult List(RoleDataSource datasource = null)
         {
-            var roles = _roleManager.Roles;
-            var model = new RoleDataSource();
-            model.Roles = Mapper.Map<List<RoleViewModel>>(roles);
-            model.SetActions();
+            datasource.Data = Mapper.Map<List<RoleViewModel>>(_roleManager.Roles);
+            datasource.Initialize();
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+            return View(datasource);
+        }
+
+        [HttpPost]
+        [ActionName("List")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(RoleDataSource datasource)
+        {
+            return List(datasource);
         }
         #endregion
 

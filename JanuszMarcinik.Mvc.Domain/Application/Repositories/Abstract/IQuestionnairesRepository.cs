@@ -10,7 +10,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         Questionnaire Create(Questionnaire entity);
         Questionnaire Update(Questionnaire entity);
         void Delete(long id);
-        IEnumerable<Questionnaire> GetOnlyActives();
         Questionnaire GetFullModel(long questionnaireNumber);
     }
 }

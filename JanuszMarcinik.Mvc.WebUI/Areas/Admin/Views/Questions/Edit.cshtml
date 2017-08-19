@@ -19,20 +19,16 @@
             @Html.HiddenFor(x => x.QuestionnaireId)
             @Html.HiddenFor(x => x.QuestionId)
 
-            <div class="row">
-                <div class="col-sm-6">
-                    @form.FormGroup().EditorFor(x => x.OrderNumber)
-                    @form.FormGroup().TextBoxFor(x => x.Text)
-                </div>
-            </div>
-        }
-
-        using (panel.BeginFooter())
-        {
-            <div class="btn-group">
-                @Html.Bootstrap().SubmitSaveButton()
-                @Html.Bootstrap().BackButton(MVC.Admin.Questions.List(Model.QuestionnaireId))
-            </div>
+            @form.FormGroup().EditorFor(x => x.OrderNumber)
+            @form.FormGroup().TextBoxFor(x => x.Text)
         }
     }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Admin.Questions.List(Model.QuestionnaireId)),
+        Html.Bootstrap().SubmitSaveButton(),
+        Html.Bootstrap().ListButton("Odpowiedzi", MVC.Admin.Answers.List(Model.QuestionId)),
+        Html.Bootstrap().ConfirmDeleteButton())
 }
+
+@Html.Action(MVC.Admin.Questions.Delete(Model.QuestionId))

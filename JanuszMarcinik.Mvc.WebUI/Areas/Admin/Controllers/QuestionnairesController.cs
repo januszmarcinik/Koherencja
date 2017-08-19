@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -20,14 +21,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region List()
-        public virtual ActionResult List()
+        public virtual ActionResult List(QuestionnaireDataSource datasource = null)
         {
-            var questionnaires = _questionnairesRepository.GetList();
-            var model = new QuestionnaireDataSource();
-            model.Questionnaires = Mapper.Map<List<QuestionnaireViewModel>>(questionnaires);
-            model.SetActions();
+            datasource.Data = Mapper.Map<List<QuestionnaireViewModel>>(_questionnairesRepository.GetList());
+            datasource.Initialize();
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+            return View(datasource);
+        }
+
+        [HttpPost]
+        [ActionName("List")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(QuestionnaireDataSource datasource)
+        {
+            return List(datasource);
         }
         #endregion
 
@@ -48,8 +55,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 {
                     OrderNumber = model.OrderNumber,
                     Name = model.Name,
-                    Active = model.Active,
-                    EditDisable = model.EditDisable,
                     Description = model.Description
                 };
 
@@ -80,8 +85,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 var questionnaire = _questionnairesRepository.GetById(model.QuestionnaireId);
                 questionnaire.OrderNumber = model.OrderNumber;
                 questionnaire.Name = model.Name;
-                questionnaire.Active = model.Active;
-                questionnaire.EditDisable = model.EditDisable;
                 questionnaire.Description = model.Description;
 
                 _questionnairesRepository.Update(questionnaire);
@@ -93,19 +96,22 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region Delete()
-        public virtual ActionResult Delete(int id)
+        public virtual PartialViewResult Delete(int id)
         {
-            var questionnaire = _questionnairesRepository.GetById(id);
-            var model = Mapper.Map<QuestionnaireViewModel>(questionnaire);
+            var model = new DeleteConfirmViewModel()
+            {
+                Id = id,
+                ConfirmationText = "Czy na pewno usunąć ankietę wraz z pytaniami i odpowiedziami?",
+            };
 
-            return View(model);
+            return PartialView("_DeleteConfirm", model);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult DeleteConfirmed(int id)
+        public virtual ActionResult Delete(DeleteConfirmViewModel model)
         {
-            _questionnairesRepository.Delete(id);
+            _questionnairesRepository.Delete(model.Id);
 
             return RedirectToAction(MVC.Admin.Questionnaires.List());
         }

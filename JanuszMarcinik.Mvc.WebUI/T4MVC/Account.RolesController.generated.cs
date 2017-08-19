@@ -58,6 +58,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DataSource()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Edit()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
@@ -91,6 +97,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         public class ActionNamesClass
         {
             public readonly string List = "List";
+            public readonly string DataSource = "List";
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
@@ -101,6 +108,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         public class ActionNameConstants
         {
             public const string List = "List";
+            public const string DataSource = "List";
             public const string Create = "Create";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
@@ -108,6 +116,22 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         }
 
 
+        static readonly ActionParamsClass_List s_params_List = new ActionParamsClass_List();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_List ListParams { get { return s_params_List; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_List
+        {
+            public readonly string datasource = "datasource";
+        }
+        static readonly ActionParamsClass_DataSource s_params_DataSource = new ActionParamsClass_DataSource();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DataSource DataSourceParams { get { return s_params_DataSource; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DataSource
+        {
+            public readonly string datasource = "datasource";
+        }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
@@ -167,13 +191,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         public T4MVC_RolesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles.RoleDataSource datasource);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult List()
+        public override System.Web.Mvc.ActionResult List(JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles.RoleDataSource datasource)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
-            ListOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            ListOverride(callInfo, datasource);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DataSourceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles.RoleDataSource datasource);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DataSource(JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles.RoleDataSource datasource)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            DataSourceOverride(callInfo, datasource);
             return callInfo;
         }
 

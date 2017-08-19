@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
@@ -22,14 +19,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         #endregion
 
         #region Interviewees()
-        public virtual ActionResult Interviewees()
+        public virtual ActionResult Interviewees(IntervieweeDataSource datasource = null)
         {
-            var interviewees = _intervieweesRepository.GetList();
-            var model = new IntervieweeDataSource();
-            model.Interviewees = Mapper.Map<List<IntervieweeViewModel>>(interviewees);
-            model.SetActions();
+            datasource.Data = Mapper.Map<List<IntervieweeViewModel>>(_intervieweesRepository.GetList());
+            datasource.Initialize();
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+            return View(datasource);
+        }
+
+        [HttpPost]
+        [ActionName("Interviewees")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(IntervieweeDataSource datasource)
+        {
+            return Interviewees(datasource);
         }
         #endregion
     }

@@ -8,7 +8,7 @@
     "@gray-lighter": "lighten(@gray-base, 93.5%)",
     "@brand-primary": "darken(#3884c7, 6.5%)",
     "@brand-success": "#46a046",
-    "@brand-info": "#5c5c8a",
+    "@brand-info": "#595959",
     "@brand-warning": "#ed9c2c",
     "@brand-danger": "#d1332e",
     "@body-bg": "#fff",
@@ -57,8 +57,8 @@
     "@caret-width-large": "5px",
     "@table-cell-padding": "8px",
     "@table-condensed-cell-padding": "5px",
-    "@table-bg": "transparent",
-    "@table-bg-accent": "#f9f9f9",
+    "@table-bg": "#f9f9f9",
+    "@table-bg-accent": "#e6e6e6",
     "@table-bg-hover": "#f5f5f5",
     "@table-bg-active": "@table-bg-hover",
     "@table-border-color": "#ddd",
@@ -221,7 +221,7 @@
     "@state-success-bg": "#dff0d8",
     "@state-success-border": "darken(spin(@state-success-bg, -10), 5%)",
     "@state-info-text": "#31708f",
-    "@state-info-bg": "#d9edf7",
+    "@state-info-bg": "#595959",
     "@state-info-border": "darken(spin(@state-info-bg, -10), 7%)",
     "@state-warning-text": "#8a6d3b",
     "@state-warning-bg": "#fcf8e3",
@@ -431,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=514ec028f48e773ff28b1b8a5238ae09"
+  "customizerUrl": "https://getbootstrap.com/docs/3.3/customize/?id=7b5c630f88c306729e4b69f6fd4bfa1b"
 }

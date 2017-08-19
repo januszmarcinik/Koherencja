@@ -18,19 +18,11 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.OrderNumber)
 
-            <div class="row">
-                <div class="col-sm-6">
-                    @form.FormGroup().TextBoxFor(x => x.Text)
-                </div>
-            </div>
-        }
-
-        using (panel.BeginFooter())
-        {
-            <div class="btn-group">
-                @Html.Bootstrap().SubmitSaveButton()
-                @Html.Bootstrap().BackButton(MVC.Admin.Questions.List(Model.QuestionnaireId))
-            </div>
+            @form.FormGroup().TextBoxFor(x => x.Text)
         }
     }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Admin.Questions.List(Model.QuestionnaireId)),
+        Html.Bootstrap().SubmitSaveButton())
 }

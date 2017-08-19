@@ -119,13 +119,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\DataSource\CustomPropertyInfo.cs" />
-    <Compile Include="Application\DataSource\DataItem.cs" />
-    <Compile Include="Application\DataSource\DataSource.cs" />
-    <Compile Include="Application\DataSource\DataSourceListAttribute.cs" />
-    <Compile Include="Application\DataSource\GridModel.cs" />
-    <Compile Include="Application\DataSource\ImagePathAttribute.cs" />
-    <Compile Include="Application\DataSource\PrimaryKeyAttribute.cs" />
     <Compile Include="Application\Entities\Dictionaries\BaseDictionary.cs" />
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
@@ -133,6 +126,14 @@
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
+    <Compile Include="DataSource\DataSource.cs" />
+    <Compile Include="DataSource\GridAttribute.cs" />
+    <Compile Include="DataSource\GridCell.cs" />
+    <Compile Include="DataSource\GridHeader.cs" />
+    <Compile Include="DataSource\GridRow.cs" />
+    <Compile Include="DataSource\IGrid.cs" />
+    <Compile Include="DataSource\PageSize.cs" />
+    <Compile Include="DataSource\SortOrder.cs" />
     <Compile Include="Identity\Entities\Role.cs" />
     <Compile Include="Identity\Entities\User.cs" />
     <Compile Include="Identity\Entities\UserClaim.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Application\Repositories\Concrete\QuestionsRepository.cs" />
     <Compile Include="Application\Repositories\Concrete\ResultsRepository.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
-    <Compile Include="Data\BaseService.cs" />
     <Compile Include="Data\IApplicationEntity.cs" />
     <Compile Include="Identity\Managers\ApplicationSignInManager.cs" />
     <Compile Include="Identity\Managers\ApplicationUserManager.cs" />
@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201707061948212_001_initial_2017_06_07.cs" />
     <Compile Include="Migrations\201707061948212_001_initial_2017_06_07.Designer.cs">
       <DependentUpon>201707061948212_001_initial_2017_06_07.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708191103530_002_alter_questionnaires_entity.cs" />
+    <Compile Include="Migrations\201708191103530_002_alter_questionnaires_entity.Designer.cs">
+      <DependentUpon>201708191103530_002_alter_questionnaires_entity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +186,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707061948212_001_initial_2017_06_07.resx">
       <DependentUpon>201707061948212_001_initial_2017_06_07.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191103530_002_alter_questionnaires_entity.resx">
+      <DependentUpon>201708191103530_002_alter_questionnaires_entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

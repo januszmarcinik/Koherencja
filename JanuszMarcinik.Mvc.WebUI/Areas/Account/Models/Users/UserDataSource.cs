@@ -1,27 +1,19 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.DataSource;
-using System.Collections.Generic;
+﻿using JanuszMarcinik.Mvc.Domain.DataSource;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users
 {
     public class UserDataSource : DataSource<UserViewModel>
     {
-        public UserDataSource() : base(new UserViewModel()) { }
-
-        public List<UserViewModel> Users { get; set; }
-
-        public override void SetActions()
+        protected override void Filter()
         {
-            base.PrepareData(this.Users);
+        }
 
-            foreach (var row in this.Data)
+        protected override void SetEditActions()
+        {
+            foreach (var row in this.Rows)
             {
-                row.EditAction = MVC.Account.Users.Edit(row.PrimaryKeyId);
-                row.DeleteAction = MVC.Account.Users.Delete(row.PrimaryKeyId);
+                row.EditAction = MVC.Account.Users.Edit(row.PrimaryKey);
             }
-
-            this.AddAction = MVC.Account.Account.Register();
-            this.BackAction = MVC.Account.Users.Index();
-            this.Title = "Użytkownicy";
         }
     }
 }

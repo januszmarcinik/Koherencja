@@ -46,11 +46,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             context.SaveChanges();
         }
 
-        public IEnumerable<Questionnaire> GetOnlyActives()
-        {
-            return context.Questionnaires.Where(x => x.Active).ToList();
-        }
-
         public Questionnaire GetFullModel(long questionnaireNumber)
         {
             return context.Questionnaires.Where(x => x.OrderNumber == questionnaireNumber)

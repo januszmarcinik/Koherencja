@@ -1,30 +1,22 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.DataSource;
-using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions;
-using System.Collections.Generic;
-using System.Linq;
+﻿using JanuszMarcinik.Mvc.Domain.DataSource;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Answers
 {
     public class AnswerDataSource : DataSource<AnswerViewModel>
     {
-        public AnswerDataSource() : base(new AnswerViewModel()) { }
+        public int QuestionId { get; set; }
+        public string QuestionText { get; set; }
 
-        public QuestionViewModel Question { get; set; }
-        public List<AnswerViewModel> Answers { get; set; }
-
-        public override void SetActions()
+        protected override void Filter()
         {
-            base.PrepareData(this.Answers.OrderBy(x => x.OrderNumber));
+        }
 
-            foreach (var row in this.Data)
+        protected override void SetEditActions()
+        {
+            foreach (var row in this.Rows)
             {
-                row.EditAction = MVC.Admin.Answers.Edit(row.PrimaryKeyId);
-                row.DeleteAction = MVC.Admin.Answers.Delete(row.PrimaryKeyId);
+                row.EditAction = MVC.Admin.Answers.Edit(row.PrimaryKey);
             }
-
-            this.AddAction = MVC.Admin.Answers.Create(this.Question.QuestionId);
-            this.BackAction = MVC.Admin.Questions.List(this.Question.QuestionnaireId);
-            this.Title = string.Format("{0} - odpowiedzi:", this.Question.Text);
         }
     }
 }

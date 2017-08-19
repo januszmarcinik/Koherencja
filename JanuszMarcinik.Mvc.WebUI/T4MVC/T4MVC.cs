@@ -58,6 +58,7 @@ namespace T4MVC
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.DictionariesController Dictionaries = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_DictionariesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionnairesController Questionnaires = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionnairesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionsController Questions = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionsController();
+        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class ApplicationClass
@@ -95,6 +96,19 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     public string Protocol { get; set; }
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_PartialViewResult : System.Web.Mvc.PartialViewResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_PartialViewResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
 
 
@@ -106,6 +120,7 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        public static readonly string application_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/application.min.js") ? Url("application.min.js") : Url("application.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string jquery_3_1_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.1.intellisense.min.js") ? Url("jquery-3.1.1.intellisense.min.js") : Url("jquery-3.1.1.intellisense.js");
@@ -151,6 +166,7 @@ namespace Links
             public static class Assets
             {
                 public const string _references_js = "~/Scripts/_references.js"; 
+                public const string application_js = "~/Scripts/application.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
                 public const string jquery_3_1_1_intellisense_js = "~/Scripts/jquery-3.1.1.intellisense.js"; 

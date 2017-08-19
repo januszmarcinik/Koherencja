@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Linq;
-using JanuszMarcinik.Mvc.Domain.Application.DataSource;
+using JanuszMarcinik.Mvc.Domain.DataSource;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
 {
@@ -12,13 +12,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
     {
         public int IntervieweeId { get; set; }
 
-        [DataSourceList(Order = 1)]
+        [Grid(Order = 1)]
         public DateTime InterviewDate { get; set; }
 
         [Required(ErrorMessage = "Wybierz wiek")]
         [Display(Name = "Wiek")]
         [Range(minimum: 20, maximum: 67, ErrorMessage = "Wiek musi być z przedziału od 20 do 67 lat.")]
-        [DataSourceList(Order = 2)]
+        [Grid(Order = 2)]
         public int Age { get; set; }
 
         #region Sex
@@ -27,7 +27,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int SexId { get; set; }
 
         [Display(Name = "Płeć")]
-        [DataSourceList(Order = 3)]
+        [Grid(Order = 3)]
         public string SexName
         {
             get { return this.Sex != null ? this.Sex.Value : string.Empty; }
@@ -43,7 +43,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int SeniorityId { get; set; }
 
         [Display(Name = "Staż pracy")]
-        [DataSourceList(Order = 4)]
+        [Grid(Order = 4)]
         public string SeniorityName
         {
             get { return this.Seniority != null ? this.Seniority.Value : string.Empty; }
@@ -59,7 +59,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int PlaceOfResidenceId { get; set; }
 
         [Display(Name = "Miejsce zamieszkania")]
-        [DataSourceList(Order = 5)]
+        [Grid(Order = 5)]
         public string PlaceOfResidenceName
         {
             get { return this.PlaceOfResidence != null ? this.PlaceOfResidence.Value : string.Empty; }
@@ -75,7 +75,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int EducationId { get; set; }
 
         [Display(Name = "Wykształcenie")]
-        [DataSourceList(Order = 6)]
+        [Grid(Order = 6)]
         public string EducationName
         {
             get { return this.Education != null ? this.Education.Value : string.Empty; }
@@ -91,7 +91,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int MartialStatusId { get; set; }
 
         [Display(Name = "Stan cywilny")]
-        [DataSourceList(Order = 7)]
+        [Grid(Order = 7)]
         public string MartialStatusName
         {
             get { return this.MartialStatus != null ? this.MartialStatus.Value : string.Empty; }
@@ -107,7 +107,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees
         public int MaterialStatusId { get; set; }
 
         [Display(Name = "Ocena swojego stanu materialnego")]
-        [DataSourceList(Order = 8)]
+        [Grid(Order = 8)]
         public string MaterialStatusName
         {
             get { return this.MaterialStatus != null ? this.MaterialStatus.Value : string.Empty; }

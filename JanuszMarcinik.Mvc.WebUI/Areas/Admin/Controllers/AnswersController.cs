@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Answers;
-using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -23,17 +23,22 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region List()
-        public virtual ActionResult List(int questionId)
+        public virtual ActionResult List(int questionId, AnswerDataSource datasource = null)
         {
-            var question = _questionsRepository.GetById(questionId);
-            var answers = _answersRepository.GetList(questionId);
+            datasource.Data = Mapper.Map<List<AnswerViewModel>>(_answersRepository.GetList(questionId));
+            datasource.QuestionId = questionId;
+            datasource.QuestionText = _questionsRepository.GetById(questionId).Text;
+            datasource.Initialize();
 
-            var model = new AnswerDataSource();
-            model.Question = Mapper.Map<QuestionViewModel>(question);
-            model.Answers = Mapper.Map<List<AnswerViewModel>>(answers);
-            model.SetActions();
+            return View(datasource);
+        }
 
-            return View(MVC.Shared.Views._Grid, model.GetGridModel());
+        [HttpPost]
+        [ActionName("List")]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult DataSource(AnswerDataSource datasource)
+        {
+            return List(datasource.QuestionId, datasource);
         }
         #endregion
 
@@ -98,21 +103,25 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #endregion
 
         #region Delete()
-        public virtual ActionResult Delete(int id)
+        public virtual PartialViewResult Delete(int id)
         {
-            var answer = _answersRepository.GetById(id);
-            var model = Mapper.Map<AnswerViewModel>(answer);
+            var model = new DeleteConfirmViewModel()
+            {
+                Id = id,
+                ConfirmationText = "Czy na pewno usunąć odpowiedź?",
+            };
 
-            return View(model);
+            return PartialView("_DeleteConfirm", model);
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        [HttpPost, ActionName("Delete")]
-        public virtual ActionResult DeleteConfirmed(AnswerViewModel model)
+        public virtual ActionResult Delete(DeleteConfirmViewModel model)
         {
-            _answersRepository.Delete(model.AnswerId);
+            var questionId = _answersRepository.GetById(model.Id).QuestionId;
+            _answersRepository.Delete(model.Id);
 
-            return RedirectToAction(MVC.Admin.Answers.List(model.QuestionId));
+            return RedirectToAction(MVC.Admin.Answers.List(questionId));
         }
         #endregion
     }

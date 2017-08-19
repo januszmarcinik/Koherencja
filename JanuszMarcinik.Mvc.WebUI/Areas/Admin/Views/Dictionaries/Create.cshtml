@@ -2,7 +2,7 @@
 @model DictionaryViewModel
 
 @{
-    ViewBag.Title = "Nowa słownik";
+    ViewBag.Title = "Nowa pozycja metryczki";
 }
 
 <h2 class="center-block">
@@ -17,20 +17,12 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="row">
-                <div class="col-sm-6">
-                    @form.FormGroup().DropDownListFromEnumFor(x => x.DictionaryType).OptionLabel("Wybierz")
-                    @form.FormGroup().TextBoxFor(x => x.Value)
-                </div>
-            </div>
-        }
-
-        using (panel.BeginFooter())
-        {
-            <div class="btn-group">
-                @Html.Bootstrap().SubmitSaveButton()
-                @Html.Bootstrap().BackButton(MVC.Admin.Dictionaries.List())
-            </div>
+            @form.FormGroup().DropDownListFromEnumFor(x => x.DictionaryType).OptionLabel("Wybierz")
+            @form.FormGroup().TextBoxFor(x => x.Value)
         }
     }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Admin.Dictionaries.List()),
+        Html.Bootstrap().SubmitSaveButton())
 }

@@ -76,7 +76,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var model = new QuestionnaireViewModel();
             model.SetQuestionnaire(_questionnairesRepository.GetFullModel(questionaireNumber));
             model.SelectedValues = new List<int>();
-            model.QuestionnairesCount = _questionnairesRepository.GetOnlyActives().Count();
+            model.QuestionnairesCount = _questionnairesRepository.GetList().Count();
 
             return View(model);
         }

@@ -1,81 +1,128 @@
-﻿@model JanuszMarcinik.Mvc.Domain.Application.DataSource.GridModel
+﻿@using JanuszMarcinik.Mvc.Domain.DataSource
+@model IGrid
 
-@{
-    ViewBag.Title = Model.Title;
-}
+@Html.HiddenFor(x => x.PageIndex)
+@Html.HiddenFor(x => x.TotalRows)
+@Html.HiddenFor(x => x.OrderBy)
+@Html.HiddenFor(x => x.SortOrder)
+@Html.HiddenFor(x => x.LastOrderBy)
 
-<h2 class="center-block">
-    <span class="label label-primary center-block">@ViewBag.Title</span>
-</h2>
+<table class="table table-hover table-bordered">
 
-@using (var panel = Html.Bootstrap().Begin(new Panel()))
-{
-    using (panel.BeginBody())
-    {
-        <table class="table table-hover table-bordered table-condensed">
-            <thead>
-                <tr class="active">
-                    @foreach (var prop in Model.Properties)
+    <thead>
+        <tr class="bg-info">
+            @foreach (var header in Model.Headers.Where(x => x.DataType != GridDataType.PrimaryKey))
+            {
+                <th class="text-center cursor-pointer header-ordering" data-orderby="@header.PropertyName">
+                    @if (Model.OrderBy == header.PropertyName)
                     {
-                        if (!string.IsNullOrEmpty(prop.DisplayName))
+                        if (Model.SortOrder == SortOrder.Ascending)
                         {
-                            <th class="text-center">@prop.DisplayName</th>
+                            <i class="@FontAwesome.sort_amount_asc" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            <i class="@FontAwesome.sort_amount_desc" aria-hidden="true"></i>
                         }
                     }
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @foreach (var row in Model.Data)
+                    @header.DisplayName
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        @foreach (var row in Model.Rows)
+        {
+            <tr class="clicable-action" data-href="@Url.Action(row.EditAction)">
+                @foreach (var data in row.Values)
                 {
-                    <tr>
-                        @foreach (var item in row.Values)
-                        {
-                            if (item.IsImage)
-                            {
-                                <td>
-                                    <img class="img-responsive center-block" height="32" width="32" src="@Url.Action(item.GetImageAction)" />
-                                </td>
-                            }
-                            else
-                            {
-                                <td>@item.Value</td>
-                            }
+                    if (data.DataType == GridDataType.PrimaryKey)
+                    {
+
+                    }
+                    else if (data.DataType == GridDataType.Text)
+                    {
+                        <td>@data.Value</td>
+                    }
+                    else if (data.DataType == GridDataType.PhotoPath)
+                    {
+                        <td style="background-image: url(../../Images/@data.Value);" class="grid-photo-thumbnail-cell"></td>
+                    }
+                    else if (data.DataType == GridDataType.Date)
+                    {
+                        <td>@(DateTime.Parse(data.Value).ToShortDateString())</td>
+                    }
+                    else if (data.DataType == GridDataType.Time)
+                    {
+                        <td>@(DateTime.Parse(data.Value).ToShortTimeString())</td>
+                    }
+                    else if (data.DataType == GridDataType.DateTime)
+                    {
+                        <td>@(DateTime.Parse(data.Value).ToString("yyyy-MM-dd HH:mm"))</td>
+                    }
+                    else if (data.DataType == GridDataType.Link)
+                    {
+                        <td><a href="~/@data.Value">@data.Value</a></td>
+                    }
+                    else
+                    {
+                        <td>@data.Value</td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr class="active">
+            <td colspan="@Model.Headers.Where(x => x.DataType != GridDataType.PrimaryKey).Count()">
+                <div class="col-sm-3">
+                    @Html.Bootstrap().DropDownListFromEnumFor(x => x.PageSize).Class("min-default-width").ExcludeMembers(PageSize.Unset)
+                </div>
+                <div class="col-sm-6 text-center">
+                    @Html.GridPager(Model.PageIndex, Model.PageSize, Model.TotalRows)
+                </div>
+                <div class="col-sm-3">
+                    <div class="pull-right">
+                        <h5>@Model.PagerResult</h5>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+
+<br /><br />
+
+<script type="text/javascript">
+
+    function SubmitGridForm() {
+        $("#FormGrid").submit();
                         }
 
-                        <td>
-                            <div class="btn-group">
-                                @if (!string.IsNullOrEmpty(row.ListText))
-                                {
-                                    @Html.Bootstrap().ListButton(row.ListText, row.ListAction)
-                                }
-                                @if (row.EditAction != null)
-                                {
-                                    @Html.Bootstrap().EditButton(row.EditAction)
-                                }
-                                @if (row.DeleteAction != null)
-                                {
-                                    @Html.Bootstrap().DeleteButton(row.DeleteAction)
-                                }
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+    $("#PageSize").change(function () {
+        $("#PageIndex").val(1);
+                            SubmitGridForm();
+                        });
 
-    using (panel.BeginFooter())
-    {
-        <div class="btn-group">
-            @if (Model.AddAction != null)
-            {
-                @Html.Bootstrap().AddButton(Model.AddAction)
-            }
-            @if (Model.BackAction != null)
-            {
-                @Html.Bootstrap().BackButton(Model.BackAction)
-            }
-        </div>
-    }
-}
+    $(".BtnPageIndex").click(function () {
+        $("#PageIndex").val($(this).val());
+                            SubmitGridForm();
+                        });
+
+    $(".header-ordering").click(function () {
+        $("#OrderBy").val($(this).attr("data-orderby"));
+        $("#SortOrder").val("@Model.SortOrder");
+        $("#LastOrderBy").val("@Model.LastOrderBy");
+                            SubmitGridForm();
+                        });
+
+    $(document).ready(function () {
+        $(".accordion-toggle").addClass("center-block")
+        $(".accordion-toggle").html("<i class='fa fa-filter' aria-hidden='true'></i> Filtry");
+        $(".accordion-toggle").parent().parent().parent().removeClass("panel-default").addClass("panel-warning");
+                        });
+
+</script>

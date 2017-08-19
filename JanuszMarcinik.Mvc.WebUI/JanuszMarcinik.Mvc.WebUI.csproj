@@ -230,17 +230,13 @@
     <Content Include="Areas\Application\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Application\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Questionnaires\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Questionnaires\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Questionnaires\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Questions\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Questions\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Questions\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Answers\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\Edit.cshtml" />
     <Content Include="Areas\Application\Views\Survey\FillSurvey.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Dictionaries\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\Edit.cshtml" />
     <Content Include="Areas\Application\Views\Survey\ThankYou.cshtml" />
     <Content Include="Areas\Application\Views\Survey\IntervieweeInfo.cshtml" />
@@ -260,12 +256,18 @@
     <Content Include="Areas\Account\Views\Manage\ManageLogins.cshtml" />
     <Content Include="Areas\Account\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Account\Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\Admin\Views\Questionnaires\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DeleteConfirm.cshtml" />
+    <Content Include="Areas\Admin\Views\Questions\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Answers\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Dictionaries\List.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Images\ep_naturalwhite.png" />
     <Content Include="Images\pink_dust.png" />
+    <Content Include="Scripts\application.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -331,6 +333,7 @@
     <Compile Include="Areas\Admin\Controllers\QuestionsController.cs" />
     <Compile Include="Areas\Admin\Models\Answers\AnswerDataSource.cs" />
     <Compile Include="Areas\Admin\Models\Answers\AnswerViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DeleteConfirmViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Dictionaries\DictionaryDataSource.cs" />
     <Compile Include="Areas\Admin\Models\Dictionaries\DictionaryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Questionnaires\QuestionnaireDataSource.cs" />
@@ -385,6 +388,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T4MVC\Admin.QuestionsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\Admin.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Application.HomeController.generated.cs">

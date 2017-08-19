@@ -58,21 +58,21 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DataSource()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Edit()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Delete()
+        public virtual System.Web.Mvc.PartialViewResult Delete()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DeleteConfirmed()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteConfirmed);
+            return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Delete);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -91,23 +91,39 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public class ActionNamesClass
         {
             public readonly string List = "List";
+            public readonly string DataSource = "List";
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
-            public readonly string DeleteConfirmed = "Delete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string List = "List";
+            public const string DataSource = "List";
             public const string Create = "Create";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
-            public const string DeleteConfirmed = "Delete";
         }
 
 
+        static readonly ActionParamsClass_List s_params_List = new ActionParamsClass_List();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_List ListParams { get { return s_params_List; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_List
+        {
+            public readonly string datasource = "datasource";
+        }
+        static readonly ActionParamsClass_DataSource s_params_DataSource = new ActionParamsClass_DataSource();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DataSource DataSourceParams { get { return s_params_DataSource; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DataSource
+        {
+            public readonly string datasource = "datasource";
+        }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
@@ -132,14 +148,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public class ActionParamsClass_Delete
         {
             public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_DeleteConfirmed s_params_DeleteConfirmed = new ActionParamsClass_DeleteConfirmed();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DeleteConfirmed DeleteConfirmedParams { get { return s_params_DeleteConfirmed; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteConfirmed
-        {
-            public readonly string id = "id";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -152,12 +161,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Create = "Create";
-                public readonly string Delete = "Delete";
                 public readonly string Edit = "Edit";
+                public readonly string List = "List";
             }
             public readonly string Create = "~/Areas/Admin/Views/Questionnaires/Create.cshtml";
-            public readonly string Delete = "~/Areas/Admin/Views/Questionnaires/Delete.cshtml";
             public readonly string Edit = "~/Areas/Admin/Views/Questionnaires/Edit.cshtml";
+            public readonly string List = "~/Areas/Admin/Views/Questionnaires/List.cshtml";
         }
     }
 
@@ -167,13 +176,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public T4MVC_QuestionnairesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires.QuestionnaireDataSource datasource);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult List()
+        public override System.Web.Mvc.ActionResult List(JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires.QuestionnaireDataSource datasource)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
-            ListOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            ListOverride(callInfo, datasource);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DataSourceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires.QuestionnaireDataSource datasource);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DataSource(JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires.QuestionnaireDataSource datasource)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            DataSourceOverride(callInfo, datasource);
             return callInfo;
         }
 
@@ -225,26 +247,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int id)
+        public override System.Web.Mvc.PartialViewResult Delete(int id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             DeleteOverride(callInfo, id);
             return callInfo;
         }
 
         [NonAction]
-        partial void DeleteConfirmedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.DeleteConfirmViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DeleteConfirmed(int id)
+        public override System.Web.Mvc.ActionResult Delete(JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.DeleteConfirmViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteConfirmed);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DeleteConfirmedOverride(callInfo, id);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            DeleteOverride(callInfo, model);
             return callInfo;
         }
 

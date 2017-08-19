@@ -56,6 +56,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DataSource()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ResultsController Actions { get { return MVC.Application.Results; } }
@@ -73,15 +79,33 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         public class ActionNamesClass
         {
             public readonly string Interviewees = "Interviewees";
+            public readonly string DataSource = "Interviewees";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Interviewees = "Interviewees";
+            public const string DataSource = "Interviewees";
         }
 
 
+        static readonly ActionParamsClass_Interviewees s_params_Interviewees = new ActionParamsClass_Interviewees();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Interviewees IntervieweesParams { get { return s_params_Interviewees; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Interviewees
+        {
+            public readonly string datasource = "datasource";
+        }
+        static readonly ActionParamsClass_DataSource s_params_DataSource = new ActionParamsClass_DataSource();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DataSource DataSourceParams { get { return s_params_DataSource; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DataSource
+        {
+            public readonly string datasource = "datasource";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -102,13 +126,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         public T4MVC_ResultsController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IntervieweesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IntervieweesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeDataSource datasource);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Interviewees()
+        public override System.Web.Mvc.ActionResult Interviewees(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeDataSource datasource)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Interviewees);
-            IntervieweesOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            IntervieweesOverride(callInfo, datasource);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DataSourceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeDataSource datasource);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DataSource(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Interviewees.IntervieweeDataSource datasource)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DataSource);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "datasource", datasource);
+            DataSourceOverride(callInfo, datasource);
             return callInfo;
         }
 
