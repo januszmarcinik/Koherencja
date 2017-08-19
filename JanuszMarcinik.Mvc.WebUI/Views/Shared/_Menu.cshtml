@@ -13,7 +13,7 @@
                 <ul class="dropdown-menu">
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li>@Html.Bootstrap().ActionLink("Panel administratora", MVC.Account.Users.Index())</li>
+                        <li>@Html.Bootstrap().ActionLink("Panel administratora", MVC.Account.Account.Index())</li>
                     }
                     @if (User.IsInRole("Moderator"))
                     {

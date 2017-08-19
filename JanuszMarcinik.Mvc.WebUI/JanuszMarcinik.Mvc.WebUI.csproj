@@ -213,10 +213,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Account\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Account\Views\Account\Index.cshtml" />
     <Content Include="Areas\Account\Views\Roles\Create.cshtml" />
     <Content Include="Areas\Account\Views\Roles\Edit.cshtml" />
-    <Content Include="Areas\Account\Views\Roles\Delete.cshtml" />
     <Content Include="Areas\Account\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Configuration\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -257,12 +256,14 @@
     <Content Include="Areas\Account\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Account\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Areas\Admin\Views\Questionnaires\List.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_DeleteConfirm.cshtml" />
+    <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
     <Content Include="Areas\Admin\Views\Questions\List.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\List.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\List.cshtml" />
     <Content Include="Areas\Admin\Views\Interviewees\List.cshtml" />
     <Content Include="Areas\Admin\Views\Interviewees\Edit.cshtml" />
+    <Content Include="Areas\Account\Views\Roles\List.cshtml" />
+    <Content Include="Areas\Account\Views\Users\List.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
@@ -394,9 +395,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T4MVC\Admin.QuestionsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T4MVC\Admin.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Application.HomeController.generated.cs">

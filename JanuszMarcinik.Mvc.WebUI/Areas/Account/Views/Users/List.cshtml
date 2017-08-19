@@ -1,0 +1,18 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users.UserDataSource
+
+@{
+    ViewBag.Title = "Użytkownicy";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">@ViewBag.Title</span>
+</h2>
+
+@using (var form = Html.Bootstrap().Begin(new Form().Id("FormGrid")))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_Grid", Model)
+}
+
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Account.Account.Index()))

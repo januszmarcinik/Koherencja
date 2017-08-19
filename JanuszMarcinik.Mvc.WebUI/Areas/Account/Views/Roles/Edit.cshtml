@@ -8,7 +8,7 @@
     <span class="label label-warning center-block">@ViewBag.Title</span>
 </h2>
 
-@using (var form = Html.Bootstrap().Begin(new Form().Upload()))
+@using (var form = Html.Bootstrap().Begin(new Form()))
 {
     using (var panel = Html.Bootstrap().Begin(new Panel()))
     {
@@ -17,19 +17,14 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.Id)
 
-            <div class="row">
-                <div class="col-sm-6">
-                    @form.FormGroup().TextBoxFor(x => x.Name)
-                </div>
-            </div>
-        }
-
-        using (panel.BeginFooter())
-        {
-            <div class="btn-group">
-                @Html.Bootstrap().SubmitSaveButton()
-                @Html.Bootstrap().BackButton(MVC.Account.Roles.List())
-            </div>
+            @form.FormGroup().TextBoxFor(x => x.Name)
         }
     }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Account.Roles.List()),
+        Html.Bootstrap().SubmitSaveButton(),
+        Html.Bootstrap().ConfirmDeleteButton())
 }
+
+@Html.Action(MVC.Account.Roles.Delete(Model.Id))

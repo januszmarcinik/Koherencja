@@ -8,7 +8,7 @@
     <span class="label label-warning center-block">@ViewBag.Title</span>
 </h2>
 
-@using (var form = Html.Bootstrap().Begin(new Form().Upload()))
+@using (var form = Html.Bootstrap().Begin(new Form()))
 {
     using (var panel = Html.Bootstrap().Begin(new Panel()))
     {
@@ -30,13 +30,12 @@
                 </div>
             </div>
         }
-
-        using (panel.BeginFooter())
-        {
-            <div class="btn-group">
-                @Html.Bootstrap().SubmitSaveButton()
-                @Html.Bootstrap().BackButton(MVC.Account.Users.List())
-            </div>
-        }
     }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Account.Users.List()),
+        Html.Bootstrap().SubmitSaveButton(),
+        Html.Bootstrap().ConfirmDeleteButton())
 }
+
+@Html.Action(MVC.Account.Users.Delete(Model.Id))

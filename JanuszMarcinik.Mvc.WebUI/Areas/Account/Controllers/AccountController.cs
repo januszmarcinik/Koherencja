@@ -41,6 +41,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         }
         #endregion
 
+        #region Index()
+        public virtual ActionResult Index()
+        {
+            return View();
+        }
+        #endregion
+
         #region Login
         [AllowAnonymous]
         public virtual ActionResult Login(string returnUrl)

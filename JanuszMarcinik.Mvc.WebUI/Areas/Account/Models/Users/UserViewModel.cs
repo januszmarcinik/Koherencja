@@ -15,6 +15,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users
             this.SelectedRoles = new List<int>();
         }
 
+        [Grid(DataType = GridDataType.PrimaryKey)]
         public int Id { get; set; }
 
         [Grid(Order = 1)]

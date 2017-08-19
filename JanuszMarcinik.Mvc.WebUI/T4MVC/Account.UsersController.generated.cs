@@ -70,15 +70,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Delete()
+        public virtual System.Web.Mvc.PartialViewResult Delete()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DeleteConfirmed()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteConfirmed);
+            return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Delete);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -96,23 +90,19 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
             public readonly string List = "List";
             public readonly string DataSource = "List";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
-            public readonly string DeleteConfirmed = "Delete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
             public const string List = "List";
             public const string DataSource = "List";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
-            public const string DeleteConfirmed = "Delete";
         }
 
 
@@ -148,13 +138,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         public class ActionParamsClass_Delete
         {
             public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_DeleteConfirmed s_params_DeleteConfirmed = new ActionParamsClass_DeleteConfirmed();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DeleteConfirmed DeleteConfirmedParams { get { return s_params_DeleteConfirmed; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteConfirmed
-        {
             public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -168,10 +151,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Edit = "Edit";
-                public readonly string Index = "Index";
             }
             public readonly string Edit = "~/Areas/Account/Views/Users/Edit.cshtml";
-            public readonly string Index = "~/Areas/Account/Views/Users/Index.cshtml";
         }
     }
 
@@ -179,17 +160,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
     public partial class T4MVC_UsersController : JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers.UsersController
     {
         public T4MVC_UsersController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
 
         [NonAction]
         partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users.UserDataSource datasource);
@@ -240,26 +210,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         }
 
         [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int id)
+        public override System.Web.Mvc.PartialViewResult Delete(int id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             DeleteOverride(callInfo, id);
             return callInfo;
         }
 
         [NonAction]
-        partial void DeleteConfirmedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users.UserViewModel model);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.DeleteConfirmViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DeleteConfirmed(JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users.UserViewModel model)
+        public override System.Web.Mvc.ActionResult Delete(JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.DeleteConfirmViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteConfirmed);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            DeleteConfirmedOverride(callInfo, model);
+            DeleteOverride(callInfo, model);
             return callInfo;
         }
 

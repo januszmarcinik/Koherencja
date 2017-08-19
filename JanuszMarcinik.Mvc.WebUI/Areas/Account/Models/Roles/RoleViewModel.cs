@@ -5,6 +5,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles
 {
     public class RoleViewModel
     {
+        [Grid(DataType = GridDataType.PrimaryKey)]
         public int Id { get; set; }
 
         [Grid(Order = 1)]

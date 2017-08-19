@@ -125,6 +125,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Index = "Index";
             public readonly string Login = "Login";
             public readonly string VerifyCode = "VerifyCode";
             public readonly string Register = "Register";
@@ -144,6 +145,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Index = "Index";
             public const string Login = "Login";
             public const string VerifyCode = "VerifyCode";
             public const string Register = "Register";
@@ -267,6 +269,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string ForgotPassword = "ForgotPassword";
                 public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
+                public readonly string Index = "Index";
                 public readonly string Login = "Login";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
@@ -280,6 +283,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
             public readonly string ExternalLoginFailure = "~/Areas/Account/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string ForgotPassword = "~/Areas/Account/Views/Account/ForgotPassword.cshtml";
             public readonly string ForgotPasswordConfirmation = "~/Areas/Account/Views/Account/ForgotPasswordConfirmation.cshtml";
+            public readonly string Index = "~/Areas/Account/Views/Account/Index.cshtml";
             public readonly string Login = "~/Areas/Account/Views/Account/Login.cshtml";
             public readonly string Register = "~/Areas/Account/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Areas/Account/Views/Account/ResetPassword.cshtml";
@@ -293,6 +297,17 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
     public partial class T4MVC_AccountController : JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers.AccountController
     {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
 
         [NonAction]
         partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);

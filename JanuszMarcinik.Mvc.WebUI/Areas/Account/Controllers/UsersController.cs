@@ -3,6 +3,7 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using JanuszMarcinik.Mvc.Domain.Identity.Entities;
 using JanuszMarcinik.Mvc.Domain.Identity.Managers;
 using JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Users;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
@@ -34,13 +35,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
-        }
-        #endregion
-
-        #region Index()
-        public virtual ActionResult Index()
-        {
-            return View();
         }
         #endregion
 
@@ -111,20 +105,23 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         #endregion
 
         #region Delete()
-        public virtual ActionResult Delete(int id)
+        public virtual PartialViewResult Delete(int id)
         {
-            var user = UserManager.Users.FirstOrDefault(x => x.Id == id);
-            var model = Mapper.Map<UserViewModel>(user);
+            var model = new DeleteConfirmViewModel()
+            {
+                Id = id,
+                ConfirmationText = "Czy na pewno usunąć użytkownika?",
+            };
 
-            return View(model);
+            return PartialView("_DeleteConfirm", model);
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        [HttpPost, ActionName("Delete")]
-        public virtual ActionResult DeleteConfirmed(UserViewModel model)
+        public virtual ActionResult Delete(DeleteConfirmViewModel model)
         {
             var user = UserManager.Users.FirstOrDefault(x => x.Id == model.Id);
-            UserManager.DeleteAsync(user);
+            UserManager.Delete(user);
 
             return RedirectToAction(MVC.Account.Users.List());
         }

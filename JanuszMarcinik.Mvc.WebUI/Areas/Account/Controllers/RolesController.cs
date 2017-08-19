@@ -3,6 +3,7 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using JanuszMarcinik.Mvc.Domain.Identity.Entities;
 using JanuszMarcinik.Mvc.Domain.Identity.Managers;
 using JanuszMarcinik.Mvc.WebUI.Areas.Account.Models.Roles;
+using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,17 +87,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
         #endregion
 
         #region Delete()
-        public virtual ActionResult Delete(int id)
+        public virtual PartialViewResult Delete(int id)
         {
-            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
-            var model = Mapper.Map<RoleViewModel>(role);
+            var model = new DeleteConfirmViewModel()
+            {
+                Id = id,
+                ConfirmationText = "Czy na pewno usunąć rolę?",
+            };
 
-            return View(model);
+            return PartialView("_DeleteConfirm", model);
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        [HttpPost, ActionName("Delete")]
-        public virtual ActionResult DeleteConfirmed(RoleViewModel model)
+        public virtual ActionResult Delete(DeleteConfirmViewModel model)
         {
             var role = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Id);
             _roleManager.Delete(role);

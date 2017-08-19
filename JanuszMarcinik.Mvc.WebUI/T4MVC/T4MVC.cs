@@ -59,7 +59,6 @@ namespace T4MVC
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.IntervieweesController Interviewees = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_IntervieweesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionnairesController Questionnaires = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionnairesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.QuestionsController Questions = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_QuestionsController();
-        public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class ApplicationClass
