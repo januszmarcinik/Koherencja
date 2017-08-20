@@ -151,8 +151,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Account.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Edit = "Edit";
+                public readonly string List = "List";
             }
             public readonly string Edit = "~/Areas/Account/Views/Users/Edit.cshtml";
+            public readonly string List = "~/Areas/Account/Views/Users/List.cshtml";
         }
     }
 

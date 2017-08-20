@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace JanuszMarcinik.Mvc.Extensions.Helpers
+namespace JanuszMarcinik.Mvc
 {
     public static class EnumHelper
     {

@@ -5,10 +5,11 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
 {
     public interface IAnswersRepository
     {
-        Answer GetById(long id);
-        IEnumerable<Answer> GetList(long questionId);
+        Answer GetById(int id);
+        IEnumerable<Answer> GetList(int questionId);
         Answer Create(Answer entity);
         Answer Update(Answer entity);
-        void Delete(long id);
+        void Delete(int id);
+        List<string> GetDescriptions(int questionId);
     }
 }

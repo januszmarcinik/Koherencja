@@ -28,9 +28,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
     public partial class ResultsController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ResultsController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected ResultsController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -59,6 +56,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Details()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ResultsController Actions { get { return MVC.Application.Results; } }
@@ -75,14 +78,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string QuestionnaireSelect = "QuestionnaireSelect";
+            public readonly string Details = "Details";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string QuestionnaireSelect = "QuestionnaireSelect";
+            public const string Details = "Details";
         }
 
 
+        static readonly ActionParamsClass_Details s_params_Details = new ActionParamsClass_Details();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Details DetailsParams { get { return s_params_Details; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Details
+        {
+            public readonly string questionnaireId = "questionnaireId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -93,7 +108,11 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Details = "Details";
+                public readonly string QuestionnaireSelect = "QuestionnaireSelect";
             }
+            public readonly string Details = "~/Areas/Application/Views/Results/Details.cshtml";
+            public readonly string QuestionnaireSelect = "~/Areas/Application/Views/Results/QuestionnaireSelect.cshtml";
         }
     }
 
@@ -101,6 +120,29 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
     public partial class T4MVC_ResultsController : JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers.ResultsController
     {
         public T4MVC_ResultsController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void QuestionnaireSelectOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult QuestionnaireSelect()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuestionnaireSelect);
+            QuestionnaireSelectOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int questionnaireId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Details(int questionnaireId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "questionnaireId", questionnaireId);
+            DetailsOverride(callInfo, questionnaireId);
+            return callInfo;
+        }
 
     }
 }

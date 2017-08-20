@@ -1,0 +1,18 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
+@model IEnumerable<AnswerResultViewModel>
+
+@foreach (var answerResult in Model)
+{
+    <td>
+        <div class="col-sm-3">
+            <span class="badge">
+                @answerResult.AnswersCount
+            </span>
+        </div>
+        <div class="col-sm-9">
+            <span class="@answerResult.ResultCssClass" style="font-size: 100% !important;">
+                @answerResult.ResultValue
+            </span>
+        </div>
+    </td>
+}

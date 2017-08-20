@@ -1,0 +1,17 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires
+@model IEnumerable<QuestionnaireViewModel>
+
+@{
+    ViewBag.Title = "Wyniki wg ankiet";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">@ViewBag.Title</span>
+</h2>
+
+<div class="list-group">
+    @foreach (var questionnaire in Model)
+    {
+        @Html.Bootstrap().ListGroupItem(questionnaire.Name, MVC.Application.Results.Details(questionnaire.QuestionnaireId))
+    }
+</div>

@@ -264,6 +264,9 @@
     <Content Include="Areas\Admin\Views\Interviewees\Edit.cshtml" />
     <Content Include="Areas\Account\Views\Roles\List.cshtml" />
     <Content Include="Areas\Account\Views\Users\List.cshtml" />
+    <Content Include="Areas\Application\Views\Results\QuestionnaireSelect.cshtml" />
+    <Content Include="Areas\Application\Views\Results\Details.cshtml" />
+    <Content Include="Areas\Application\Views\Results\_AnswerResults.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
@@ -351,6 +354,11 @@
     <Compile Include="Areas\Application\Controllers\HomeController.cs" />
     <Compile Include="Areas\Application\Controllers\ResultsController.cs" />
     <Compile Include="Areas\Application\Controllers\SurveyController.cs" />
+    <Compile Include="Areas\Application\Models\Results\AnswerResultViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Results\DictionaryGroupViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Results\DictionaryItemViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Results\QuestionnaireResultsViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Results\QuestionResultsViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\SurveyViewModel.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="T4MVC\Account.AccountController.generated.cs">

@@ -126,6 +126,7 @@
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
+    <Compile Include="Application\Models\ResultDetail.cs" />
     <Compile Include="DataSource\DataSource.cs" />
     <Compile Include="DataSource\GridAttribute.cs" />
     <Compile Include="DataSource\GridCell.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="DataSource\IGrid.cs" />
     <Compile Include="DataSource\PageSize.cs" />
     <Compile Include="DataSource\SortOrder.cs" />
+    <Compile Include="Extensions\EnumHelper.cs" />
     <Compile Include="Identity\Entities\Role.cs" />
     <Compile Include="Identity\Entities\User.cs" />
     <Compile Include="Identity\Entities\UserClaim.cs" />
@@ -191,6 +193,7 @@
       <DependentUpon>201708191103530_002_alter_questionnaires_entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

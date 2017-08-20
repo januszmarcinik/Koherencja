@@ -11,12 +11,12 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
-        public Answer GetById(long id)
+        public Answer GetById(int id)
         {
             return context.Answers.Find(id);
         }
 
-        public IEnumerable<Answer> GetList(long questionId)
+        public IEnumerable<Answer> GetList(int questionId)
         {
             return context.Answers
                 .Where(x => x.QuestionId == questionId);
@@ -40,11 +40,31 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             return entity;
         }
 
-        public void Delete(long id)
+        public void Delete(int id)
         {
             var entity = GetById(id);
             context.Answers.Remove(entity);
             context.SaveChanges();
+        }
+
+        public List<string> GetDescriptions(int questionId)
+        {
+            var descriptions = new List<string>();
+            var answers = GetList(questionId);
+
+            foreach (var answer in answers)
+            {
+                if (!string.IsNullOrEmpty(answer.Description))
+                {
+                    descriptions.Add(answer.Description);
+                }
+                else
+                {
+                    descriptions.Add(answer.OrderNumber.ToString());
+                }
+            }
+
+            return descriptions;
         }
     }
 }
