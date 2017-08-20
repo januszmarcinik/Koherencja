@@ -7,13 +7,13 @@ namespace JanuszMarcinik.Mvc.Domain.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _005_change_interviewee_age_to_select_list : IMigrationMetadata
+    public sealed partial class _004_change_interviewee_age_to_select_list : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_005_change_interviewee_age_to_select_list));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_004_change_interviewee_age_to_select_list));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708201421132_005_change_interviewee_age_to_select_list"; }
+            get { return "201708201453211_004_change_interviewee_age_to_select_list"; }
         }
         
         string IMigrationMetadata.Source

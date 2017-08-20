@@ -3,12 +3,14 @@ namespace JanuszMarcinik.Mvc.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _005_change_interviewee_age_to_select_list : DbMigration
+    public partial class _004_change_interviewee_age_to_select_list : DbMigration
     {
         public override void Up()
         {
-            Sql("TRUNCATE TABLE [Ankieta].[Questionnaire].[Results]");
-            Sql("DELETE FROM [Ankieta].[Questionnaire].[Interviewees]");
+            Sql("UPDATE [Questionnaire].[Answers] SET [Points] = [Value]");
+
+            Sql("TRUNCATE TABLE [Questionnaire].[Results]");
+            Sql("DELETE FROM [Questionnaire].[Interviewees]");
 
             AddColumn("Questionnaire.Interviewees", "AgeId", c => c.Int(nullable: false));
             CreateIndex("Questionnaire.Interviewees", "AgeId");
