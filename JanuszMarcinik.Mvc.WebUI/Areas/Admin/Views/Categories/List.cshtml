@@ -1,0 +1,19 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Categories.CategoryDataSource
+
+@{
+    ViewBag.Title = "Kategorie";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">@ViewBag.Title</span>
+</h2>
+
+@using (var form = Html.Bootstrap().Begin(new Form().Id("FormGrid")))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_Grid", Model)
+}
+
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Admin.Configuration.Index()),
+    Html.Bootstrap().AddButton(MVC.Admin.Categories.Create()))

@@ -124,14 +124,21 @@ namespace JanuszMarcinik.Mvc.Domain.DataSource
                     var cell = new GridCell();
                     cell.DataType = prop.DataType;
 
-                    if (prop.DataType == GridDataType.Enum)
+                    try
                     {
-                        var enumValue = (Enum)item.GetType().GetProperty(prop.PropertyName).GetValue(item);
-                        cell.Value = enumValue.GetType().GetField(enumValue.ToString()).GetCustomAttribute<DescriptionAttribute>(false).Description;
+                        if (prop.DataType == GridDataType.Enum)
+                        {
+                            var enumValue = (Enum)item.GetType().GetProperty(prop.PropertyName).GetValue(item);
+                            cell.Value = enumValue.GetType().GetField(enumValue.ToString()).GetCustomAttribute<DescriptionAttribute>(false).Description;
+                        }
+                        else
+                        {
+                            cell.Value = item.GetType().GetProperty(prop.PropertyName).GetValue(item).ToString();
+                        }
                     }
-                    else
+                    catch
                     {
-                        cell.Value = item.GetType().GetProperty(prop.PropertyName).GetValue(item).ToString();
+                        cell.Value = string.Empty;
                     }
 
                     row.Values.Add(cell);

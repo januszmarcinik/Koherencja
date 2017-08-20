@@ -54,6 +54,7 @@ namespace T4MVC
     {
         public readonly string Name = "Admin";
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.AnswersController Answers = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_AnswersController();
+        public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.CategoriesController Categories = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_CategoriesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.ConfigurationController Configuration = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_ConfigurationController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.DictionariesController Dictionaries = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_DictionariesController();
         public JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.IntervieweesController Interviewees = new JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers.T4MVC_IntervieweesController();

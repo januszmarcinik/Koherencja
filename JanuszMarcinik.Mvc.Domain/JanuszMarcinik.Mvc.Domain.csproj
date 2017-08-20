@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Entities\Dictionaries\BaseDictionary.cs" />
+    <Compile Include="Application\Entities\Questionnaires\Category.cs" />
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
     <Compile Include="Application\Entities\Questionnaires\Question.cs" />
@@ -127,6 +128,8 @@
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />
+    <Compile Include="Application\Repositories\Abstract\ICategoriesRepository.cs" />
+    <Compile Include="Application\Repositories\Concrete\CategoriesRepository.cs" />
     <Compile Include="DataSource\DataSource.cs" />
     <Compile Include="DataSource\GridAttribute.cs" />
     <Compile Include="DataSource\GridCell.cs" />
@@ -170,6 +173,14 @@
     <Compile Include="Migrations\201708191103530_002_alter_questionnaires_entity.Designer.cs">
       <DependentUpon>201708191103530_002_alter_questionnaires_entity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708201212481_003_add_question_categories - Copy.cs" />
+    <Compile Include="Migrations\201708201212481_003_add_question_categories - Copy.Designer.cs">
+      <DependentUpon>201708201212481_003_add_question_categories - Copy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201212481_004_set_answers_points.cs" />
+    <Compile Include="Migrations\201708201212481_004_set_answers_points.Designer.cs">
+      <DependentUpon>201708201212481_004_set_answers_points.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -191,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708191103530_002_alter_questionnaires_entity.resx">
       <DependentUpon>201708191103530_002_alter_questionnaires_entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201212481_003_add_question_categories - Copy.resx">
+      <DependentUpon>201708201212481_003_add_question_categories - Copy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201212481_004_set_answers_points.resx">
+      <DependentUpon>201708201212481_004_set_answers_points.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

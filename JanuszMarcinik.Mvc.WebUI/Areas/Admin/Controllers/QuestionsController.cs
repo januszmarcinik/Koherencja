@@ -2,7 +2,6 @@
 using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
-using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -48,6 +47,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             var model = new QuestionViewModel();
             model.QuestionnaireId = questionnaireId;
+            model.SetCategories(_questionnairesRepository.GetById(questionnaireId).Categories);
+
             return View(model);
         }
 
@@ -61,13 +62,16 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 {
                     OrderNumber = model.OrderNumber,
                     QuestionnaireId = model.QuestionnaireId,
-                    Text = model.Text
+                    Text = model.Text,
+                    CategoryId = model.CategoryId
                 };
 
                 _questionsRepository.Create(question);
 
                 return RedirectToAction(MVC.Admin.Questions.List(model.QuestionnaireId));
             }
+
+            model.SetCategories(_questionnairesRepository.GetById(model.QuestionnaireId).Categories);
 
             return View(model);
         }
@@ -78,6 +82,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             var question = _questionsRepository.GetById(id);
             var model = Mapper.Map<QuestionViewModel>(question);
+            model.SetCategories(_questionnairesRepository.GetById(model.QuestionnaireId).Categories);
 
             return View(model);
         }
@@ -91,11 +96,15 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 var question = _questionsRepository.GetById(model.QuestionId);
                 question.OrderNumber = model.OrderNumber;
                 question.Text = model.Text;
+                question.CategoryId = model.CategoryId;
 
                 _questionsRepository.Update(question);
 
                 return RedirectToAction(MVC.Admin.Questions.List(model.QuestionnaireId));
             }
+
+            model.SetCategories(_questionnairesRepository.GetById(model.QuestionnaireId).Categories);
+
             return View(model);
         }
         #endregion

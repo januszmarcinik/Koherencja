@@ -23,6 +23,7 @@ namespace JanuszMarcinik.Mvc.Domain.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Interviewee> Interviewees { get; set; }
         public DbSet<Result> Results { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<BaseDictionary> BaseDictionaries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,11 +35,24 @@ namespace JanuszMarcinik.Mvc.Domain.Data
                         .WithRequired(s => s.Questionnaire)
                         .HasForeignKey(s => s.QuestionnaireId);
 
+            // Questionnaire -> Categories
+            modelBuilder.Entity<Questionnaire>()
+                        .HasMany<Category>(s => s.Categories)
+                        .WithRequired(s => s.Questionnaire)
+                        .HasForeignKey(s => s.QuestionnaireId);
+
             // Questionnaire -> Results
             modelBuilder.Entity<Questionnaire>()
                         .HasMany<Result>(s => s.Results)
                         .WithRequired(s => s.Questionnaire)
                         .HasForeignKey(s => s.QuestionnaireId)
+                        .WillCascadeOnDelete(false);
+
+            // Category -> Questions
+            modelBuilder.Entity<Category>()
+                        .HasMany<Question>(s => s.Questions)
+                        .WithOptional(s => s.Category)
+                        .HasForeignKey(s => s.CategoryId)
                         .WillCascadeOnDelete(false);
 
             // Question -> Answers

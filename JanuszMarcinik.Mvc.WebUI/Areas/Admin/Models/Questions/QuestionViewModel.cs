@@ -1,5 +1,9 @@
-﻿using JanuszMarcinik.Mvc.Domain.DataSource;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
+using JanuszMarcinik.Mvc.Domain.DataSource;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions
 {
@@ -16,8 +20,27 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questions
         public int OrderNumber { get; set; }
 
         [Required]
-        [Grid(Order = 2)]
+        [Grid(Order = 3)]
         [Display(Name = "Treść")]
         public string Text { get; set; }
+
+        [Display(Name = "Kategoria")]
+        public int? CategoryId { get; set; }
+
+        [Display(Name = "Kategoria")]
+        [Grid(Order = 2)]
+        public string CategoryName
+        {
+            get { return this.Category != null ? this.Category.Name : string.Empty; }
+        }
+
+        public Category Category { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
+        public void SetCategories(IEnumerable<Category> categories)
+        {
+            this.Categories = categories
+                .Select(x => new SelectListItem() { Value = x.CategoryId.ToString(), Text = x.Name });
+        }
     }
 }

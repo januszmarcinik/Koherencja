@@ -1,0 +1,32 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Categories.CategoryViewModel
+
+@{
+    ViewBag.Title = "Edycja kategorii";
+}
+
+<h2 class="center-block">
+    <span class="label label-warning center-block">@ViewBag.Title</span>
+</h2>
+
+@using (var form = Html.Bootstrap().Begin(new Form()))
+{
+    using (var panel = Html.Bootstrap().Begin(new Panel()))
+    {
+        using (panel.BeginBody())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.CategoryId)
+            @Html.Bootstrap().ValidationSummary()
+
+            @form.FormGroup().TextBoxFor(x => x.QuestionnaireName).Readonly()
+            @form.FormGroup().TextBoxFor(x => x.Name)
+        }
+    }
+
+    @Html.ButtonsFooter(
+        Html.Bootstrap().BackButton(MVC.Admin.Categories.List()),
+        Html.Bootstrap().SubmitSaveButton(),
+        Html.Bootstrap().ConfirmDeleteButton().Disabled(Model.DeleteDisabled))
+}
+
+@Html.Action(MVC.Admin.Categories.Delete(Model.CategoryId))

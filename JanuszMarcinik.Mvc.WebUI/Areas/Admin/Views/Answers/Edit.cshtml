@@ -20,11 +20,14 @@
             @Html.HiddenFor(x => x.QuestionId)
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     @form.FormGroup().EditorFor(x => x.OrderNumber)
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     @form.FormGroup().EditorFor(x => x.Value)
+                </div>
+                <div class="col-sm-4">
+                    @form.FormGroup().EditorFor(x => x.Points)
                 </div>
             </div>
 

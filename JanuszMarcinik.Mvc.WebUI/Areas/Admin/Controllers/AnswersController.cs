@@ -66,7 +66,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                     QuestionId = model.QuestionId,
                     OrderNumber = model.OrderNumber,
                     Description = model.Description,
-                    Value = model.Value
+                    Value = model.Value,
+                    Points = model.Points
                 };
 
                 _answersRepository.Create(answer);
@@ -97,6 +98,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 answer.OrderNumber = model.OrderNumber;
                 answer.Description = model.Description;
                 answer.Value = model.Value;
+                answer.Points = model.Points;
 
                 _answersRepository.Update(answer);
 

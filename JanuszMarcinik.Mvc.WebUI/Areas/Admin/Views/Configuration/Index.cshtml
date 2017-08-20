@@ -10,6 +10,7 @@
     @if (User.IsInRole("Moderator"))
     {
         @Html.Bootstrap().ListGroupItem("Ankiety, pytania i odpowiedzi", MVC.Admin.Questionnaires.List()).PrependIcon(FontAwesome.clipboard)
+        @Html.Bootstrap().ListGroupItem("Kategorie pytań", MVC.Admin.Categories.List()).PrependIcon(FontAwesome.arrows)
         @Html.Bootstrap().ListGroupItem("Słowniki", MVC.Admin.Dictionaries.List()).PrependIcon(FontAwesome.th_list)
     }
 </div>

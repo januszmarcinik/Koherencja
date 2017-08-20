@@ -108,9 +108,11 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _AnswerResults = "_AnswerResults";
                 public readonly string Details = "Details";
                 public readonly string QuestionnaireSelect = "QuestionnaireSelect";
             }
+            public readonly string _AnswerResults = "~/Areas/Application/Views/Results/_AnswerResults.cshtml";
             public readonly string Details = "~/Areas/Application/Views/Results/Details.cshtml";
             public readonly string QuestionnaireSelect = "~/Areas/Application/Views/Results/QuestionnaireSelect.cshtml";
         }

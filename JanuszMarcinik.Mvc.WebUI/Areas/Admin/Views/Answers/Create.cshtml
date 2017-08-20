@@ -18,7 +18,15 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.OrderNumber)
 
-            @form.FormGroup().EditorFor(x => x.Value)
+            <div class="row">
+                <div class="col-sm-6">
+                    @form.FormGroup().EditorFor(x => x.Value)
+                </div>
+                <div class="col-sm-6">
+                    @form.FormGroup().EditorFor(x => x.Points)
+                </div>
+            </div>
+
             @form.FormGroup().TextBoxFor(x => x.Description)
         }
     }

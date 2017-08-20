@@ -17,6 +17,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         public int OrderNumber { get; set; }
         public string Description { get; set; }
         public int Value { get; set; }
+        public int Points { get; set; }
 
         public int QuestionId { get; set; }
         public virtual Question Question { get; set; }

@@ -17,10 +17,15 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Answers
 
         [Required]
         [Grid(Order = 2)]
-        [Display(Name = "Wartość")]
+        [Display(Name = "Wartość wyświetlana")]
         public int Value { get; set; }
 
+        [Required]
         [Grid(Order = 3)]
+        [Display(Name = "Wartość puntkowa (rzeczywista)")]
+        public int Points { get; set; }
+
+        [Grid(Order = 4)]
         [Display(Name = "Opis")]
         public string Description { get; set; }
     }

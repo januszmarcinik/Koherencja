@@ -18,6 +18,7 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.OrderNumber)
 
+            @form.FormGroup().DropDownListFor(x => x.CategoryId, Model.Categories).OptionLabel("-")
             @form.FormGroup().TextBoxFor(x => x.Text)
         }
     }

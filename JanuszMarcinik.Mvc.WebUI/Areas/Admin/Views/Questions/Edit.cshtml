@@ -20,6 +20,7 @@
             @Html.HiddenFor(x => x.QuestionId)
 
             @form.FormGroup().EditorFor(x => x.OrderNumber)
+            @form.FormGroup().DropDownListFor(x => x.CategoryId, Model.Categories).OptionLabel("-")
             @form.FormGroup().TextBoxFor(x => x.Text)
         }
     }
