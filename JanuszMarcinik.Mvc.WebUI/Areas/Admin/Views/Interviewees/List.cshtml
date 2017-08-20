@@ -22,23 +22,22 @@
                     @form.FormGroup().TextBoxFor(x => x.DateFrom).PrependIcon(FontAwesome.calendar)
                 </div>
                 <div class="col-sm-2">
-                    @form.FormGroup().DropDownListFor(x => x.SeniorityId, Model.Seniorities).OptionLabel("-").PrependIcon(FontAwesome.user_md)
+                    @form.FormGroup().DropDownListFor(x => x.AgeId, Model.Ages).OptionLabel("-").PrependIcon(FontAwesome.user_circle)
                     @form.FormGroup().TextBoxFor(x => x.DateTo).PrependIcon(FontAwesome.calendar)
                 </div>
                 <div class="col-sm-2">
-                    @form.FormGroup().DropDownListFor(x => x.EducationId, Model.Educations).OptionLabel("-").PrependIcon(FontAwesome.graduation_cap)
-                    @form.FormGroup().TextBoxFor(x => x.AgeFrom).PrependIcon(FontAwesome.user_circle)
+                    @form.FormGroup().DropDownListFor(x => x.SeniorityId, Model.Seniorities).OptionLabel("-").PrependIcon(FontAwesome.user_md)
+                    @form.FormGroup().DropDownListFor(x => x.MaterialStatusId, Model.MaterialStatuses).OptionLabel("-").PrependIcon(FontAwesome.money)
                 </div>
                 <div class="col-sm-2">
                     @form.FormGroup().DropDownListFor(x => x.PlaceOfResidenceId, Model.PlacesOfResidence).OptionLabel("-").PrependIcon(FontAwesome.building)
-                    @form.FormGroup().TextBoxFor(x => x.AgeTo).PrependIcon(FontAwesome.user_circle)
                 </div>
                 <div class="col-sm-2">
                     @form.FormGroup().DropDownListFor(x => x.MartialStatusId, Model.MartialStatuses).OptionLabel("-").PrependIcon(FontAwesome.users)
                 </div>
 
                 <div class="col-sm-2">
-                    @form.FormGroup().DropDownListFor(x => x.MaterialStatusId, Model.MaterialStatuses).OptionLabel("-").PrependIcon(FontAwesome.money)
+                    @form.FormGroup().DropDownListFor(x => x.EducationId, Model.Educations).OptionLabel("-").PrependIcon(FontAwesome.graduation_cap)
                     <br />
                     <div class="pull-right">
                         @Html.Bootstrap().SubmitFilterButton()

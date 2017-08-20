@@ -33,12 +33,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Infrastructure
         {
             kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
 
-            kernel.Bind<IAnswersRepository>().To<AnswersRepository>().InSingletonScope();
-            kernel.Bind<IDictionariesRepository>().To<DictionariesRepository>().InSingletonScope();
+            kernel.Bind<IAnswersRepository>().To<AnswersRepository>().InRequestScope();
+            kernel.Bind<IDictionariesRepository>().To<DictionariesRepository>().InRequestScope();
             kernel.Bind<IIntervieweesRepository>().To<IntervieweesRepository>().InRequestScope();
-            kernel.Bind<IQuestionnairesRepository>().To<QuestionnairesRepository>().InSingletonScope();
-            kernel.Bind<IQuestionsRepository>().To<QuestionsRepository>().InSingletonScope();
-            kernel.Bind<IResultsRepository>().To<ResultsRepository>().InSingletonScope();
+            kernel.Bind<IQuestionnairesRepository>().To<QuestionnairesRepository>().InRequestScope();
+            kernel.Bind<IQuestionsRepository>().To<QuestionsRepository>().InRequestScope();
+            kernel.Bind<IResultsRepository>().To<ResultsRepository>().InRequestScope();
             kernel.Bind<ICategoriesRepository>().To<CategoriesRepository>().InRequestScope();
         }
     }

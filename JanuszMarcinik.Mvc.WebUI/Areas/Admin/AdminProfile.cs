@@ -32,6 +32,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin
             CreateMap<BaseDictionary, DictionaryViewModel>();
 
             CreateMap<Interviewee, IntervieweeViewModel>()
+                .Ignore(x => x.Ages)
                 .Ignore(x => x.Educations)
                 .Ignore(x => x.MartialStatuses)
                 .Ignore(x => x.MaterialStatuses)

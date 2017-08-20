@@ -181,6 +181,10 @@
     <Compile Include="Migrations\201708201212481_004_set_answers_points.Designer.cs">
       <DependentUpon>201708201212481_004_set_answers_points.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708201421132_005_change_interviewee_age_to_select_list.cs" />
+    <Compile Include="Migrations\201708201421132_005_change_interviewee_age_to_select_list.Designer.cs">
+      <DependentUpon>201708201421132_005_change_interviewee_age_to_select_list.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708201212481_004_set_answers_points.resx">
       <DependentUpon>201708201212481_004_set_answers_points.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201421132_005_change_interviewee_age_to_select_list.resx">
+      <DependentUpon>201708201421132_005_change_interviewee_age_to_select_list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

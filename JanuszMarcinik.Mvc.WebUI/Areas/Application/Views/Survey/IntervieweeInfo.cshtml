@@ -47,7 +47,7 @@
                     @form.FormGroup().DropDownListFor(x => x.SexId, Model.Sexes).OptionLabel("-").PrependIcon(FontAwesome.venus_mars)
                 </div>
                 <div class="col-sm-4">
-                    @form.FormGroup().TextBoxFor(x => x.Age).PrependIcon(FontAwesome.user_circle)
+                    @form.FormGroup().DropDownListFor(x => x.AgeId, Model.Ages).OptionLabel("-").PrependIcon(FontAwesome.user_circle)
                 </div>
                 <div class="col-sm-4">
                     @form.FormGroup().DropDownListFor(x => x.SeniorityId, Model.Seniorities).OptionLabel("-").PrependIcon(FontAwesome.user_md)

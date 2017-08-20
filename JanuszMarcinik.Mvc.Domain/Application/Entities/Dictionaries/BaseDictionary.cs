@@ -17,6 +17,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
             this.PlaceOfResidences = new HashSet<Interviewee>();
             this.MartialStatuses = new HashSet<Interviewee>();
             this.MaterialStatuses = new HashSet<Interviewee>();
+            this.Ages = new HashSet<Interviewee>();
         }
 
         public int BaseDictionaryId { get; set; }
@@ -29,6 +30,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
         public virtual ICollection<Interviewee> PlaceOfResidences { get; set; }
         public virtual ICollection<Interviewee> MartialStatuses { get; set; }
         public virtual ICollection<Interviewee> MaterialStatuses { get; set; }
+        public virtual ICollection<Interviewee> Ages { get; set; }
     }
 
     public enum DictionaryType
@@ -49,6 +51,9 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
         MartialStatus = 5,
 
         [Description("Ocena swojego stanu materialnego")]
-        MaterialStatus = 6
+        MaterialStatus = 6,
+
+        [Description("Wiek")]
+        Age = 7
     }
 }

@@ -20,10 +20,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateTo { get; set; }
 
-        [Display(Name = "Wiek od")]
-        public int? AgeFrom { get; set; }
-        [Display(Name = "Wiek do")]
-        public int? AgeTo { get; set; }
+        [Display(Name = "Wiek")]
+        public int? AgeId { get; set; }
+        public IEnumerable<SelectListItem> Ages { get; set; }
 
         [Display(Name = "Płeć")]
         public int? SexId { get; set; }
@@ -63,14 +62,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
                 this.Data = this.Data.Where(x => x.InterviewDate <= dateTo);
             }
 
-            if (this.AgeFrom.HasValue)
+            if (this.AgeId.HasValue)
             {
-                this.Data = this.Data.Where(x => x.Age >= this.AgeFrom);
-            }
-
-            if (this.AgeTo.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.Age <= this.AgeTo);
+                this.Data = this.Data.Where(x => x.AgeId == this.AgeId);
             }
 
             if (this.SexId.HasValue)
@@ -131,6 +125,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
 
             this.MaterialStatuses = dictionary.Where(x => x.DictionaryType == DictionaryType.MaterialStatus)
+                .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
+
+            this.Ages = dictionary.Where(x => x.DictionaryType == DictionaryType.Age)
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
         }
         #endregion

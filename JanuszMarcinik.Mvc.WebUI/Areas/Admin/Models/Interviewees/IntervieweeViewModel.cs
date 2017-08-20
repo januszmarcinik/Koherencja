@@ -17,11 +17,21 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
         [Display(Name = "Data")]
         public DateTime InterviewDate { get; set; }
 
+        #region Age
         [Required(ErrorMessage = "Wybierz wiek")]
         [Display(Name = "Wiek")]
-        [Range(minimum: 20, maximum: 67, ErrorMessage = "Wiek musi być z przedziału od 20 do 67 lat.")]
+        public int AgeId { get; set; }
+
+        [Display(Name = "Wiek")]
         [Grid(Order = 2)]
-        public int Age { get; set; }
+        public string AgeName
+        {
+            get { return this.Age != null ? this.Age.Value : string.Empty; }
+        }
+
+        public BaseDictionary Age { get; set; }
+        public IEnumerable<SelectListItem> Ages { get; set; }
+        #endregion
 
         #region Sex
         [Required(ErrorMessage = "Wybierz płeć")]
@@ -137,6 +147,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
 
             this.MaterialStatuses = dictionary.Where(x => x.DictionaryType == DictionaryType.MaterialStatus)
+                .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
+
+            this.Ages = dictionary.Where(x => x.DictionaryType == DictionaryType.Age)
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
         }
     }

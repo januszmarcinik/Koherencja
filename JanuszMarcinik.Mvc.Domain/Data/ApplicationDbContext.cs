@@ -121,6 +121,13 @@ namespace JanuszMarcinik.Mvc.Domain.Data
                         .WithRequired(s => s.MaterialStatus)
                         .HasForeignKey(s => s.MaterialStatusId)
                         .WillCascadeOnDelete(false);
+
+            // BaseDictionary -> Interviewees (Ages)
+            modelBuilder.Entity<BaseDictionary>()
+                        .HasMany<Interviewee>(s => s.Ages)
+                        .WithRequired(s => s.Age)
+                        .HasForeignKey(s => s.AgeId)
+                        .WillCascadeOnDelete(false);
             #endregion
         }
     }

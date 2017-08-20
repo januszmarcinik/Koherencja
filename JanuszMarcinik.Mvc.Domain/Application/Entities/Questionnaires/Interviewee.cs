@@ -16,7 +16,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
 
         public int IntervieweeId { get; set; }
         public DateTime InterviewDate { get; set; }
-        public int Age { get; set; }
+
+        public int AgeId { get; set; }
+        [ForeignKey("AgeId")]
+        public virtual BaseDictionary Age { get; set; }
 
         public int SexId { get; set; }
         [ForeignKey("SexId")]

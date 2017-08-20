@@ -44,6 +44,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             x.EducationId == dictionary.BaseDictionaryId ||
                             x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                             x.MartialStatusId == dictionary.BaseDictionaryId ||
+                            x.AgeId == dictionary.BaseDictionaryId ||
                             x.MaterialStatusId == dictionary.BaseDictionaryId)
                         .Select(x => x.IntervieweeId).ToList();
 
