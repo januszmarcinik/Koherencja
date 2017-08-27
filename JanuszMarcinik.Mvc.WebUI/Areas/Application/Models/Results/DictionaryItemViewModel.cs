@@ -5,6 +5,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
     public class DictionaryItemViewModel
     {
         public string ItemName { get; set; }
-        public List<AnswerResultViewModel> AnswersResults { get; set; }
+        public string Badge { get; set; }
+
+        public List<ValueViewModel> Values { get; set; }
     }
 }

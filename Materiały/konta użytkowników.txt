@@ -6,25 +6,3 @@ Marti2000Moderator
 
 ankieter@januszmarcinik.pl
 Marti2000Ankieter
-
-Proszê oceniæ w jakim stopniu podane poni¿ej stwierdzenia odnosz¹ siê do Ciebie. Proszê byæ szczerym w swoich odpowiedziach i uwa¿aæ, aby odpowiedŸ na jedno pytanie, nie wp³ywa³a na pozosta³e. Nie ma odpowiedzi dobrych ani z³ych. <br/><br/>
-<div class="text-center">
-<strong>0</strong> - zdecydowanie <strong> nie odnosi siê </strong> do mnie <br/>
-<strong>1</strong> - raczej nie odnosi siê do mnie <br/>
-<strong>2</strong> – ani siê odnosi ani siê nie odnosi <br/>
-<strong>3</strong> – raczej odnosi siê do mnie <br/>
-<strong>4</strong> - zdecydowanie <strong> odnosi siê </strong> do mnie
-</div>
-
-Poni¿ej podano przyk³ady ró¿nych zachowañ zwi¹zanych ze zdrowiem. <strong>Jak czêsto w ci¹gu roku przestrzega Pan/Pani wymienionych poni¿ej zachowañ?</strong> Proszê odpowiedzieæ szczerze wybieraj¹c liczbê wyra¿aj¹c¹ w³aœciw¹ dla siebie odpowiedŸ. <br/><br/>
-<div class="text-center">
-<strong>1</strong> - <strong>prawie nigdy</strong><br/>
-<strong>2</strong> - rzadko <br/>
-<strong>3</strong> - od czasu do czasu <br/>
-<strong>4</strong> - czêsto <br/>
-<strong>5</strong> - <strong>prawie zawsze</strong>
-</div>
-
-<p>Kolejne pytania dotycz¹ jakoœci Pana/i ¿ycia, zdrowia i innych dziedzin.</p>
-<p>Proszê wybraæ najbardziej w³aœciw¹ odpowiedŸ. Jeœli nie jest Pan/i pewien/a, która z odpowiedzi jest w³aœciwa, to proszê podaæ pierwsz¹ o której Pan/i pomyœla³/a, z zasady jest ona najbli¿sza prawdy. Proszê myœleæ o swoim poziomie ¿ycia, nadziejach, przyjemnoœciach i troskach. </p>
-<p>Pytania dotycz¹ spraw ¿ycia z ostatnich czterech tygodni.</p>

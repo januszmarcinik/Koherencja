@@ -1,17 +1,19 @@
 ﻿namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
 {
-    public class AnswerResultViewModel
+    public class ValueViewModel
     {
-        public int AnswersCount { get; set; }
-        public int TotalAnswersCount { get; set; }
+        public int Count { get; set; }
+        public int TotalCount { get; set; }
+
+        public string Badge { get; set; }
 
         public decimal Percentage
         {
             get
             {
-                if (this.TotalAnswersCount > 0)
+                if (this.TotalCount > 0)
                 {
-                    return (decimal)this.AnswersCount / (decimal)this.TotalAnswersCount * 100;
+                    return (decimal)this.Count / (decimal)this.TotalCount * 100;
                 }
                 else
                 {

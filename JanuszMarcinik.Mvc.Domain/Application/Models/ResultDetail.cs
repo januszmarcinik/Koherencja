@@ -6,6 +6,8 @@
         public string BaseDictionaryValue { get; set; }
         public string DictionaryTypeName { get; set; }
 
+        public int IntervieweeCount { get; set; }
+
         public int QuestionId { get; set; }
         public string QuestionText { get; set; }
 

@@ -160,7 +160,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Create = "Create";
+                public readonly string Edit = "Edit";
+                public readonly string List = "List";
             }
+            public readonly string Create = "~/Areas/Admin/Views/Categories/Create.cshtml";
+            public readonly string Edit = "~/Areas/Admin/Views/Categories/Edit.cshtml";
+            public readonly string List = "~/Areas/Admin/Views/Categories/List.cshtml";
         }
     }
 

@@ -9,5 +9,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         void CreateMany(List<Result> entities, int intervieweeId);
         IEnumerable<Result> GetList(int questionId);
         IEnumerable<ResultDetail> GetResultDetails(int questionnaireId);
+        IEnumerable<ResultGeneral> GetResultsGeneral(int questionnaireId);
     }
 }

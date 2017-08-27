@@ -78,14 +78,14 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string QuestionnaireSelect = "QuestionnaireSelect";
+            public readonly string General = "General";
             public readonly string Details = "Details";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string QuestionnaireSelect = "QuestionnaireSelect";
+            public const string General = "General";
             public const string Details = "Details";
         }
 
@@ -109,12 +109,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _AnswerResults = "_AnswerResults";
-                public readonly string Details = "Details";
-                public readonly string QuestionnaireSelect = "QuestionnaireSelect";
+                public readonly string Results = "Results";
             }
             public readonly string _AnswerResults = "~/Areas/Application/Views/Results/_AnswerResults.cshtml";
-            public readonly string Details = "~/Areas/Application/Views/Results/Details.cshtml";
-            public readonly string QuestionnaireSelect = "~/Areas/Application/Views/Results/QuestionnaireSelect.cshtml";
+            public readonly string Results = "~/Areas/Application/Views/Results/Results.cshtml";
         }
     }
 
@@ -124,13 +122,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         public T4MVC_ResultsController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void QuestionnaireSelectOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void GeneralOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult QuestionnaireSelect()
+        public override System.Web.Mvc.ActionResult General()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuestionnaireSelect);
-            QuestionnaireSelectOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.General);
+            GeneralOverride(callInfo);
             return callInfo;
         }
 

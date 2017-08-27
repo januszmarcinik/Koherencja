@@ -31,37 +31,25 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
         #endregion
 
-        #region QuestionnaireSelect()
-        public virtual ActionResult QuestionnaireSelect()
+        #region General()
+        public virtual ActionResult General()
         {
-            var model = Mapper.Map<IEnumerable<QuestionnaireViewModel>>(_questionnairesRepository.GetList());
-            return View(model);
-        }
-        #endregion
-
-        #region Details()
-        public virtual ActionResult Details(int questionnaireId)
-        {
-            var results = _resultsRepository.GetResultDetails(questionnaireId);
-
-            var model = new QuestionnaireResultsViewModel()
+            var model = new ResultsListViewModel()
             {
-                QuestionnaireId = questionnaireId,
-                QuestionnaireName = _questionnairesRepository.GetById(questionnaireId).Name,
-                QuestionResults = new List<QuestionResultsViewModel>()
+                Title = "Wyniki wg ankiet",
+                Results = new List<ResultsViewModel>()
             };
 
-            var questionsIds = results.Select(x => x.QuestionId).Distinct();
-            foreach (var questionId in questionsIds)
+            foreach (var questionnaire in _questionnairesRepository.GetList())
             {
-                var question = _questionsRepository.GetById(questionId);
+                var results = _resultsRepository.GetResultsGeneral(questionnaire.QuestionnaireId);
 
-                var questionResults = new QuestionResultsViewModel()
+                var questionnaireResults = new ResultsViewModel()
                 {
-                    QuestionId = questionId,
-                    QuestionText = question.Text,
-                    QuestionNumber = question.OrderNumber,
-                    Answers = _answersRepository.GetDescriptions(questionId),
+                    Id = questionnaire.QuestionnaireId,
+                    Text = questionnaire.Name,
+                    Options = results.Select(x => x.CategoryName).Distinct().ToList(),
+                    Action = MVC.Application.Results.Details(questionnaire.QuestionnaireId),
                     DictionaryGroups = new List<DictionaryGroupViewModel>()
                 };
 
@@ -80,7 +68,80 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                         var dictionaryItem = new DictionaryItemViewModel()
                         {
                             ItemName = _dictionariesRepository.GetById(itemId).Value,
-                            AnswersResults = new List<AnswerResultViewModel>()
+                            Badge = results.First(x => x.BaseDictionaryId == itemId).IntervieweeCount.ToString(),
+                            Values = new List<ValueViewModel>()
+                        };
+
+                        var categoryIds = results.Select(x => x.CategoryId).Distinct();
+                        foreach (var categoryId in categoryIds)
+                        {
+                            var resultItem = results
+                                .Where(x => x.BaseDictionaryId == itemId)
+                                .Where(x => x.CategoryId == categoryId)
+                                .FirstOrDefault();
+
+                            dictionaryItem.Values.Add(new ValueViewModel()
+                            {
+                                Count = resultItem.PointsEarned,
+                                TotalCount = resultItem.TotalPointsAvailableToGet,
+                                Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}"
+                            });
+                        }
+
+                        dictionaryGroup.DictionaryItems.Add(dictionaryItem);
+                    }
+
+                    questionnaireResults.DictionaryGroups.Add(dictionaryGroup);
+                }
+
+                model.Results.Add(questionnaireResults);
+            }
+
+            return View(MVC.Application.Results.Views.Results, model);
+        }
+        #endregion
+
+        #region Details()
+        public virtual ActionResult Details(int questionnaireId)
+        {
+            var results = _resultsRepository.GetResultDetails(questionnaireId);
+
+            var model = new ResultsListViewModel()
+            {
+                Title = _questionnairesRepository.GetById(questionnaireId).Name,
+                Results = new List<ResultsViewModel>()
+            };
+
+            var questionsIds = results.Select(x => x.QuestionId).Distinct();
+            foreach (var questionId in questionsIds)
+            {
+                var question = _questionsRepository.GetById(questionId);
+
+                var questionResults = new ResultsViewModel()
+                {
+                    Id = questionId,
+                    Text = $"{question.OrderNumber}. {question.Text}",
+                    Options = _answersRepository.GetDescriptions(questionId),
+                    DictionaryGroups = new List<DictionaryGroupViewModel>()
+                };
+
+                var dictionaryGroupNames = results.Select(x => x.DictionaryTypeName).Distinct();
+                foreach (var dictionaryType in dictionaryGroupNames)
+                {
+                    var dictionaryGroup = new DictionaryGroupViewModel()
+                    {
+                        GroupName = dictionaryType,
+                        DictionaryItems = new List<DictionaryItemViewModel>()
+                    };
+
+                    var dictionaryItemsIds = results.Where(x => x.DictionaryTypeName == dictionaryType).Select(x => x.BaseDictionaryId).Distinct();
+                    foreach (var itemId in dictionaryItemsIds)
+                    {
+                        var dictionaryItem = new DictionaryItemViewModel()
+                        {
+                            ItemName = _dictionariesRepository.GetById(itemId).Value,
+                            Badge = results.First(x => x.BaseDictionaryId == itemId).IntervieweeCount.ToString(),
+                            Values = new List<ValueViewModel>()
                         };
 
                         var answersIdList = results.Where(x => x.QuestionId == questionId).Select(x => x.AnswerId).Distinct();
@@ -92,10 +153,11 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                                 .Where(x => x.AnswerId == answerId)
                                 .FirstOrDefault();
 
-                            dictionaryItem.AnswersResults.Add(new AnswerResultViewModel()
+                            dictionaryItem.Values.Add(new ValueViewModel()
                             {
-                                AnswersCount = resultItem.AnswersCount,
-                                TotalAnswersCount = resultItem.TotalAnswersCount
+                                Badge = resultItem.AnswersCount.ToString(),
+                                Count = resultItem.AnswersCount,
+                                TotalCount = resultItem.TotalAnswersCount
                             });
                         }
 
@@ -105,10 +167,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     questionResults.DictionaryGroups.Add(dictionaryGroup);
                 }
 
-                model.QuestionResults.Add(questionResults);
+                model.Results.Add(questionResults);
             }
 
-            return View(model);
+            return View(MVC.Application.Results.Views.Results, model);
         }
         #endregion
     }

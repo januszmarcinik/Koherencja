@@ -27,13 +27,14 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             return context.Results.Where(x => x.QuestionId == questionId);
         }
 
+        #region GetResultDetails()
         public IEnumerable<ResultDetail> GetResultDetails(int questionnaireId)
         {
             var questionnaire = context.Questionnaires.Find(questionnaireId);
 
             var model = new List<ResultDetail>();
 
-            foreach (var question in questionnaire.Questions)
+            foreach (var question in questionnaire.Questions.OrderBy(x => x.OrderNumber))
             {
                 foreach (var dictionary in context.BaseDictionaries)
                 {
@@ -51,7 +52,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     var results = question.Results.Where(x => intervieweesIds.Contains(x.IntervieweeId));
                     var totalAnswersCount = results.Count();
 
-                    foreach (var answer in question.Answers)
+                    foreach (var answer in question.Answers.OrderBy(x => x.OrderNumber))
                     {
                         model.Add(new ResultDetail()
                         {
@@ -62,17 +63,98 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
                             AnswerId = answer.AnswerId,
                             AnswersCount = results.Where(x => x.AnswerId == answer.AnswerId).Count(),
-                            TotalAnswersCount = totalAnswersCount
+                            TotalAnswersCount = totalAnswersCount,
+                            IntervieweeCount = intervieweesIds.Count
                         });
                     }
                 }
             }
 
-            return model
-                .OrderBy(x => x.QuestionId)
-                .ThenBy(x => x.AnswerId)
-                .ThenBy(x => x.DictionaryTypeName)
-                .ThenBy(x => x.BaseDictionaryValue);
+            return model;
         }
+        #endregion
+
+        #region GetResultsGeneral()
+        public IEnumerable<ResultGeneral> GetResultsGeneral(int questionnaireId)
+        {
+            var questionnaire = context.Questionnaires.Find(questionnaireId);
+
+            var model = new List<ResultGeneral>();
+
+            foreach (var dictionary in context.BaseDictionaries)
+            {
+                var intervieweesIds = context.Interviewees
+                    .Where(x =>
+                        x.SexId == dictionary.BaseDictionaryId ||
+                        x.SeniorityId == dictionary.BaseDictionaryId ||
+                        x.EducationId == dictionary.BaseDictionaryId ||
+                        x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
+                        x.MartialStatusId == dictionary.BaseDictionaryId ||
+                        x.AgeId == dictionary.BaseDictionaryId ||
+                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                    .Select(x => x.IntervieweeId).ToList();
+
+                foreach (var category in questionnaire.Categories)
+                {
+                    var questionsIds = category.Questions.Select(x => x.QuestionId);
+
+                    model.Add(new ResultGeneral()
+                    {
+                        QuestionnaireId = questionnaireId,
+                        QuestionnaireName = questionnaire.Name,
+                        BaseDictionaryId = dictionary.BaseDictionaryId,
+                        BaseDictionaryValue = dictionary.Value,
+                        DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.Name,
+                        IntervieweeCount = intervieweesIds.Count,
+
+                        PointsAvailableToGet = category.Questions
+                            .Select(x => x.Answers
+                                .Select(p => p.Points)
+                                .DefaultIfEmpty(0)
+                                .Max())
+                            .Sum(),
+
+                        PointsEarned = context.Results
+                            .Where(x => questionsIds.Contains(x.QuestionId))
+                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                            .Select(x => x.Answer)
+                            .Select(x => x.Points)
+                            .DefaultIfEmpty(0)
+                            .Sum()
+                    });
+                }
+
+                model.Add(new ResultGeneral()
+                {
+                    QuestionnaireId = questionnaireId,
+                    QuestionnaireName = questionnaire.Name,
+                    BaseDictionaryId = dictionary.BaseDictionaryId,
+                    BaseDictionaryValue = dictionary.Value,
+                    DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
+                    CategoryId = 100,
+                    CategoryName = "#",
+                    IntervieweeCount = intervieweesIds.Count,
+
+                    PointsAvailableToGet = questionnaire.Questions
+                            .Select(x => x.Answers
+                                .Select(p => p.Points)
+                                .DefaultIfEmpty(0)
+                                .Max())
+                            .Sum(),
+
+                    PointsEarned = questionnaire.Results
+                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                            .Select(x => x.Answer)
+                            .Select(x => x.Points)
+                            .DefaultIfEmpty(0)
+                            .Sum()
+                });
+            }
+
+            return model;
+        }
+        #endregion
     }
 }

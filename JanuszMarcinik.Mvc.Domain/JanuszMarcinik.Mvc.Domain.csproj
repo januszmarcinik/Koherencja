@@ -127,6 +127,7 @@
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
+    <Compile Include="Application\Models\ResultGeneral.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />
     <Compile Include="Application\Repositories\Abstract\ICategoriesRepository.cs" />
     <Compile Include="Application\Repositories\Concrete\CategoriesRepository.cs" />

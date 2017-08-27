@@ -1,0 +1,60 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
+@model ResultsListViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">@Model.Title</span>
+</h2>
+
+@foreach (var result in Model.Results)
+{
+    <table class="table table-condensed table-bordered table-hover table-responsive">
+        <thead>
+            <tr class="bg-info">
+                <th colspan="@(result.Options.Count + 1)" class="text-center">@result.Text</th>
+            </tr>
+            <tr class="bg-info">
+                <th>
+                    @if (result.Action != null)
+                    {
+                        @Html.Bootstrap().ActionLinkButton("Szczegóły", result.Action).PrependIcon(FontAwesome.info).Class("center-block")
+                    }
+                </th>
+                @foreach (var option in result.Options)
+                {
+                    <th class="text-center">@option</th>
+                }
+            </tr>
+        </thead>
+
+        <tbody class="text-center">
+            @foreach (var dictionaryGroup in result.DictionaryGroups)
+            {
+                <tr class="active">
+                    <td>
+                        <strong>@dictionaryGroup.GroupName</strong>
+                    </td>
+                    <td colspan="@result.Options.Count"></td>
+                </tr>
+
+                foreach (var dictionaryItem in dictionaryGroup.DictionaryItems)
+                {
+                    <tr>
+                        <td>
+                            <span class="badge">@dictionaryItem.Badge</span>
+                            @dictionaryItem.ItemName
+                        </td>
+                        @Html.Partial("_ResultValue", dictionaryItem.Values)
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<br /><br />
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Application.Results.General()))
