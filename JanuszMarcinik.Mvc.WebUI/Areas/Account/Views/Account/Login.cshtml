@@ -4,30 +4,30 @@
     ViewBag.Title = "Logowanie";
 }
 
-<h2>@ViewBag.Title</h2>
-<div class="row">
-    <div class="col-sm-8">
-            @using (var form = Html.Bootstrap().Begin(new Form(MVC.Account.Account.Login(ViewBag.ReturnUrl)).Class("form-horizontal")
-                .LabelWidthSm(2).InputWidthSm(10)))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Logowanie przy użyciu lokalnego konta</h4>
-                <hr />
-                @Html.Bootstrap().ValidationSummary().Class("text-danger")
-                @form.FormGroup().TextBoxFor(m => m.Email)
-                @form.FormGroup().PasswordFor(m => m.Password)
-                @form.FormGroup().CheckBoxFor(m => m.RememberMe)
-                
-                @Html.Bootstrap().SubmitButton().Text("Zaloguj").Class("col-sm-offset-2")
-                <hr />
-                <p>@Html.Bootstrap().ActionLink("Utwórz nowe konto", MVC.Account.Account.Register())</p>
-                <p>@Html.Bootstrap().ActionLink("Zapomniałem hasła", MVC.Account.Account.ForgotPassword())</p>
-            }
-    </div>
-    <div class="col-sm-4">
-        @Html.Partial(MVC.Account.Account.Views._ExternalLoginsListPartial, new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-    </div>
-</div>
+<h2 class="center-block">
+    <span class="label label-primary center-block">@ViewBag.Title</span>
+</h2>
+
+@using (var form = Html.Bootstrap().Begin(new Form()))
+{
+    using (var panel = Html.Bootstrap().Begin(new Panel()))
+    {
+        using (panel.BeginBody())
+        {
+            @Html.AntiForgeryToken()
+            @Html.Bootstrap().ValidationSummary().Class("text-danger")
+
+            @form.FormGroup().TextBoxFor(m => m.Email)
+            @form.FormGroup().PasswordFor(m => m.Password)
+            @form.FormGroup().CheckBoxFor(m => m.RememberMe)
+        }
+
+        using (panel.BeginFooter())
+        {
+            @Html.Bootstrap().SubmitButton().Style(ButtonStyle.Primary).PrependIcon(FontAwesome.sign_in).Text("Zaloguj")
+        }
+    }
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

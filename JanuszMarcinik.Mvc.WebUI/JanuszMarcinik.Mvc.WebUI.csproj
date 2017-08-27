@@ -457,7 +457,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Account\Views\Image\" />
     <Folder Include="Areas\Application\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
