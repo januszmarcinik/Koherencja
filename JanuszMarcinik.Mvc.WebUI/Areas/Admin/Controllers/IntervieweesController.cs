@@ -56,7 +56,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             var model = new DeleteConfirmViewModel()
             {
                 Id = id,
-                ConfirmationText = "Czy na pewno usunąć ankietera wraz z jego odpowiedziami?",
+                ConfirmationText = "Czy na pewno usunąć respondenta wraz z jego odpowiedziami?",
             };
 
             return PartialView("_DeleteConfirm", model);
