@@ -55,7 +55,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 {
                     OrderNumber = model.OrderNumber,
                     Name = model.Name,
-                    Description = model.Description
+                    Description = model.Description,
+                    KeyType = model.KeyType
                 };
 
                 _questionnairesRepository.Create(questionnaire);
@@ -86,6 +87,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 questionnaire.OrderNumber = model.OrderNumber;
                 questionnaire.Name = model.Name;
                 questionnaire.Description = model.Description;
+                questionnaire.KeyType = model.KeyType;
 
                 _questionnairesRepository.Update(questionnaire);
 

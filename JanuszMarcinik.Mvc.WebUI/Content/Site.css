@@ -46,3 +46,8 @@
 .min-default-width {
     width: unset !important;
 }
+
+.badge {
+    background-color: #eaeae1 !important;
+    color: #000 !important;
+}

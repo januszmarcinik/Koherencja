@@ -1,4 +1,6 @@
-﻿using JanuszMarcinik.Mvc.Domain.DataSource;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
+using JanuszMarcinik.Mvc.Domain.Application.Keys;
+using JanuszMarcinik.Mvc.Domain.DataSource;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -24,5 +26,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires
         [Display(Name = "Opis")]
         [AllowHtml]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Typ klucza")]
+        public KeyType KeyType { get; set; }
     }
 }

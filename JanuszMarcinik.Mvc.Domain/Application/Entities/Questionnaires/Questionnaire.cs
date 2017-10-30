@@ -1,4 +1,5 @@
-﻿using JanuszMarcinik.Mvc.Domain.Data;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Keys;
+using JanuszMarcinik.Mvc.Domain.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         public string Name { get; set; }
         public int OrderNumber { get; set; }
         public string Description { get; set; }
+        public KeyType KeyType { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Result> Results { get; set; }

@@ -4,6 +4,7 @@ using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
+using JanuszMarcinik.Mvc.Domain.Application.Keys;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -98,7 +99,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                 {
                     var questionsIds = category.Questions.Select(x => x.QuestionId);
 
-                    model.Add(new ResultGeneral()
+                    var resultGeneral = new ResultGeneral()
                     {
                         QuestionnaireId = questionnaireId,
                         QuestionnaireName = questionnaire.Name,
@@ -108,6 +109,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         CategoryId = category.CategoryId,
                         CategoryName = category.Name,
                         IntervieweeCount = intervieweesIds.Count,
+                        QuestionsInCategoryCount = questionsIds.Count(),
 
                         PointsAvailableToGet = category.Questions
                             .Select(x => x.Answers
@@ -122,11 +124,14 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             .Select(x => x.Answer)
                             .Select(x => x.Points)
                             .DefaultIfEmpty(0)
-                            .Sum()
-                    });
+                            .Sum(),
+                    };
+                    resultGeneral.SetPartialValue(questionnaire.KeyType);
+
+                    model.Add(resultGeneral);
                 }
 
-                model.Add(new ResultGeneral()
+                var summaryResultGeneral = new ResultGeneral()
                 {
                     QuestionnaireId = questionnaireId,
                     QuestionnaireName = questionnaire.Name,
@@ -136,6 +141,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     CategoryId = 100,
                     CategoryName = "#",
                     IntervieweeCount = intervieweesIds.Count,
+                    QuestionsInCategoryCount = questionnaire.Questions.Count(),
 
                     PointsAvailableToGet = questionnaire.Questions
                             .Select(x => x.Answers
@@ -150,7 +156,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             .Select(x => x.Points)
                             .DefaultIfEmpty(0)
                             .Sum()
-                });
+                };
+                summaryResultGeneral.SetSummaryValue(questionnaire.KeyType);
+
+                model.Add(summaryResultGeneral);
             }
 
             return model;

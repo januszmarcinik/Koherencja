@@ -79,12 +79,15 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                                 .Where(x => x.CategoryId == categoryId)
                                 .FirstOrDefault();
 
-                            dictionaryItem.Values.Add(new ValueViewModel()
+                            var value = new ValueViewModel()
                             {
                                 Count = resultItem.PointsEarned,
                                 TotalCount = resultItem.TotalPointsAvailableToGet,
-                                Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}"
-                            });
+                                Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}",
+                            };
+                            value.SetValue(resultItem.Value, resultItem.ResultValueMark);
+
+                            dictionaryItem.Values.Add(value);
                         }
 
                         dictionaryGroup.DictionaryItems.Add(dictionaryItem);
@@ -153,12 +156,15 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                                 .Where(x => x.AnswerId == answerId)
                                 .FirstOrDefault();
 
-                            dictionaryItem.Values.Add(new ValueViewModel()
+                            var value = new ValueViewModel()
                             {
                                 Badge = resultItem.AnswersCount.ToString(),
                                 Count = resultItem.AnswersCount,
                                 TotalCount = resultItem.TotalAnswersCount
-                            });
+                            };
+                            value.SetValueByPercentage();
+
+                            dictionaryItem.Values.Add(value);
                         }
 
                         dictionaryGroup.DictionaryItems.Add(dictionaryItem);

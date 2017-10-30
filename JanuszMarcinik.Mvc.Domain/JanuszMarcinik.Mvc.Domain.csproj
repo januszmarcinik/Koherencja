@@ -123,12 +123,16 @@
     <Compile Include="Application\Entities\Questionnaires\Category.cs" />
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
+    <Compile Include="Application\Keys\LOTStenResult.cs" />
+    <Compile Include="Application\Keys\IZZStenResult.cs" />
+    <Compile Include="Application\Keys\KeyType.cs" />
     <Compile Include="Application\Entities\Questionnaires\Question.cs" />
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
     <Compile Include="Application\Models\ResultGeneral.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />
+    <Compile Include="Application\Models\ResultValueMark.cs" />
     <Compile Include="Application\Repositories\Abstract\ICategoriesRepository.cs" />
     <Compile Include="Application\Repositories\Concrete\CategoriesRepository.cs" />
     <Compile Include="DataSource\DataSource.cs" />
@@ -182,6 +186,10 @@
     <Compile Include="Migrations\201708201453211_004_change_interviewee_age_to_select_list.Designer.cs">
       <DependentUpon>201708201453211_004_change_interviewee_age_to_select_list.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710302046535_005_questionnaire_key_type.cs" />
+    <Compile Include="Migrations\201710302046535_005_questionnaire_key_type.Designer.cs">
+      <DependentUpon>201710302046535_005_questionnaire_key_type.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -209,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708201453211_004_change_interviewee_age_to_select_list.resx">
       <DependentUpon>201708201453211_004_change_interviewee_age_to_select_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710302046535_005_questionnaire_key_type.resx">
+      <DependentUpon>201710302046535_005_questionnaire_key_type.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

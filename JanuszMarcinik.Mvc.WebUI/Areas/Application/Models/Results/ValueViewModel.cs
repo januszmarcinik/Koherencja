@@ -1,48 +1,61 @@
-﻿namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
+﻿using JanuszMarcinik.Mvc.Domain.Application.Models;
+
+namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
 {
     public class ValueViewModel
     {
+        private const string CssClassLabelSuccess = "label label-success";
+        private const string CssClassLabelDanger = "label label-danger";
+        private const string CssClassLabelInfo = "label label-info";
+
         public int Count { get; set; }
         public int TotalCount { get; set; }
 
         public string Badge { get; set; }
 
-        public decimal Percentage
+        public decimal Value { get; private set; }
+        public string ResultCssClass { get; private set; }
+
+        public void SetValueByPercentage()
         {
-            get
+            if (this.TotalCount > 0)
             {
-                if (this.TotalCount > 0)
-                {
-                    return (decimal)this.Count / (decimal)this.TotalCount * 100;
-                }
-                else
-                {
-                    return 0;
-                }
+                Value = (decimal)this.Count / (decimal)this.TotalCount * 100;
+            }
+            else
+            {
+                Value = 0;
+            }
+
+            if (this.Value > 50)
+            {
+                ResultCssClass = CssClassLabelSuccess;
+            }
+            else if (this.Value < 10)
+            {
+                ResultCssClass = CssClassLabelDanger;
+            }
+            else
+            {
+                ResultCssClass = CssClassLabelInfo;
             }
         }
 
-        public string ResultValue
+        public void SetValue(decimal value, ResultValueMark resultValueMark)
         {
-            get { return $"{this.Percentage.ToString("N2")} %"; }
-        }
+            this.Value = value;
 
-        public string ResultCssClass
-        {
-            get
+            if (resultValueMark == ResultValueMark.High)
             {
-                if (this.Percentage > 50)
-                {
-                    return "label label-success";
-                }
-                else if (this.Percentage < 10)
-                {
-                    return "label label-danger";
-                }
-                else
-                {
-                    return "label label-info";
-                }
+                ResultCssClass = CssClassLabelSuccess;
+            }
+            else if (resultValueMark == ResultValueMark.Low)
+            {
+                ResultCssClass = CssClassLabelDanger;
+            }
+            else
+            {
+                ResultCssClass = CssClassLabelInfo;
             }
         }
     }

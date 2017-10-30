@@ -35,5 +35,9 @@
         {
             get { return this.PointsAvailableToGet * this.IntervieweeCount; }
         }
+
+        public int QuestionsInCategoryCount { get; set; }
+        public ResultValueMark ResultValueMark { get; set; }
+        public decimal Value { get; set; }
     }
 }
