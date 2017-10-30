@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
-using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +35,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var model = new ResultsListViewModel()
             {
                 Title = "Wyniki wg ankiet",
-                Results = new List<ResultsViewModel>()
+                Results = new List<ResultsViewModel>(),
+                Legend = LegendViewModel.General()
             };
 
             foreach (var questionnaire in _questionnairesRepository.GetList())
@@ -109,7 +108,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var model = new ResultsListViewModel()
             {
                 Title = _questionnairesRepository.GetById(questionnaireId).Name,
-                Results = new List<ResultsViewModel>()
+                Results = new List<ResultsViewModel>(),
+                Legend = LegendViewModel.Details()
             };
 
             var questionsIds = results.Select(x => x.QuestionId).Distinct();

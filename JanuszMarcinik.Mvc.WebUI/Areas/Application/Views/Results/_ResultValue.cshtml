@@ -4,17 +4,13 @@
 @foreach (var answerResult in Model)
 {
     <td>
-        <div class="row">
-            <div class="col-sm-4">
-                <span class="badge">
-                    @answerResult.Badge
-                </span>
-            </div>
-            <div class="col-sm-8">
-                <span class="@answerResult.ResultCssClass" style="font-size: 100% !important;">
-                    @answerResult.ResultValue
-                </span>
-            </div>
-        </div>
+        <span class="badge">
+            @answerResult.Badge
+        </span>
+    </td>
+    <td>
+        <span class="@answerResult.ResultCssClass" style="font-size: 100% !important;">
+            @answerResult.ResultValue
+        </span>
     </td>
 }

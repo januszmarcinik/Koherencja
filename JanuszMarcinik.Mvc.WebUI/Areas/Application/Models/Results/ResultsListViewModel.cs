@@ -6,5 +6,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
     {
         public string Title { get; set; }
         public List<ResultsViewModel> Results { get; set; }
+        public LegendViewModel Legend { get; set; }
     }
 }
