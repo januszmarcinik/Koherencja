@@ -12,6 +12,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         public Interviewee()
         {
             this.Results = new HashSet<Result>();
+            this.Scores = new HashSet<Score>();
         }
 
         public int IntervieweeId { get; set; }
@@ -46,5 +47,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         public virtual BaseDictionary MaterialStatus { get; set; }
 
         public virtual ICollection<Result> Results { get; set; }
+        public virtual ICollection<Score> Scores { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
             this.Questions = new HashSet<Question>();
             this.Results = new HashSet<Result>();
             this.Categories = new HashSet<Category>();
+            this.Scores = new HashSet<Score>();
         }
 
         public int QuestionnaireId { get; set; }
@@ -25,5 +26,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Score> Scores { get; set; }
     }
 }

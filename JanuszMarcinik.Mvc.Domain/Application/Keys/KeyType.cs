@@ -8,7 +8,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Keys
     {
         [Description("-- Brak --")]
         None = 0,
-        LOT = 1,
+        LOTR = 1,
         IZZ = 2,
         WHOQOL = 3
     }
@@ -58,7 +58,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Keys
         {
             switch (keyType)
             {
-                case KeyType.LOT:
+                case KeyType.LOTR:
                     {
                         resultGeneral.Value = LOTStenResult.GetResult(resultGeneral.AveragePointsEarned);
                         resultGeneral.ResultValueMark = GetBySten((int)resultGeneral.Value);

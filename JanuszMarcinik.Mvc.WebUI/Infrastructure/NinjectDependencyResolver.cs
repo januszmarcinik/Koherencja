@@ -40,6 +40,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Infrastructure
             kernel.Bind<IQuestionsRepository>().To<QuestionsRepository>().InRequestScope();
             kernel.Bind<IResultsRepository>().To<ResultsRepository>().InRequestScope();
             kernel.Bind<ICategoriesRepository>().To<CategoriesRepository>().InRequestScope();
+            kernel.Bind<IScoresRepository>().To<ScoresRepository>().InRequestScope();
         }
     }
 }

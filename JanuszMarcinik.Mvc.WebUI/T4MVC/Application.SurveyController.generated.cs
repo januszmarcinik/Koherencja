@@ -132,12 +132,14 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _WHOQOL_PartTable = "_WHOQOL_PartTable";
                 public readonly string IntervieweeInfo = "IntervieweeInfo";
                 public readonly string IZZ = "IZZ";
                 public readonly string LOT = "LOT";
                 public readonly string ThankYou = "ThankYou";
                 public readonly string WHOQOL = "WHOQOL";
             }
+            public readonly string _WHOQOL_PartTable = "~/Areas/Application/Views/Survey/_WHOQOL_PartTable.cshtml";
             public readonly string IntervieweeInfo = "~/Areas/Application/Views/Survey/IntervieweeInfo.cshtml";
             public readonly string IZZ = "~/Areas/Application/Views/Survey/IZZ.cshtml";
             public readonly string LOT = "~/Areas/Application/Views/Survey/LOT.cshtml";

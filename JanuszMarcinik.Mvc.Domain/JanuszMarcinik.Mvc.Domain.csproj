@@ -123,6 +123,7 @@
     <Compile Include="Application\Entities\Questionnaires\Category.cs" />
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
+    <Compile Include="Application\Entities\Questionnaires\Score.cs" />
     <Compile Include="Application\Keys\LOTStenResult.cs" />
     <Compile Include="Application\Keys\IZZStenResult.cs" />
     <Compile Include="Application\Keys\KeyType.cs" />
@@ -135,7 +136,9 @@
     <Compile Include="Application\Models\ResultDetail.cs" />
     <Compile Include="Application\Models\ResultValueMark.cs" />
     <Compile Include="Application\Repositories\Abstract\ICategoriesRepository.cs" />
+    <Compile Include="Application\Repositories\Abstract\IScoresRepository.cs" />
     <Compile Include="Application\Repositories\Concrete\CategoriesRepository.cs" />
+    <Compile Include="Application\Repositories\Concrete\ScoresRepository.cs" />
     <Compile Include="DataSource\DataSource.cs" />
     <Compile Include="DataSource\GridAttribute.cs" />
     <Compile Include="DataSource\GridCell.cs" />
@@ -191,6 +194,10 @@
     <Compile Include="Migrations\201710302046535_005_questionnaire_key_type.Designer.cs">
       <DependentUpon>201710302046535_005_questionnaire_key_type.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711011515095_006_scores.cs" />
+    <Compile Include="Migrations\201711011515095_006_scores.Designer.cs">
+      <DependentUpon>201711011515095_006_scores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710302046535_005_questionnaire_key_type.resx">
       <DependentUpon>201710302046535_005_questionnaire_key_type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711011515095_006_scores.resx">
+      <DependentUpon>201711011515095_006_scores.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

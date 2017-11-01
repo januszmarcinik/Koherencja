@@ -74,7 +74,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         #region LOT()
         public virtual ActionResult LOT()
         {
-            var lot = _questionnairesRepository.GetByType(KeyType.LOT);
+            var lot = _questionnairesRepository.GetByType(KeyType.LOTR);
             var model = new LOTViewModel(lot);
             return View(model);
         }

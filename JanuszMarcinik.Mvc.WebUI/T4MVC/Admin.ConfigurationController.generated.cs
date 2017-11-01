@@ -28,9 +28,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
     public partial class ConfigurationController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ConfigurationController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected ConfigurationController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -76,12 +73,14 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string RecalculateScores = "RecalculateScores";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string RecalculateScores = "RecalculateScores";
         }
 
 
@@ -114,6 +113,17 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RecalculateScoresOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RecalculateScores()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecalculateScores);
+            RecalculateScoresOverride(callInfo);
             return callInfo;
         }
 

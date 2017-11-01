@@ -23,6 +23,7 @@ namespace JanuszMarcinik.Mvc.Domain.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Interviewee> Interviewees { get; set; }
         public DbSet<Result> Results { get; set; }
+        public DbSet<Score> Scores { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<BaseDictionary> BaseDictionaries { get; set; }
 
@@ -47,6 +48,12 @@ namespace JanuszMarcinik.Mvc.Domain.Data
                         .WithRequired(s => s.Questionnaire)
                         .HasForeignKey(s => s.QuestionnaireId)
                         .WillCascadeOnDelete(false);
+
+            // Questionnaire -> Scores
+            modelBuilder.Entity<Questionnaire>()
+                        .HasMany<Score>(s => s.Scores)
+                        .WithRequired(s => s.Questionnaire)
+                        .HasForeignKey(s => s.QuestionnaireId);
 
             // Category -> Questions
             modelBuilder.Entity<Category>()
@@ -77,6 +84,12 @@ namespace JanuszMarcinik.Mvc.Domain.Data
             // Interviewee -> Results
             modelBuilder.Entity<Interviewee>()
                         .HasMany<Result>(s => s.Results)
+                        .WithRequired(s => s.Interviewee)
+                        .HasForeignKey(s => s.IntervieweeId);
+
+            // Interviewee -> Scores
+            modelBuilder.Entity<Interviewee>()
+                        .HasMany<Score>(s => s.Scores)
                         .WithRequired(s => s.Interviewee)
                         .HasForeignKey(s => s.IntervieweeId);
 
@@ -128,6 +141,9 @@ namespace JanuszMarcinik.Mvc.Domain.Data
                         .WithRequired(s => s.Age)
                         .HasForeignKey(s => s.AgeId)
                         .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Score>()
+                .Property(x => x.Value).HasPrecision(6, 2);
             #endregion
         }
     }
