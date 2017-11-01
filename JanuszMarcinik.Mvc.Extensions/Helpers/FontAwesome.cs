@@ -258,6 +258,7 @@
         public const string hand_o_left = "fa fa-fw fa-hand-o-left";
         public const string hand_o_right = "fa fa-fw fa-hand-o-right";
         public const string hand_o_up = "fa fa-fw fa-hand-o-up";
+        public const string hashtag = "fa fa-fw fa-hashtag";
         public const string hdd_o = "fa fa-fw fa-hdd-o";
         public const string header = "fa fa-fw fa-header";
         public const string headphones = "fa fa-fw fa-headphones";

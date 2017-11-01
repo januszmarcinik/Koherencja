@@ -130,6 +130,7 @@
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
     <Compile Include="Application\Managers\ImageManager.cs" />
+    <Compile Include="Application\Models\IntervieweeResult.cs" />
     <Compile Include="Application\Models\ResultGeneral.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />
     <Compile Include="Application\Models\ResultValueMark.cs" />

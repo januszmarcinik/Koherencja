@@ -10,5 +10,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         BaseDictionary Create(BaseDictionary entity);
         BaseDictionary Update(BaseDictionary entity);
         void Delete(long id);
+        string GetValueOrEmptyIfNull(int? id);
     }
 }

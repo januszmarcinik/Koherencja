@@ -5,6 +5,7 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.Application.Keys;
+using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -163,6 +164,100 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             }
 
             return model;
+        }
+        #endregion
+
+        #region GetIntervieweeResults()
+        public List<IntervieweeQuestionnaireResult> GetIntervieweeResults(List<int> intervieweesIds)
+        {
+            var intervieweeQuestionnaireResults = new List<IntervieweeQuestionnaireResult>();
+
+            foreach (var questionnaire in context.Questionnaires)
+            {
+                var intervieweeQuestionnaireResult = new IntervieweeQuestionnaireResult();
+                intervieweeQuestionnaireResult.QuestionnaireId = questionnaire.QuestionnaireId;
+                intervieweeQuestionnaireResult.QuestionnaireName = questionnaire.Name;
+                intervieweeQuestionnaireResult.IntervieweeResults = new List<IntervieweeResult>();
+
+                foreach (var category in questionnaire.Categories)
+                {
+                    var questionsIds = category.Questions.Select(x => x.QuestionId);
+                    var results = new List<decimal>();
+
+                    foreach (var intervieweesId in intervieweesIds)
+                    {
+                        var resultGeneral = new ResultGeneral()
+                        {
+                            IntervieweeCount = 1,
+                            QuestionsInCategoryCount = questionsIds.Count(),
+
+                            PointsAvailableToGet = category.Questions
+                                .Select(x => x.Answers
+                                    .Select(p => p.Points)
+                                    .DefaultIfEmpty(0)
+                                    .Max())
+                                .Sum(),
+
+                            PointsEarned = context.Results
+                                .Where(x => questionsIds.Contains(x.QuestionId))
+                                .Where(x => x.IntervieweeId == intervieweesId)
+                                .Select(x => x.Answer)
+                                .Select(x => x.Points)
+                                .DefaultIfEmpty(0)
+                                .Sum(),
+                        };
+                        resultGeneral.SetPartialValue(questionnaire.KeyType);
+                        results.Add(resultGeneral.Value);
+                    }
+                    
+                    var intervieweeResult = new IntervieweeResult()
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.Name
+                    };
+                    intervieweeResult.SetResults(results);
+
+                    intervieweeQuestionnaireResult.IntervieweeResults.Add(intervieweeResult);
+                }
+
+                var summaryResults = new List<decimal>();
+                foreach (var intervieweesId in intervieweesIds)
+                {
+                    var summaryResultGeneral = new ResultGeneral()
+                    {
+                        IntervieweeCount = 1,
+                        QuestionsInCategoryCount = questionnaire.Questions.Count(),
+
+                        PointsAvailableToGet = questionnaire.Questions
+                            .Select(x => x.Answers
+                                .Select(p => p.Points)
+                                .DefaultIfEmpty(0)
+                                .Max())
+                            .Sum(),
+
+                        PointsEarned = questionnaire.Results
+                            .Where(x => x.IntervieweeId == intervieweesId)
+                            .Select(x => x.Answer)
+                            .Select(x => x.Points)
+                            .DefaultIfEmpty(0)
+                            .Sum()
+                    };
+                    summaryResultGeneral.SetSummaryValue(questionnaire.KeyType);
+                    summaryResults.Add(summaryResultGeneral.Value);
+                }
+
+                var summaryIntervieweeResult = new IntervieweeResult()
+                {
+                    CategoryId = null,
+                    CategoryName = "#"
+                };
+                summaryIntervieweeResult.SetResults(summaryResults);
+
+                intervieweeQuestionnaireResult.IntervieweeResults.Add(summaryIntervieweeResult);
+                intervieweeQuestionnaireResults.Add(intervieweeQuestionnaireResult);
+            }
+
+            return intervieweeQuestionnaireResults;
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 1. Liczba wszystkich ankietowanych ogółem
 2. Średnia arytmetyczna wyników wszystich respondentów z poszczególnch ankiet.
-3. Najczęściej powtarzający się wynik (STEN)
+3. Najczęściej powtarzający się wynik (STEN) Modalna
 4. Minimalny
 5. Maksymalny
 6. Odchylenie standardowe

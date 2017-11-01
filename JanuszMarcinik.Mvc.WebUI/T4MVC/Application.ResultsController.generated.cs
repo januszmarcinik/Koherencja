@@ -62,6 +62,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult IntervieweeResults()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeResults);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ResultsController Actions { get { return MVC.Application.Results; } }
@@ -80,6 +86,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             public readonly string General = "General";
             public readonly string Details = "Details";
+            public readonly string IntervieweeResults = "IntervieweeResults";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -87,6 +94,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             public const string General = "General";
             public const string Details = "Details";
+            public const string IntervieweeResults = "IntervieweeResults";
         }
 
 
@@ -98,6 +106,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             public readonly string questionnaireId = "questionnaireId";
         }
+        static readonly ActionParamsClass_IntervieweeResults s_params_IntervieweeResults = new ActionParamsClass_IntervieweeResults();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IntervieweeResults IntervieweeResultsParams { get { return s_params_IntervieweeResults; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IntervieweeResults
+        {
+            public readonly string ageId = "ageId";
+            public readonly string sexId = "sexId";
+            public readonly string educationId = "educationId";
+            public readonly string martialStatusId = "martialStatusId";
+            public readonly string materialStatusId = "materialStatusId";
+            public readonly string placeOfResidenceId = "placeOfResidenceId";
+            public readonly string seniorityId = "seniorityId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -108,10 +130,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _AnswerResults = "_AnswerResults";
+                public readonly string _ResultValue = "_ResultValue";
+                public readonly string IntervieweeResults = "IntervieweeResults";
                 public readonly string Results = "Results";
             }
-            public readonly string _AnswerResults = "~/Areas/Application/Views/Results/_AnswerResults.cshtml";
+            public readonly string _ResultValue = "~/Areas/Application/Views/Results/_ResultValue.cshtml";
+            public readonly string IntervieweeResults = "~/Areas/Application/Views/Results/IntervieweeResults.cshtml";
             public readonly string Results = "~/Areas/Application/Views/Results/Results.cshtml";
         }
     }
@@ -141,6 +165,24 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "questionnaireId", questionnaireId);
             DetailsOverride(callInfo, questionnaireId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IntervieweeResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult IntervieweeResults(int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeResults);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ageId", ageId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sexId", sexId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "educationId", educationId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "martialStatusId", martialStatusId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "materialStatusId", materialStatusId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "placeOfResidenceId", placeOfResidenceId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "seniorityId", seniorityId);
+            IntervieweeResultsOverride(callInfo, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId);
             return callInfo;
         }
 

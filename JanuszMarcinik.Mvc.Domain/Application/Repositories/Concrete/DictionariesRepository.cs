@@ -42,5 +42,17 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             context.BaseDictionaries.Remove(entity);
             context.SaveChanges();
         }
+
+        public string GetValueOrEmptyIfNull(int? id)
+        {
+            if (id.HasValue)
+            {
+                return GetById(id.Value)?.Value;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

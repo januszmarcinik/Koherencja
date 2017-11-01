@@ -52,4 +52,7 @@
 }
 
 @Html.ButtonsFooter(
-    Html.Bootstrap().BackButton(MVC.Application.Home.Index()))
+    Html.Bootstrap().BackButton(MVC.Application.Home.Index()),
+    Html.Bootstrap().ActionLinkButton("Zobacz wyniki dla aktualnych filtrów", 
+        MVC.Application.Results.IntervieweeResults(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId))
+        .PrependIcon(FontAwesome.hashtag).Style(ButtonStyle.Primary))

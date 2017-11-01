@@ -1,0 +1,75 @@
+﻿@using JanuszMarcinik.Mvc.Domain.Application.Models
+@model IntervieweeResultsByFilters
+
+@{
+    ViewBag.Title = "Wyniki dla wybranych filtrów";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">Wyniki dla wybranych filtrów</span>
+</h2>
+
+@using (var panel = Html.Bootstrap().Begin(new Panel()))
+{
+    using (panel.BeginBody())
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Sex).PrependIcon(FontAwesome.venus_mars).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Age).PrependIcon(FontAwesome.user_circle).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Seniority).PrependIcon(FontAwesome.user_md).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MaterialStatus).PrependIcon(FontAwesome.money).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.PlaceOfResidence).PrependIcon(FontAwesome.building).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Education).PrependIcon(FontAwesome.graduation_cap).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MartialStatus).PrependIcon(FontAwesome.users).Readonly()
+            </div>
+        </div>
+    }
+}
+
+@foreach (var result in Model.IntervieweeQuestionnaireResults)
+{
+    <table class="table table-condensed table-bordered table-hover table-responsive">
+        <thead>
+            <tr class="bg-info">
+                <th colspan="8" class="text-center">@result.QuestionnaireName</th>
+            </tr>
+            <tr class="bg-info">
+                <th></th>
+                <th class="text-center">N</th>
+                <th class="text-center">Śr</th>
+                <th class="text-center">Mod</th>
+                <th class="text-center">Me</th>
+                <th class="text-center">Min</th>
+                <th class="text-center">Max</th>
+                <th class="text-center">S</th>
+            </tr>
+        </thead>
+
+        <tbody class="text-center">
+            @foreach (var category in result.IntervieweeResults)
+            {
+                <tr>
+                    <td>@category.CategoryName</td>
+                    <td>@category.Count</td>
+                    <td>@category.Average</td>
+                    <td>@category.Mode</td>
+                    <td>@category.Median</td>
+                    <td>@category.Minimum</td>
+                    <td>@category.Maximum</td>
+                    <td>@category.Deviation</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<br /><br />
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Admin.Interviewees.List()))

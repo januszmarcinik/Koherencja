@@ -24,7 +24,16 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #region List()
         public virtual ActionResult List(IntervieweeDataSource datasource = null)
         {
-            datasource.Data = Mapper.Map<List<IntervieweeViewModel>>(_intervieweesRepository.GetList());
+            datasource.Data = Mapper.Map<List<IntervieweeViewModel>>(_intervieweesRepository.GetList(
+                dateFrom: datasource.DateFrom,
+                dateTo: datasource.DateTo,
+                ageId: datasource.AgeId,
+                educationId: datasource.EducationId,
+                martialStatusId: datasource.MartialStatusId,
+                materialStatusId: datasource.MaterialStatusId,
+                placeOfResidenceId: datasource.PlaceOfResidenceId,
+                seniorityId: datasource.SeniorityId,
+                sexId: datasource.SexId));
             datasource.Initialize();
             datasource.SetDictionaries(_dictionariesRepository.GetList());
 

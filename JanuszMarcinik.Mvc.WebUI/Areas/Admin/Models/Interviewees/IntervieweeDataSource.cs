@@ -51,51 +51,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
 
         protected override void Filter()
         {
-            if (this.DateFrom.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.InterviewDate >= this.DateFrom);
-            }
-
-            if (this.DateTo.HasValue)
-            {
-                var dateTo = this.DateTo.Value.AddDays(1);
-                this.Data = this.Data.Where(x => x.InterviewDate <= dateTo);
-            }
-
-            if (this.AgeId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.AgeId == this.AgeId);
-            }
-
-            if (this.SexId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.SexId == this.SexId);
-            }
-
-            if (this.EducationId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.EducationId == this.EducationId);
-            }
-
-            if (this.MartialStatusId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.MartialStatusId == this.MartialStatusId);
-            }
-
-            if (this.MaterialStatusId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.MaterialStatusId == this.MaterialStatusId);
-            }
-
-            if (this.PlaceOfResidenceId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.PlaceOfResidenceId == this.PlaceOfResidenceId);
-            }
-
-            if (this.SeniorityId.HasValue)
-            {
-                this.Data = this.Data.Where(x => x.SeniorityId == this.SeniorityId);
-            }
         }
 
         protected override void SetEditActions()

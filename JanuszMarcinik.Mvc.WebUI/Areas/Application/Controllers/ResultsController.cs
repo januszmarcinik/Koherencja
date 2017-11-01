@@ -1,4 +1,6 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
+using JanuszMarcinik.Mvc.Domain.Application.Models;
+using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System.Collections.Generic;
 using System.Linq;
@@ -177,6 +179,37 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             }
 
             return View(MVC.Application.Results.Views.Results, model);
+        }
+        #endregion
+
+        #region IntervieweeResults()
+        public virtual ActionResult IntervieweeResults(int? ageId, int? sexId, int? educationId, int? martialStatusId, 
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        {
+            var intervieweesIds = _intervieweesRepository.GetList(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId)
+                .Select(x => x.IntervieweeId)
+                .ToList();
+
+            var model = new IntervieweeResultsByFilters()
+            {
+                Age = _dictionariesRepository.GetValueOrEmptyIfNull(ageId),
+                Sex = _dictionariesRepository.GetValueOrEmptyIfNull(sexId),
+                Education = _dictionariesRepository.GetValueOrEmptyIfNull(educationId),
+                MartialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(martialStatusId),
+                MaterialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(materialStatusId),
+                PlaceOfResidence = _dictionariesRepository.GetValueOrEmptyIfNull(placeOfResidenceId),
+                Seniority = _dictionariesRepository.GetValueOrEmptyIfNull(seniorityId),
+                IntervieweeQuestionnaireResults = _resultsRepository.GetIntervieweeResults(intervieweesIds)
+            };
+
+            return View(model);
         }
         #endregion
     }
