@@ -1,4 +1,4 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.Keys;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

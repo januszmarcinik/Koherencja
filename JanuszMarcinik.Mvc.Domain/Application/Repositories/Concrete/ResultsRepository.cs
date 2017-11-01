@@ -4,7 +4,6 @@ using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
 using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
-using JanuszMarcinik.Mvc.Domain.Application.Keys;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -93,68 +92,44 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                 foreach (var category in questionnaire.Categories)
                 {
                     var questionsIds = category.Questions.Select(x => x.QuestionId);
+                    var catogryScores = context.Scores
+                        .Where(x => x.QuestionnaireId == questionnaireId)
+                        .Where(x => x.CategoryId == category.CategoryId)
+                        .Where(x => intervieweesIds.Contains(x.IntervieweeId));
 
-                    var resultGeneral = new ResultGeneral()
+                    model.Add(new ResultGeneral()
                     {
-                        QuestionnaireId = questionnaireId,
-                        QuestionnaireName = questionnaire.Name,
+                        KeyType = questionnaire.KeyType,
                         BaseDictionaryId = dictionary.BaseDictionaryId,
                         BaseDictionaryValue = dictionary.Value,
                         DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
                         CategoryId = category.CategoryId,
                         CategoryName = category.Name,
                         IntervieweeCount = intervieweesIds.Count,
-                        QuestionsInCategoryCount = questionsIds.Count(),
-
-                        PointsAvailableToGet = category.Questions
-                            .Select(x => x.Answers
-                                .Select(p => p.Points)
-                                .DefaultIfEmpty(0)
-                                .Max())
-                            .Sum(),
-
-                        PointsEarned = context.Results
-                            .Where(x => questionsIds.Contains(x.QuestionId))
-                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
-                            .Select(x => x.Answer)
-                            .Select(x => x.Points)
-                            .DefaultIfEmpty(0)
-                            .Sum(),
-                    };
-                    resultGeneral.SetPartialValue(questionnaire.KeyType);
-
-                    model.Add(resultGeneral);
+                        PointsAvailableToGet = category.Questions.Sum(x => x.Answers.Max(p => p.Points)),
+                        AveragePointsEarned = (int)catogryScores.Select(x => x.PointsEarned).DefaultIfEmpty(0).Average(),
+                        AverageScoreValue = catogryScores.Select(x => x.Value).DefaultIfEmpty(0).Average()
+                    });
                 }
 
-                var summaryResultGeneral = new ResultGeneral()
+                var scores = context.Scores
+                        .Where(x => x.QuestionnaireId == questionnaireId)
+                        .Where(x => !x.CategoryId.HasValue)
+                        .Where(x => intervieweesIds.Contains(x.IntervieweeId));
+
+                model.Add(new ResultGeneral()
                 {
-                    QuestionnaireId = questionnaireId,
-                    QuestionnaireName = questionnaire.Name,
+                    KeyType = questionnaire.KeyType,
                     BaseDictionaryId = dictionary.BaseDictionaryId,
                     BaseDictionaryValue = dictionary.Value,
                     DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
-                    CategoryId = 100,
+                    CategoryId = null,
                     CategoryName = "#",
                     IntervieweeCount = intervieweesIds.Count,
-                    QuestionsInCategoryCount = questionnaire.Questions.Count(),
-
-                    PointsAvailableToGet = questionnaire.Questions
-                            .Select(x => x.Answers
-                                .Select(p => p.Points)
-                                .DefaultIfEmpty(0)
-                                .Max())
-                            .Sum(),
-
-                    PointsEarned = questionnaire.Results
-                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
-                            .Select(x => x.Answer)
-                            .Select(x => x.Points)
-                            .DefaultIfEmpty(0)
-                            .Sum()
-                };
-                summaryResultGeneral.SetSummaryValue(questionnaire.KeyType);
-
-                model.Add(summaryResultGeneral);
+                    PointsAvailableToGet = questionnaire.Questions.Sum(x => x.Answers.Max(p => p.Points)),
+                    AveragePointsEarned = (int)scores.Select(x => x.PointsEarned).DefaultIfEmpty(0).Average(),
+                    AverageScoreValue = scores.Select(x => x.Value).DefaultIfEmpty(0).Average()
+                });
             }
 
             return model;

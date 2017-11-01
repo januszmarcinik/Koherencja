@@ -18,9 +18,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         private readonly IResultsRepository _resultsRepository;
         private readonly IDictionariesRepository _dictionariesRepository;
         private readonly IIntervieweesRepository _intervieweesRepository;
+        private readonly IScoresRepository _scoresRepository;
 
         public ResultsController(IResultsRepository resultsRepository, IDictionariesRepository dictionariesRepository, IQuestionnairesRepository questionnairesRepository,
-            IAnswersRepository answersRepository, IIntervieweesRepository intervieweesRepository, IQuestionsRepository questionsRepository)
+            IAnswersRepository answersRepository, IIntervieweesRepository intervieweesRepository, IQuestionsRepository questionsRepository, IScoresRepository scoresRepository)
         {
             this._resultsRepository = resultsRepository;
             this._dictionariesRepository = dictionariesRepository;
@@ -28,6 +29,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             this._answersRepository = answersRepository;
             this._intervieweesRepository = intervieweesRepository;
             this._questionsRepository = questionsRepository;
+            this._scoresRepository = scoresRepository;
         }
         #endregion
 
@@ -66,10 +68,11 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     var dictionaryItemsIds = results.Where(x => x.DictionaryTypeName == dictionaryType).Select(x => x.BaseDictionaryId).Distinct();
                     foreach (var itemId in dictionaryItemsIds)
                     {
+                        var resultDictItem = results.First(x => x.BaseDictionaryId == itemId);
                         var dictionaryItem = new DictionaryItemViewModel()
                         {
-                            ItemName = _dictionariesRepository.GetById(itemId).Value,
-                            Badge = results.First(x => x.BaseDictionaryId == itemId).IntervieweeCount.ToString(),
+                            ItemName = resultDictItem.BaseDictionaryValue,
+                            Badge = resultDictItem.IntervieweeCount.ToString(),
                             Values = new List<ValueViewModel>()
                         };
 
@@ -81,13 +84,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                                 .Where(x => x.CategoryId == categoryId)
                                 .FirstOrDefault();
 
-                            var value = new ValueViewModel()
-                            {
-                                Count = resultItem.PointsEarned,
-                                TotalCount = resultItem.TotalPointsAvailableToGet,
-                                Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}",
-                            };
-                            value.SetValue(resultItem.Value, resultItem.ResultValueMark);
+                            var value = new ValueViewModel();
+                            value.Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}";
+                            value.SetValue(resultItem.AverageScoreValue, _scoresRepository.GetScoreValueMark(resultItem.KeyType, true, resultItem.AverageScoreValue));
 
                             dictionaryItem.Values.Add(value);
                         }

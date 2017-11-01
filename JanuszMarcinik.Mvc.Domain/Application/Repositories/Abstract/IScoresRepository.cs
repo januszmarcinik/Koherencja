@@ -1,5 +1,4 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
-using System.Collections.Generic;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Models;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
 {
@@ -7,5 +6,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
     {
         void RecalculateScores();
         void Create(int intervieweeId);
+        ScoreValueMark GetScoreValueMark(KeyType keyType, bool isCategorized, decimal value);
     }
 }

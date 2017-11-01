@@ -1,5 +1,4 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
-using JanuszMarcinik.Mvc.Domain.Application.Keys;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.DataSource;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;

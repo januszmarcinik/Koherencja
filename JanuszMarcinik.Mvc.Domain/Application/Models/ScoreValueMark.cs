@@ -1,6 +1,6 @@
 ﻿namespace JanuszMarcinik.Mvc.Domain.Application.Models
 {
-    public enum ResultValueMark
+    public enum ScoreValueMark
     {
         Low,
         Medium,

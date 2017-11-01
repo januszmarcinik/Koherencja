@@ -13,25 +13,26 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
 
         public string Badge { get; set; }
 
-        public decimal Value { get; private set; }
+        public string Value { get; private set; }
         public string ResultCssClass { get; private set; }
 
         public void SetValueByPercentage()
         {
+            decimal value = 0;
             if (this.TotalCount > 0)
             {
-                Value = (decimal)this.Count / (decimal)this.TotalCount * 100;
+                value = (decimal)this.Count / (decimal)this.TotalCount * 100;
             }
             else
             {
-                Value = 0;
+                value = 0;
             }
 
-            if (this.Value > 50)
+            if (value > 50)
             {
                 ResultCssClass = CssClassLabelSuccess;
             }
-            else if (this.Value < 10)
+            else if (value < 10)
             {
                 ResultCssClass = CssClassLabelDanger;
             }
@@ -39,17 +40,19 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
             {
                 ResultCssClass = CssClassLabelInfo;
             }
+
+            Value = value.TwoOrZeroDecimalPlaces();
         }
 
-        public void SetValue(decimal value, ResultValueMark resultValueMark)
+        public void SetValue(decimal value, ScoreValueMark resultValueMark)
         {
-            this.Value = value;
+            this.Value = value.TwoOrZeroDecimalPlaces();
 
-            if (resultValueMark == ResultValueMark.High)
+            if (resultValueMark == ScoreValueMark.High)
             {
                 ResultCssClass = CssClassLabelSuccess;
             }
-            else if (resultValueMark == ResultValueMark.Low)
+            else if (resultValueMark == ScoreValueMark.Low)
             {
                 ResultCssClass = CssClassLabelDanger;
             }

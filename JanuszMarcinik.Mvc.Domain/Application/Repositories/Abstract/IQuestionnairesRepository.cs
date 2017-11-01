@@ -1,5 +1,5 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
-using JanuszMarcinik.Mvc.Domain.Application.Keys;
+using JanuszMarcinik.Mvc.Domain.Application.Models;
 using System.Collections.Generic;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract

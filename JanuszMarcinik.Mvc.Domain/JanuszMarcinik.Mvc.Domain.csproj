@@ -124,9 +124,7 @@
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
     <Compile Include="Application\Entities\Questionnaires\Score.cs" />
-    <Compile Include="Application\Keys\LOTStenResult.cs" />
-    <Compile Include="Application\Keys\IZZStenResult.cs" />
-    <Compile Include="Application\Keys\KeyType.cs" />
+    <Compile Include="Application\Models\KeyType.cs" />
     <Compile Include="Application\Entities\Questionnaires\Question.cs" />
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
     <Compile Include="Application\Entities\Questionnaires\Result.cs" />
@@ -134,7 +132,7 @@
     <Compile Include="Application\Models\IntervieweeResult.cs" />
     <Compile Include="Application\Models\ResultGeneral.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />
-    <Compile Include="Application\Models\ResultValueMark.cs" />
+    <Compile Include="Application\Models\ScoreValueMark.cs" />
     <Compile Include="Application\Repositories\Abstract\ICategoriesRepository.cs" />
     <Compile Include="Application\Repositories\Abstract\IScoresRepository.cs" />
     <Compile Include="Application\Repositories\Concrete\CategoriesRepository.cs" />
@@ -147,6 +145,7 @@
     <Compile Include="DataSource\IGrid.cs" />
     <Compile Include="DataSource\PageSize.cs" />
     <Compile Include="DataSource\SortOrder.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Extensions\EnumHelper.cs" />
     <Compile Include="Identity\Entities\Role.cs" />
     <Compile Include="Identity\Entities\User.cs" />
@@ -233,7 +232,9 @@
       <DependentUpon>201711011515095_006_scores.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Application\Keys\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

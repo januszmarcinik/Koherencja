@@ -1,5 +1,5 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
-using JanuszMarcinik.Mvc.Domain.Application.Keys;
+using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey;
