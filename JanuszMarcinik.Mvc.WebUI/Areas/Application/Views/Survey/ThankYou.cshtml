@@ -5,16 +5,17 @@
 <br />
 @using (var panel = Html.Bootstrap().Begin(new Panel().Style(TwitterBootstrapMVC.Infrastructure.Enums.PanelStyle.Primary)))
 {
-    using (panel.BeginHeading())
-    {
-        <i class="@FontAwesome.check_square_o" aria-hidden="true"></i>
-        <span> Dziękuję za wypełnienie ankiety!</span>
-    }
-
     using (panel.BeginBody())
     {
-        <p style="font-size: larger; font-weight: bold;">
-            Dziękuję za poświęcony czas na wypełnienie ankiety.
-        </p>
+        <br />
+        <br />
+        <br />
+        <h1 class="text-center">
+            <strong>Dziękuję za wypełnienie ankiety.</strong>
+        </h1>
+        <hr />
+        <br />
+        <br />
+        <br />
     }
 }

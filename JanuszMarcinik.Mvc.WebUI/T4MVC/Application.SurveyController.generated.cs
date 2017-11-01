@@ -56,12 +56,6 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FillSurvey()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FillSurvey);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SurveyController Actions { get { return MVC.Application.Survey; } }
@@ -79,14 +73,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         public class ActionNamesClass
         {
             public readonly string IntervieweeInfo = "IntervieweeInfo";
-            public readonly string FillSurvey = "FillSurvey";
+            public readonly string LOT = "LOT";
+            public readonly string IZZ = "IZZ";
+            public readonly string WHOQOL = "WHOQOL";
+            public readonly string ThankYou = "ThankYou";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string IntervieweeInfo = "IntervieweeInfo";
-            public const string FillSurvey = "FillSurvey";
+            public const string LOT = "LOT";
+            public const string IZZ = "IZZ";
+            public const string WHOQOL = "WHOQOL";
+            public const string ThankYou = "ThankYou";
         }
 
 
@@ -98,13 +98,28 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_FillSurvey s_params_FillSurvey = new ActionParamsClass_FillSurvey();
+        static readonly ActionParamsClass_LOT s_params_LOT = new ActionParamsClass_LOT();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_FillSurvey FillSurveyParams { get { return s_params_FillSurvey; } }
+        public ActionParamsClass_LOT LOTParams { get { return s_params_LOT; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_FillSurvey
+        public class ActionParamsClass_LOT
         {
-            public readonly string questionaireNumber = "questionaireNumber";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_IZZ s_params_IZZ = new ActionParamsClass_IZZ();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IZZ IZZParams { get { return s_params_IZZ; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IZZ
+        {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_WHOQOL s_params_WHOQOL = new ActionParamsClass_WHOQOL();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_WHOQOL WHOQOLParams { get { return s_params_WHOQOL; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_WHOQOL
+        {
             public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -117,13 +132,17 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string FillSurvey = "FillSurvey";
                 public readonly string IntervieweeInfo = "IntervieweeInfo";
+                public readonly string IZZ = "IZZ";
+                public readonly string LOT = "LOT";
                 public readonly string ThankYou = "ThankYou";
+                public readonly string WHOQOL = "WHOQOL";
             }
-            public readonly string FillSurvey = "~/Areas/Application/Views/Survey/FillSurvey.cshtml";
             public readonly string IntervieweeInfo = "~/Areas/Application/Views/Survey/IntervieweeInfo.cshtml";
+            public readonly string IZZ = "~/Areas/Application/Views/Survey/IZZ.cshtml";
+            public readonly string LOT = "~/Areas/Application/Views/Survey/LOT.cshtml";
             public readonly string ThankYou = "~/Areas/Application/Views/Survey/ThankYou.cshtml";
+            public readonly string WHOQOL = "~/Areas/Application/Views/Survey/WHOQOL.cshtml";
         }
     }
 
@@ -156,26 +175,82 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
 
         [NonAction]
-        partial void FillSurveyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int questionaireNumber);
+        partial void LOTOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FillSurvey(int questionaireNumber)
+        public override System.Web.Mvc.ActionResult LOT()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FillSurvey);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "questionaireNumber", questionaireNumber);
-            FillSurveyOverride(callInfo, questionaireNumber);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LOT);
+            LOTOverride(callInfo);
             return callInfo;
         }
 
         [NonAction]
-        partial void FillSurveyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.QuestionnaireViewModel model);
+        partial void LOTOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.LOTViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FillSurvey(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.QuestionnaireViewModel model)
+        public override System.Web.Mvc.ActionResult LOT(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.LOTViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FillSurvey);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LOT);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            FillSurveyOverride(callInfo, model);
+            LOTOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IZZOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult IZZ()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IZZ);
+            IZZOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IZZOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.IZZViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult IZZ(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.IZZViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IZZ);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IZZOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void WHOQOLOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult WHOQOL()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WHOQOL);
+            WHOQOLOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void WHOQOLOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.WHOQOLViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult WHOQOL(JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.WHOQOLViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WHOQOL);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            WHOQOLOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ThankYouOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ThankYou()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ThankYou);
+            ThankYouOverride(callInfo);
             return callInfo;
         }
 

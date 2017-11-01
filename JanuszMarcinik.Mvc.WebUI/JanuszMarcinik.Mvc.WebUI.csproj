@@ -234,7 +234,7 @@
     <Content Include="Areas\Admin\Views\Questions\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\Edit.cshtml" />
-    <Content Include="Areas\Application\Views\Survey\FillSurvey.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\WHOQOL.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Dictionaries\Edit.cshtml" />
     <Content Include="Areas\Application\Views\Survey\ThankYou.cshtml" />
@@ -270,6 +270,9 @@
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\List.cshtml" />
     <Content Include="Areas\Application\Views\Results\IntervieweeResults.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\LOT.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\IZZ.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\_WHOQOL_PartTable.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
@@ -366,7 +369,9 @@
     <Compile Include="Areas\Application\Models\Results\DictionaryItemViewModel.cs" />
     <Compile Include="Areas\Application\Models\Results\ResultsListViewModel.cs" />
     <Compile Include="Areas\Application\Models\Results\ResultsViewModel.cs" />
-    <Compile Include="Areas\Application\Models\Survey\SurveyViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Survey\IZZViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Survey\LOTViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Survey\WHOQOLViewModel.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="T4MVC\Account.AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

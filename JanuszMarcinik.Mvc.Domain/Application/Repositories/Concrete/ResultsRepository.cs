@@ -5,7 +5,6 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.Application.Keys;
-using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -258,6 +257,24 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             }
 
             return intervieweeQuestionnaireResults;
+        }
+
+        public List<Result> GetResultsByDict(int questionnaireId, Dictionary<int, int> questionIdValue)
+        {
+            var questionnaire = context.Questionnaires.Find(questionnaireId);
+            var results = new List<Result>();
+            foreach (var item in questionIdValue)
+            {
+                var question = questionnaire.Questions.FirstOrDefault(x => x.QuestionId == item.Key);
+                results.Add(new Result()
+                {
+                    QuestionnaireId = questionnaire.QuestionnaireId,
+                    QuestionId = question.QuestionId,
+                    AnswerId = question.Answers.FirstOrDefault(x => x.Value == item.Value).AnswerId
+                });
+            }
+
+            return results;
         }
         #endregion
     }

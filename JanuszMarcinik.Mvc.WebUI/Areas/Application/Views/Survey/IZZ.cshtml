@@ -1,0 +1,90 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.IZZViewModel
+
+@{
+    ViewBag.Title = Model.QuestionnaireName;
+}
+
+@using (var form = Html.Bootstrap().Begin(new Form()))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.QuestionnaireId)
+    @Html.HiddenFor(x => x.QuestionnaireName)
+
+    <br />
+
+    using (var panel = Html.Bootstrap().Begin(new Panel().Style(TwitterBootstrapMVC.Infrastructure.Enums.PanelStyle.Primary)))
+    {
+        @panel.Heading(Model.QuestionnaireName)
+
+        using (panel.BeginBody())
+        {
+            <p>
+                Poniżej podano przykłady różnych zachowań związanych ze zdrowiem. <br />
+                <strong>Jak często w ciągu roku przestrzega Pan / Pani wymienionych poniżej zachowań ?</strong><br />
+                Proszę odpowiedzieć szczerze wpisując do każdej kratki liczbę, wyrażającą właściwą dla siebie odpowiedź.
+            </p>
+            <br />
+
+            <div style="margin-left: 80px">
+                <strong>1</strong> - <strong>prawie nigdy</strong><br />
+                <strong>2</strong> - rzadko<br />
+                <strong>3</strong> - od czasu do czasu<br />
+                <strong>4</strong> - często<br />
+                <strong>5</strong> - <strong>prawie zawsze</strong>
+            </div>
+            <br />
+            <hr />
+
+            if (Model.ErrorProperties != null && Model.ErrorProperties.Count() > 0)
+            {
+                @Html.Bootstrap().Alert("Nieprawidłowe wypełnienie ankiety.").Closeable().Style(AlertColor.Danger)
+            }
+
+            for (int questionIndex = 0; questionIndex < Model.Questions.Count; questionIndex++)
+            {
+                @Html.HiddenFor(x => x.Questions[questionIndex].Id)
+                @Html.HiddenFor(x => x.Questions[questionIndex].OrderNumber)
+                @Html.HiddenFor(x => x.Questions[questionIndex].Text)
+                
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-sm-1 text-right">
+                        <div style="margin-top: 7px">
+                            @Model.Questions[questionIndex].OrderNumber<span>.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        @Html.Bootstrap().TextBoxFor(x => x.Questions[questionIndex].Value)
+                    </div>
+                    <div class="col-sm-10">
+                        <div style="margin-top: 7px">
+                            @Model.Questions[questionIndex].Text
+                        </div>
+                    </div>
+                </div>
+            }
+}
+
+        using (panel.BeginFooter())
+        {
+            @Html.Bootstrap().SubmitButton().Text("Dalej").PrependIcon(FontAwesome.arrow_right).Style(ButtonStyle.Primary)
+        }
+    }
+}
+
+<style>
+    .input-error {
+        border-color: #a94442 !important;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var errorProperties = @Html.Raw(Json.Encode(Model.ErrorProperties));
+        for (i = 0; i < errorProperties.length; i++) {
+            $("input[name='" + errorProperties[i] + "']").addClass("input-error");
+        }
+    })
+
+</script>

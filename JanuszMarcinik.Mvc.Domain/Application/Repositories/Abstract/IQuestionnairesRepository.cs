@@ -1,4 +1,5 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
+using JanuszMarcinik.Mvc.Domain.Application.Keys;
 using System.Collections.Generic;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
@@ -10,6 +11,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         Questionnaire Create(Questionnaire entity);
         Questionnaire Update(Questionnaire entity);
         void Delete(long id);
-        Questionnaire GetFullModel(long questionnaireNumber);
+        Questionnaire GetByType(KeyType keyType);
     }
 }

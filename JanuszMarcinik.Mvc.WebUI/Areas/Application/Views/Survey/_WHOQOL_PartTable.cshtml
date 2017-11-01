@@ -1,0 +1,32 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
+@model WHOQOLViewModel
+
+@{ 
+    int firstIndex = ViewBag.FirstQuestionIndex;
+    int lastIndex = ViewBag.LastQuestionIndex;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <td colspan="2"></td>
+        @foreach (var item in Model.Questions.First().Answers)
+        {
+            <td class="text-center" width="125">@item.Description</td>
+        }
+    </tr>
+    @for (int questionIndex = firstIndex; questionIndex <= lastIndex; questionIndex++)
+    {
+        @Html.HiddenFor(x => x.Questions[questionIndex].QuestionId)
+        @Html.HiddenFor(x => x.Questions[questionIndex].Text)
+
+        <tr>
+            <td width="40">@(Model.Questions[questionIndex].OrderNumber).</td>
+            <td>@Model.Questions[questionIndex].Text</td>
+            <td colspan="5" class="text-center radio-buttons-cell">
+                @(Html.Bootstrap().RadioButtonListFor(m => m.Questions[questionIndex].AnswerId,
+                    m => m.Questions[questionIndex].Answers,
+                    answer => answer.Value, answer => answer.Text).ContainerClass("btn-group-justified").DisplayInColumns(5, 121))
+            </td>
+        </tr>
+    }
+</table>

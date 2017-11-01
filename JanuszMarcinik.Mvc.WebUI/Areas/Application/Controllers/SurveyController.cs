@@ -1,4 +1,5 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires;
+using JanuszMarcinik.Mvc.Domain.Application.Keys;
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey;
@@ -61,7 +62,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 Session[_intervieweeSessionKey] = interviewee;
                 Session[_resultsSessionKey] = new List<Result>();
 
-                return RedirectToAction(MVC.Application.Survey.FillSurvey(1));
+                return RedirectToAction(MVC.Application.Survey.LOT());
             }
 
             model.SetDictionaries(_dictionariesRepository.GetList());
@@ -70,25 +71,105 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
         #endregion
 
-        #region FillSurvey()
-        public virtual ActionResult FillSurvey(int questionaireNumber)
+        #region LOT()
+        public virtual ActionResult LOT()
         {
-            var model = new QuestionnaireViewModel();
-            model.SetQuestionnaire(_questionnairesRepository.GetFullModel(questionaireNumber));
+            var lot = _questionnairesRepository.GetByType(KeyType.LOT);
+            var model = new LOTViewModel(lot);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult LOT(LOTViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var questionIdValue = model.Questions
+                    .ToDictionary(key => key.Id, val => val.Value.Value);
+
+                var results = (List<Result>)Session[_resultsSessionKey];
+                if (results == null)
+                {
+                    return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
+                }
+                results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
+                Session[_resultsSessionKey] = results;
+
+                return RedirectToAction(MVC.Application.Survey.IZZ());
+            }
+            else
+            {
+                model.ErrorProperties = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => x.Key)
+                    .ToArray();
+
+                return View(model);
+            }
+        }
+        #endregion
+
+        #region IZZ()
+        public virtual ActionResult IZZ()
+        {
+            var lot = _questionnairesRepository.GetByType(KeyType.IZZ);
+            var model = new IZZViewModel(lot);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult IZZ(IZZViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var questionIdValue = model.Questions
+                    .ToDictionary(key => key.Id, val => val.Value.Value);
+
+                var results = (List<Result>)Session[_resultsSessionKey];
+                if (results == null)
+                {
+                    return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
+                }
+                results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
+                Session[_resultsSessionKey] = results;
+
+                return RedirectToAction(MVC.Application.Survey.WHOQOL());
+            }
+            else
+            {
+                model.ErrorProperties = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => x.Key)
+                    .ToArray();
+
+                return View(model);
+            }
+        }
+        #endregion
+
+        #region WHOQOL()
+        public virtual ActionResult WHOQOL()
+        {
+            var model = new WHOQOLViewModel();
+            model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.WHOQOL));
             model.SelectedValues = new List<int>();
-            model.QuestionnairesCount = _questionnairesRepository.GetList().Count();
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult FillSurvey(QuestionnaireViewModel model)
+        public virtual ActionResult WHOQOL(WHOQOLViewModel model)
         {
             if (model.Questions.All(x => x.AnswerId > 0))
             {
                 var results = (List<Result>)Session[_resultsSessionKey];
-
+                if (results == null)
+                {
+                    return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
+                }
                 foreach (var question in model.Questions)
                 {
                     results.Add(new Result()
@@ -99,35 +180,33 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     });
                 }
 
-                Session[_resultsSessionKey] = results;
+                var interviewee = (Interviewee)Session[_intervieweeSessionKey];
+                _intervieweesRepository.Create(interviewee);
 
-                if (model.OrderNumber == model.QuestionnairesCount)
-                {
-                    var interviewee = (Interviewee)Session[_intervieweeSessionKey];
-                    _intervieweesRepository.Create(interviewee);
+                _resultsRepository.CreateMany(results, interviewee.IntervieweeId);
 
-                    _resultsRepository.CreateMany(results, interviewee.IntervieweeId);
-
-                    return View(MVC.Application.Survey.Views.ThankYou);
-                }
-                else
-                {
-                    return RedirectToAction(MVC.Application.Survey.FillSurvey(model.OrderNumber + 1));
-                }
+                return RedirectToAction(MVC.Application.Survey.ThankYou());
             }
             else
             {
                 if (model.Questions.Any(x => x.AnswerId == 0))
                 {
-                    ModelState.AddModelError("", "Należy odpowiedzieć na wszystkie pytnia");
+                    ViewBag.WHOQOLModelError = true;
                 }
 
                 var selectedAnswers = model.Questions.Where(x => x.AnswerId > 0).Select(x => x.AnswerId).ToList();
-                model.SetQuestionnaire(_questionnairesRepository.GetFullModel(model.OrderNumber));
+                model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.WHOQOL));
                 model.SelectedValues = selectedAnswers;
 
                 return View(model);
             }
+        }
+        #endregion
+
+        #region ThankYou()
+        public virtual ActionResult ThankYou()
+        {
+            return View();
         }
         #endregion
     }

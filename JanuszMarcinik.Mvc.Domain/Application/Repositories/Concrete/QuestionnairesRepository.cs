@@ -4,6 +4,7 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using JanuszMarcinik.Mvc.Domain.Application.Keys;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -46,10 +47,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             context.SaveChanges();
         }
 
-        public Questionnaire GetFullModel(long questionnaireNumber)
+        public Questionnaire GetByType(KeyType keyType)
         {
-            return context.Questionnaires.Where(x => x.OrderNumber == questionnaireNumber)
-                    .Include(q => q.Questions.Select(a => a.Answers)).FirstOrDefault();
+            return context.Questionnaires
+                .FirstOrDefault(x => x.KeyType == keyType);
         }
     }
 }

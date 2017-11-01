@@ -6,28 +6,23 @@ using System.Web.Mvc;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
 {
-    public class QuestionnaireViewModel
+    public class WHOQOLViewModel
     {
         public int QuestionnaireId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int OrderNumber { get; set; }
-        public List<QuestionViewModel> Questions { get; set; }
-        public int QuestionnairesCount { get; set; }
+        public string QuestionnaireName { get; set; }
+        public List<WHOQOLQuestionViewModel> Questions { get; set; }
 
         public List<int> SelectedValues { get; set; }
 
         public void SetQuestionnaire(Questionnaire questionnaire, List<int> selectedAnswers = null)
         {
-            this.Name = questionnaire.Name;
-            this.OrderNumber = questionnaire.OrderNumber;
-            this.QuestionnaireId = questionnaire.QuestionnaireId;
-            this.Description = questionnaire.Description;
-            this.Questions = new List<QuestionViewModel>();
+            QuestionnaireName = $"{questionnaire.OrderNumber}. {questionnaire.Name}";
+            QuestionnaireId = questionnaire.QuestionnaireId;
+            Questions = new List<WHOQOLQuestionViewModel>();
 
             foreach (var question in questionnaire.Questions.OrderBy(x => x.OrderNumber))
             {
-                var questionViewModel = new QuestionViewModel()
+                var questionViewModel = new WHOQOLQuestionViewModel()
                 {
                     QuestionId = question.QuestionId,
                     OrderNumber = question.OrderNumber,
@@ -46,12 +41,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
                     });
                 }
 
-                this.Questions.Add(questionViewModel);
+                Questions.Add(questionViewModel);
             }
         }
     }
 
-    public class QuestionViewModel
+    public class WHOQOLQuestionViewModel
     {
         public int QuestionId { get; set; }
         public int OrderNumber { get; set; }
