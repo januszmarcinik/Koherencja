@@ -1,36 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Models
 {
-    public class IntervieweeResultsByFilters
-    {
-        [Display(Name = "Wiek")]
-        public string Age { get; set; }
-
-        [Display(Name = "Płeć")]
-        public string Sex { get; set; }
-
-        [Display(Name = "Staż pracy")]
-        public string Seniority { get; set; }
-
-        [Display(Name = "Miejsce zamieszkania")]
-        public string PlaceOfResidence { get; set; }
-
-        [Display(Name = "Wykształcenie")]
-        public string Education { get; set; }
-
-        [Display(Name = "Stan cywilny")]
-        public string MartialStatus { get; set; }
-
-        [Display(Name = "Ocena swojego stanu materialnego")]
-        public string MaterialStatus { get; set; }
-
-        public List<IntervieweeQuestionnaireResult> IntervieweeQuestionnaireResults { get; set; }
-    }
-
     public class IntervieweeQuestionnaireResult
     {
         public int QuestionnaireId { get; set; }
@@ -79,13 +52,13 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Models
         /// </summary>
         public decimal Deviation { get; private set; }
 
-        public void SetResults(IEnumerable<decimal> results)
+        public void SetScores(IEnumerable<decimal> scores)
         {
-            Count = results.Count();
+            Count = scores.Count();
 
             if (Count == 1)
             {
-                var result = results.First();
+                var result = scores.First();
                 Average = result;
                 Mode = result;
                 Median = result;
@@ -95,27 +68,27 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Models
             }
             else if (Count > 1)
             {
-                results = results.OrderBy(x => x);
+                scores = scores.OrderBy(x => x);
 
-                Average = results.Average();
-                Minimum = results.Min();
-                Maximum = results.Max();
+                Average = scores.Average();
+                Minimum = scores.Min();
+                Maximum = scores.Max();
 
                 int halfIndex = Count / 2;
                 if ((Count % 2) == 0)
                 {
-                    Median = (results.ElementAt(halfIndex - 1) + results.ElementAt(halfIndex)) / 2M;
+                    Median = (scores.ElementAt(halfIndex - 1) + scores.ElementAt(halfIndex)) / 2M;
                 }
                 else
                 {
-                    Median = results.ElementAt(halfIndex);
+                    Median = scores.ElementAt(halfIndex);
                 }
 
-                Mode = results.GroupBy(n => n)
+                Mode = scores.GroupBy(n => n)
                     .OrderByDescending(g => g.Count())
                     .Select(g => g.Key).FirstOrDefault();
 
-                double sumOfSquaresOfDifferences = results.Select(x => Math.Pow((double)(x - Average), 2)).Sum();
+                double sumOfSquaresOfDifferences = scores.Select(x => Math.Pow((double)(x - Average), 2)).Sum();
                 Deviation = (decimal)Math.Round(Math.Sqrt(sumOfSquaresOfDifferences / (double)Count), 2);
 
                 Average = Math.Round(Average, 2);

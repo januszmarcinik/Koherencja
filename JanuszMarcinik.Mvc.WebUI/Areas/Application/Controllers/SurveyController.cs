@@ -20,14 +20,16 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         private IIntervieweesRepository _intervieweesRepository;
         private IDictionariesRepository _dictionariesRepository;
         private IResultsRepository _resultsRepository;
+        private IScoresRepository _scoresRepository;
 
         public SurveyController(IQuestionnairesRepository questionnairesRepository, IDictionariesRepository dictionariesRepository,
-            IIntervieweesRepository intervieweesRepository, IResultsRepository resultsRepository)
+            IIntervieweesRepository intervieweesRepository, IResultsRepository resultsRepository, IScoresRepository scoresRepository)
         {
             this._dictionariesRepository = dictionariesRepository;
             this._questionnairesRepository = questionnairesRepository;
             this._intervieweesRepository = intervieweesRepository;
             this._resultsRepository = resultsRepository;
+            this._scoresRepository = scoresRepository;
         }
         #endregion
 
@@ -184,6 +186,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 _intervieweesRepository.Create(interviewee);
 
                 _resultsRepository.CreateMany(results, interviewee.IntervieweeId);
+                _scoresRepository.Create(interviewee.IntervieweeId);
 
                 return RedirectToAction(MVC.Application.Survey.ThankYou());
             }

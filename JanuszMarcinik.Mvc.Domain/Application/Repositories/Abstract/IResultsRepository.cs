@@ -7,7 +7,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
     public interface IResultsRepository
     {
         void CreateMany(List<Result> entities, int intervieweeId);
-        IEnumerable<Result> GetList(int questionId);
         IEnumerable<ResultDetail> GetResultDetails(int questionnaireId);
         IEnumerable<ResultGeneral> GetResultsGeneral(int questionnaireId);
         List<IntervieweeQuestionnaireResult> GetIntervieweeResults(List<int> intervieweesIds);

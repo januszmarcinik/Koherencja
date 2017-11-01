@@ -197,7 +197,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 .Select(x => x.IntervieweeId)
                 .ToList();
 
-            var model = new IntervieweeResultsByFilters()
+            var model = new IntervieweeResultsViewModel()
             {
                 Age = _dictionariesRepository.GetValueOrEmptyIfNull(ageId),
                 Sex = _dictionariesRepository.GetValueOrEmptyIfNull(sexId),

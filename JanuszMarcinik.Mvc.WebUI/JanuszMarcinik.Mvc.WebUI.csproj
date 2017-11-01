@@ -363,6 +363,7 @@
     <Compile Include="Areas\Application\Controllers\HomeController.cs" />
     <Compile Include="Areas\Application\Controllers\ResultsController.cs" />
     <Compile Include="Areas\Application\Controllers\SurveyController.cs" />
+    <Compile Include="Areas\Application\Models\Results\IntervieweeResultsViewModel.cs" />
     <Compile Include="Areas\Application\Models\Results\LegendViewModel.cs" />
     <Compile Include="Areas\Application\Models\Results\ValueViewModel.cs" />
     <Compile Include="Areas\Application\Models\Results\DictionaryGroupViewModel.cs" />
