@@ -1,6 +1,4 @@
-﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
-using JanuszMarcinik.Mvc.Domain.Application.Models;
-using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
+﻿using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System.Collections.Generic;
 using System.Linq;
@@ -196,19 +194,80 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 .Select(x => x.IntervieweeId)
                 .ToList();
 
-            var model = new IntervieweeResultsViewModel()
-            {
-                Age = _dictionariesRepository.GetValueOrEmptyIfNull(ageId),
-                Sex = _dictionariesRepository.GetValueOrEmptyIfNull(sexId),
-                Education = _dictionariesRepository.GetValueOrEmptyIfNull(educationId),
-                MartialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(martialStatusId),
-                MaterialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(materialStatusId),
-                PlaceOfResidence = _dictionariesRepository.GetValueOrEmptyIfNull(placeOfResidenceId),
-                Seniority = _dictionariesRepository.GetValueOrEmptyIfNull(seniorityId),
-                IntervieweeQuestionnaireResults = _resultsRepository.GetIntervieweeResults(intervieweesIds)
-            };
+            var model = GetIntervieweeResultBasicViewModel(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId);
+            model.IntervieweeQuestionnaireResults = _resultsRepository.GetIntervieweeResults(intervieweesIds);
 
             return View(model);
+        }
+        #endregion
+
+        #region IntervieweeDetails()
+        public virtual ActionResult IntervieweeDetails(int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId,
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        {
+            var intervieweesIds = _intervieweesRepository.GetList(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId)
+                .Select(x => x.IntervieweeId)
+                .ToList();
+
+            var model = GetIntervieweeResultBasicViewModel(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId);
+            model.IntervieweeDetails = _resultsRepository.GetIntervieweeDetails(questionnaireId, intervieweesIds);
+            model.Legend = LegendViewModel.Details();
+
+            ViewBag.QuestionnaireName = _questionnairesRepository.GetById(questionnaireId).Name;
+
+            return View(model);
+        }
+        #endregion
+
+
+        #region Helpers
+        private IntervieweeResultsViewModel GetIntervieweeResultBasicViewModel(int? ageId, int? sexId, int? educationId, int? martialStatusId,
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        {
+            return new IntervieweeResultsViewModel()
+            {
+                AgeId = ageId,
+                Age = _dictionariesRepository.GetValueOrEmptyIfNull(ageId),
+
+                SexId = sexId,
+                Sex = _dictionariesRepository.GetValueOrEmptyIfNull(sexId),
+
+                EducationId = educationId,
+                Education = _dictionariesRepository.GetValueOrEmptyIfNull(educationId),
+
+                MartialStatusId = martialStatusId,
+                MartialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(martialStatusId),
+
+                MaterialStatusId = materialStatusId,
+                MaterialStatus = _dictionariesRepository.GetValueOrEmptyIfNull(materialStatusId),
+
+                PlaceOfResidenceId = placeOfResidenceId,
+                PlaceOfResidence = _dictionariesRepository.GetValueOrEmptyIfNull(placeOfResidenceId),
+
+                SeniorityId = seniorityId,
+                Seniority = _dictionariesRepository.GetValueOrEmptyIfNull(seniorityId)
+            };
         }
         #endregion
     }

@@ -10,6 +10,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         IEnumerable<ResultDetail> GetResultDetails(int questionnaireId);
         IEnumerable<ResultGeneral> GetResultsGeneral(int questionnaireId);
         List<IntervieweeQuestionnaireResult> GetIntervieweeResults(List<int> intervieweesIds);
+        List<IntervieweeDetail> GetIntervieweeDetails(int questionnaireId, List<int> intervieweesIds);
 
         List<Result> GetResultsByDict(int questionnaireId, Dictionary<int, int> questionIdValue);
     }

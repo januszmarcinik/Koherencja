@@ -33,12 +33,46 @@
     }
 }
 
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    <thead>
+        <tr class="bg-info">
+            <th colspan="7" class="text-center">Legenda</th>
+        </tr>
+        <tr class="bg-info">
+            <th class="text-center">N</th>
+            <th class="text-center">Śr</th>
+            <th class="text-center">Mod</th>
+            <th class="text-center">Me</th>
+            <th class="text-center">Min</th>
+            <th class="text-center">Max</th>
+            <th class="text-center">S</th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        <tr>
+            <td>Ilość wyników</td>
+            <td>Średnia</td>
+            <td>Modalna</td>
+            <td>Mediana</td>
+            <td>Minimalna</td>
+            <td>Maksymalna</td>
+            <td>Odchylenie standardowe</td>
+        </tr>
+    </tbody>
+</table>
+
 @foreach (var result in Model.IntervieweeQuestionnaireResults)
 {
     <table class="table table-condensed table-bordered table-hover table-responsive">
         <thead>
             <tr class="bg-info">
-                <th colspan="9" class="text-center">@result.QuestionnaireName</th>
+                <th>
+                    @(Html.Bootstrap().ActionLinkButton("Szczegóły", MVC.Application.Results.IntervieweeDetails(
+                        result.QuestionnaireId, Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId))
+                        .PrependIcon(FontAwesome.info).Class("center-block"))
+                </th>
+                <th colspan="8" class="text-center">@result.QuestionnaireName</th>
             </tr>
             <tr class="bg-info">
                 <th class="text-center">Kategoria pytań</th>
@@ -71,35 +105,6 @@
         </tbody>
     </table>
 }
-
-<table class="table table-condensed table-bordered table-hover table-responsive">
-    <thead>
-        <tr class="bg-info">
-            <th colspan="7" class="text-center">Legenda</th>
-        </tr>
-        <tr class="bg-info">
-            <th class="text-center">N</th>
-            <th class="text-center">Śr</th>
-            <th class="text-center">Mod</th>
-            <th class="text-center">Me</th>
-            <th class="text-center">Min</th>
-            <th class="text-center">Max</th>
-            <th class="text-center">S</th>
-        </tr>
-    </thead>
-
-    <tbody class="text-center">
-        <tr>
-            <td>Ilość wyników</td>
-            <td>Średnia</td>
-            <td>Modalna</td>
-            <td>Mediana</td>
-            <td>Minimalna</td>
-            <td>Maksymalna</td>
-            <td>Odchylenie standardowe</td>
-        </tr>
-    </tbody>
-</table>
 
 <br /><br />
 @Html.ButtonsFooter(

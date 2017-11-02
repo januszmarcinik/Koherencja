@@ -208,5 +208,39 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             return results;
         }
         #endregion
+
+        #region GetIntervieweeDetails()
+        public List<IntervieweeDetail> GetIntervieweeDetails(int questionnaireId, List<int> intervieweesIds)
+        {
+            var model = new List<IntervieweeDetail>();
+
+            var questionnaire = context.Questionnaires.Find(questionnaireId);
+            var questions = questionnaire.Questions.OrderBy(x => x.OrderNumber);
+
+            foreach (var question in questions)
+            {
+                var results = question.Results.Where(x => intervieweesIds.Contains(x.IntervieweeId));
+                var answers = question.Answers.OrderBy(x => x.OrderNumber);
+
+                var detail = new IntervieweeDetail()
+                {
+                    QuestionId = question.QuestionId,
+                    QuestionText = $"{question.OrderNumber}. {question.Text}",
+                    IntervieweeCount = intervieweesIds.Count,
+                    Answers = new List<IntervieweeDetailAnswer>()
+                };
+
+                foreach (var answer in answers)
+                {
+                    var answerText = string.IsNullOrEmpty(answer.Description) ? answer.Value.ToString() : answer.Description;
+                    detail.Answers.Add(new IntervieweeDetailAnswer(answerText, results.Where(x => x.AnswerId == answer.AnswerId).Count(), detail.IntervieweeCount));
+                }
+
+                model.Add(detail);
+            }
+
+            return model;
+        }
+        #endregion
     }
 }

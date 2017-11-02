@@ -1,0 +1,81 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
+@model IntervieweeResultsViewModel
+
+@{
+    ViewBag.Title = "Szczegóły dla wybranych filtrów";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">Szczegóły dla wybranych filtrów - @ViewBag.QuestionnaireName</span>
+</h2>
+
+@using (var panel = Html.Bootstrap().Begin(new Panel()))
+{
+    using (panel.BeginBody())
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Sex).PrependIcon(FontAwesome.venus_mars).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Age).PrependIcon(FontAwesome.user_circle).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Seniority).PrependIcon(FontAwesome.user_md).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MaterialStatus).PrependIcon(FontAwesome.money).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.PlaceOfResidence).PrependIcon(FontAwesome.building).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Education).PrependIcon(FontAwesome.graduation_cap).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MartialStatus).PrependIcon(FontAwesome.users).Readonly()
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    @{ 
+        int answersCount = Model.IntervieweeDetails.First().Answers.Count;
+    }
+    <tr>
+        <th></th>
+        <th class="text-center" colspan="@answersCount">@Model.Legend.SignOfBadgeMark - @Model.Legend.DescriptionOfBadgeMark</th>
+        <th class="text-center" colspan="@answersCount">@Model.Legend.SignOfResultMark - @Model.Legend.DescriptionOfResultMark</th>
+    </tr>
+    <tr>
+        <th></th>
+        @for (int i = 0; i < answersCount; i++)
+        {
+            <th class="text-center">N</th>
+            <th class="text-center">%</th>
+        }
+    </tr>
+
+    @foreach (var result in Model.IntervieweeDetails)
+    {
+        <tr>
+            <th rowspan="2" class="text-center">@result.QuestionText</th>
+            @foreach (var answer in result.Answers)
+            {
+                <th class="text-center active" colspan="2">@answer.Text</th>
+            }
+        </tr>
+        <tr class="text-center">
+            @foreach (var answer in result.Answers)
+            {
+                <td>
+                    <span class="badge">@answer.Count</span>
+                </td>
+                <td>
+                    <span class="@answer.ResultCssClass" style="font-size: 100% !important;">
+                        @answer.Percentage.ToString("N2")
+                    </span>
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+<br /><br />
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Application.Results.IntervieweeResults(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId)))
