@@ -143,10 +143,12 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 
             foreach (var questionnaire in context.Questionnaires)
             {
-                var intervieweeQuestionnaireResult = new IntervieweeQuestionnaireResult();
-                intervieweeQuestionnaireResult.QuestionnaireId = questionnaire.QuestionnaireId;
-                intervieweeQuestionnaireResult.QuestionnaireName = questionnaire.Name;
-                intervieweeQuestionnaireResult.IntervieweeResults = new List<IntervieweeResult>();
+                var intervieweeQuestionnaireResult = new IntervieweeQuestionnaireResult
+                {
+                    QuestionnaireId = questionnaire.QuestionnaireId,
+                    QuestionnaireName = questionnaire.Name,
+                    IntervieweeResults = new List<IntervieweeResult>()
+                };
 
                 foreach (var category in questionnaire.Categories)
                 {
@@ -156,9 +158,12 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         .Where(x => intervieweesIds.Contains(x.IntervieweeId))
                         .Select(x => x.Value);
 
-                    var categoryResult = new IntervieweeResult();
-                    categoryResult.CategoryId = category.CategoryId;
-                    categoryResult.CategoryName = category.Name;
+                    var categoryResult = new IntervieweeResult
+                    {
+                        CategoryId = category.CategoryId,
+                        CategoryName = category.Name,
+                        ResultRange = questionnaire.KeyType.GetRange(true)
+                    };
                     categoryResult.SetScores(categoryValues);
 
                     intervieweeQuestionnaireResult.IntervieweeResults.Add(categoryResult);
@@ -170,9 +175,12 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     .Where(x => intervieweesIds.Contains(x.IntervieweeId))
                     .Select(x => x.Value);
 
-                var result = new IntervieweeResult();
-                result.CategoryId = null;
-                result.CategoryName = "#";
+                var result = new IntervieweeResult
+                {
+                    CategoryId = null,
+                    CategoryName = "#",
+                    ResultRange = questionnaire.KeyType.GetRange(false)
+                };
                 result.SetScores(values);
 
                 intervieweeQuestionnaireResult.IntervieweeResults.Add(result);

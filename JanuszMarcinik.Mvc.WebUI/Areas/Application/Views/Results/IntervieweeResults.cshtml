@@ -38,10 +38,11 @@
     <table class="table table-condensed table-bordered table-hover table-responsive">
         <thead>
             <tr class="bg-info">
-                <th colspan="8" class="text-center">@result.QuestionnaireName</th>
+                <th colspan="9" class="text-center">@result.QuestionnaireName</th>
             </tr>
             <tr class="bg-info">
-                <th></th>
+                <th class="text-center">Kategoria pytań</th>
+                <th class="text-center">Przedział dla wyników</th>
                 <th class="text-center">N</th>
                 <th class="text-center">Śr</th>
                 <th class="text-center">Mod</th>
@@ -57,6 +58,7 @@
             {
                 <tr>
                     <td>@category.CategoryName</td>
+                    <td>@category.ResultRange</td>
                     <td>@category.Count</td>
                     <td>@category.Average</td>
                     <td>@category.Mode</td>
@@ -69,6 +71,35 @@
         </tbody>
     </table>
 }
+
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    <thead>
+        <tr class="bg-info">
+            <th colspan="7" class="text-center">Legenda</th>
+        </tr>
+        <tr class="bg-info">
+            <th class="text-center">N</th>
+            <th class="text-center">Śr</th>
+            <th class="text-center">Mod</th>
+            <th class="text-center">Me</th>
+            <th class="text-center">Min</th>
+            <th class="text-center">Max</th>
+            <th class="text-center">S</th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        <tr>
+            <td>Ilość wyników</td>
+            <td>Średnia</td>
+            <td>Modalna</td>
+            <td>Mediana</td>
+            <td>Minimalna</td>
+            <td>Maksymalna</td>
+            <td>Odchylenie standardowe</td>
+        </tr>
+    </tbody>
+</table>
 
 <br /><br />
 @Html.ButtonsFooter(

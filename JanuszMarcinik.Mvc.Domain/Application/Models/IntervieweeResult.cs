@@ -16,6 +16,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Models
     {
         public int? CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string ResultRange { get; set; }
 
         /// <summary>
         /// N - Ilość wyników

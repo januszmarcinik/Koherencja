@@ -13,6 +13,11 @@
         public int? CategoryId { get; set; }
         public string CategoryName { get; set; }
 
+        public string FullCategoryName
+        {
+            get { return $"{CategoryName}<br/>{KeyType.GetRange(CategoryId.HasValue)}"; }
+        }
+
         public int AveragePointsEarned { get; set; }
         public int PointsAvailableToGet { get; set; }
         public decimal AverageScoreValue { get; set; }

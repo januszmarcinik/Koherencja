@@ -25,7 +25,7 @@
                 </th>
                 @foreach (var option in result.Options)
                 {
-                    <th colspan="2" class="text-center">@option</th>
+                    <th colspan="2" class="text-center">@Html.Raw(option)</th>
                 }
             </tr>
         </thead>

@@ -51,7 +51,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 {
                     Id = questionnaire.QuestionnaireId,
                     Text = questionnaire.Name,
-                    Options = results.Select(x => x.CategoryName).Distinct().ToList(),
+                    Options = results.Select(x => x.FullCategoryName).Distinct().ToList(),
                     Action = MVC.Application.Results.Details(questionnaire.QuestionnaireId),
                     DictionaryGroups = new List<DictionaryGroupViewModel>()
                 };
