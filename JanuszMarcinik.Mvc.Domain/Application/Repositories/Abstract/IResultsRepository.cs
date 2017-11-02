@@ -13,5 +13,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         List<IntervieweeDetail> GetIntervieweeDetails(int questionnaireId, List<int> intervieweesIds);
 
         List<Result> GetResultsByDict(int questionnaireId, Dictionary<int, int> questionIdValue);
+
+        void GenerateRandom();
     }
 }

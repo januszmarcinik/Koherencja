@@ -7,10 +7,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
     public partial class ConfigurationController : Controller
     {
         private readonly IScoresRepository _scoresRepository;
+        private readonly IResultsRepository _resultsRepository;
 
-        public ConfigurationController(IScoresRepository scoresRepository)
+        public ConfigurationController(IScoresRepository scoresRepository, IResultsRepository resultsRepository)
         {
             _scoresRepository = scoresRepository;
+            _resultsRepository = resultsRepository;
         }
 
         public virtual ActionResult Index()
@@ -21,6 +23,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         public virtual ActionResult RecalculateScores()
         {
             _scoresRepository.RecalculateScores();
+            return RedirectToAction(MVC.Admin.Configuration.Index());
+        }
+
+        public virtual ActionResult GenerateRandomResults()
+        {
+            _resultsRepository.GenerateRandom();
             return RedirectToAction(MVC.Admin.Configuration.Index());
         }
     }

@@ -74,6 +74,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             public readonly string Index = "Index";
             public readonly string RecalculateScores = "RecalculateScores";
+            public readonly string GenerateRandomResults = "GenerateRandomResults";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,6 +82,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             public const string Index = "Index";
             public const string RecalculateScores = "RecalculateScores";
+            public const string GenerateRandomResults = "GenerateRandomResults";
         }
 
 
@@ -124,6 +126,17 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RecalculateScores);
             RecalculateScoresOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GenerateRandomResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GenerateRandomResults()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GenerateRandomResults);
+            GenerateRandomResultsOverride(callInfo);
             return callInfo;
         }
 
