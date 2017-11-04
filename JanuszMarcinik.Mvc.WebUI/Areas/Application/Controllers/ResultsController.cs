@@ -84,7 +84,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
 
                             var value = new ValueViewModel();
                             value.Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}";
-                            value.SetValue(resultItem.AverageScoreValue, _scoresRepository.GetScoreValueMark(resultItem.KeyType, true, resultItem.AverageScoreValue));
+                            value.SetValue(resultItem.AverageScoreValue, _scoresRepository.GetScoreValueMark(resultItem.KeyType, categoryId.HasValue, resultItem.AverageScoreValue));
 
                             dictionaryItem.Values.Add(value);
                         }

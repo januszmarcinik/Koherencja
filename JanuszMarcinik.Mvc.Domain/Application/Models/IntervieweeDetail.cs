@@ -29,7 +29,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Models
             else
                 Percentage = ((decimal)count / (decimal)totalCount) * 100;
 
-            if (Percentage > 50)
+            if (Percentage > 30)
             {
                 ResultCssClass = "label label-success";
             }

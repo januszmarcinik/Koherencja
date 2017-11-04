@@ -1,5 +1,7 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
+using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.DataSource;
+using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -128,6 +130,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
         public BaseDictionary MaterialStatus { get; set; }
         public IEnumerable<SelectListItem> MaterialStatuses { get; set; }
         #endregion
+
+        public List<IntervieweeQuestionnaireResult> IntervieweeQuestionnaireResults { get; set; }
+        public List<IntervieweeDetail> IntervieweeDetails { get; set; }
 
         public void SetDictionaries(IEnumerable<BaseDictionary> dictionary)
         {

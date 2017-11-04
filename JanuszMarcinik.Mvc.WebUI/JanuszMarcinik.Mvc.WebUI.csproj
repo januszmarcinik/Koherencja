@@ -274,6 +274,7 @@
     <Content Include="Areas\Application\Views\Survey\IZZ.cshtml" />
     <Content Include="Areas\Application\Views\Survey\_WHOQOL_PartTable.cshtml" />
     <Content Include="Areas\Application\Views\Results\IntervieweeDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Interviewees\QuestionnaireResultDetails.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />

@@ -2,7 +2,7 @@
 @model IntervieweeViewModel
 
 @{
-    ViewBag.Title = "Podgląd respondenta";
+    ViewBag.Title = "Wyniki szczegółowe dla respondenta: " + ViewBag.QuestionnaireName;
 }
 
 <h2 class="center-block">
@@ -39,40 +39,35 @@
     }
 
     @Html.ButtonsFooter(
-        Html.Bootstrap().BackButton(MVC.Admin.Interviewees.List()),
+        Html.Bootstrap().BackButton(MVC.Admin.Interviewees.Edit(Model.IntervieweeId)),
         Html.Bootstrap().ConfirmDeleteButton())
 }
 
-@foreach (var result in Model.IntervieweeQuestionnaireResults)
-{
-    <table class="table table-condensed table-bordered table-hover table-responsive">
-        <thead>
-            <tr class="bg-info">
-                <th>
-                    @(Html.Bootstrap().ActionLinkButton("Szczegóły", MVC.Admin.Interviewees.QuestionnaireResultDetails(Model.IntervieweeId, result.QuestionnaireId))
-                        .PrependIcon(FontAwesome.info).Class("center-block"))
-                </th>
-                <th colspan="8" class="text-center">@result.QuestionnaireName</th>
-            </tr>
-            <tr class="bg-info">
-                <th class="text-center">Kategoria pytań</th>
-                <th class="text-center">Przedział dla wyników</th>
-                <th class="text-center">Wynik</th>
-            </tr>
-        </thead>
-
-        <tbody class="text-center">
-            @foreach (var category in result.IntervieweeResults)
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    @foreach (var result in Model.IntervieweeDetails)
+    {
+        <tr>
+            <th rowspan="2" class="text-center">@result.QuestionText</th>
+            @foreach (var answer in result.Answers)
             {
-                <tr>
-                    <td>@category.CategoryName</td>
-                    <td>@category.ResultRange</td>
-                    <td>@category.Average</td>
-                </tr>
+                <th class="text-center active">@answer.Text</th>
             }
-        </tbody>
-    </table>
-}
+        </tr>
+        <tr class="text-center">
+            @foreach (var answer in result.Answers)
+            {
+                <td>
+                    @if (answer.Count > 0)
+                    {
+                        <span class="label label-success">
+                            <i class="@FontAwesome.check"></i>
+                        </span>
+                    }
+                </td>
+            }
+        </tr>
+    }
+</table>
 
 <br /><br />
 @Html.Action(MVC.Admin.Interviewees.Delete(Model.IntervieweeId))

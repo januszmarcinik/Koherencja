@@ -28,7 +28,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
                 value = 0;
             }
 
-            if (value > 50)
+            if (value > 30)
             {
                 ResultCssClass = CssClassLabelSuccess;
             }
@@ -41,7 +41,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
                 ResultCssClass = CssClassLabelInfo;
             }
 
-            Value = value.TwoOrZeroDecimalPlaces();
+            Value = value.ToString("N2");
         }
 
         public void SetValue(decimal value, ScoreValueMark resultValueMark)

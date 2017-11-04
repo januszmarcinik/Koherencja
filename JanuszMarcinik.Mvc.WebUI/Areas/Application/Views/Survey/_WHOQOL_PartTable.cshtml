@@ -9,7 +9,7 @@
 <table class="table table-bordered">
     <tr>
         <td colspan="2"></td>
-        @foreach (var item in Model.Questions.First().Answers)
+        @foreach (var item in Model.Questions[firstIndex].Answers)
         {
             <td class="text-center" width="125">@item.Description</td>
         }

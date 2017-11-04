@@ -70,6 +70,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult QuestionnaireResultDetails()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuestionnaireResultDetails);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.PartialViewResult Delete()
         {
             return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.Delete);
@@ -93,6 +99,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             public readonly string List = "List";
             public readonly string DataSource = "List";
             public readonly string Edit = "Edit";
+            public readonly string QuestionnaireResultDetails = "QuestionnaireResultDetails";
             public readonly string Delete = "Delete";
         }
 
@@ -102,6 +109,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             public const string List = "List";
             public const string DataSource = "List";
             public const string Edit = "Edit";
+            public const string QuestionnaireResultDetails = "QuestionnaireResultDetails";
             public const string Delete = "Delete";
         }
 
@@ -130,6 +138,15 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_QuestionnaireResultDetails s_params_QuestionnaireResultDetails = new ActionParamsClass_QuestionnaireResultDetails();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_QuestionnaireResultDetails QuestionnaireResultDetailsParams { get { return s_params_QuestionnaireResultDetails; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_QuestionnaireResultDetails
+        {
+            public readonly string intervieweeId = "intervieweeId";
+            public readonly string questionnaireId = "questionnaireId";
+        }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
@@ -151,9 +168,11 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             {
                 public readonly string Edit = "Edit";
                 public readonly string List = "List";
+                public readonly string QuestionnaireResultDetails = "QuestionnaireResultDetails";
             }
             public readonly string Edit = "~/Areas/Admin/Views/Interviewees/Edit.cshtml";
             public readonly string List = "~/Areas/Admin/Views/Interviewees/List.cshtml";
+            public readonly string QuestionnaireResultDetails = "~/Areas/Admin/Views/Interviewees/QuestionnaireResultDetails.cshtml";
         }
     }
 
@@ -195,6 +214,19 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void QuestionnaireResultDetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int intervieweeId, int questionnaireId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult QuestionnaireResultDetails(int intervieweeId, int questionnaireId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.QuestionnaireResultDetails);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "intervieweeId", intervieweeId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "questionnaireId", questionnaireId);
+            QuestionnaireResultDetailsOverride(callInfo, intervieweeId, questionnaireId);
             return callInfo;
         }
 

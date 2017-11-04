@@ -249,8 +249,9 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         public void GenerateRandom()
         {
             var data = new RandomResults(context.Questionnaires, context.BaseDictionaries);
+            IScoresRepository scoresRepository = new ScoresRepository();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 25; i++)
             {
                 var interviewee = new Interviewee()
                 {
@@ -284,6 +285,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                 }
 
                 context.SaveChanges();
+
+                scoresRepository.Create(interviewee.IntervieweeId);
             }
         }
         #endregion
