@@ -6,6 +6,5 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
     {
         void RecalculateScores();
         void Create(int intervieweeId);
-        ScoreValueMark GetScoreValueMark(KeyType keyType, bool isCategorized, decimal value);
     }
 }

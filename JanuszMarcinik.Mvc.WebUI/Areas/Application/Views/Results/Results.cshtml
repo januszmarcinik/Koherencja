@@ -72,6 +72,11 @@
     </table>
 }
 
+@if (Model.PearsonCorrelations != null)
+{
+    @Html.Partial("_PearsonCorrelations", Model.PearsonCorrelations)
+}
+
 <br /><br />
 @Html.ButtonsFooter(
     Html.Bootstrap().BackButton(MVC.Application.Results.General()))

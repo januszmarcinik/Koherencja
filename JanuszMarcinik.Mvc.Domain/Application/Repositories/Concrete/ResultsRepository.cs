@@ -25,7 +25,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         }
 
         #region GetResultDetails()
-        public IEnumerable<ResultDetail> GetResultDetails(int questionnaireId)
+        public List<ResultDetail> GetResultDetails(int questionnaireId)
         {
             var questionnaire = context.Questionnaires.Find(questionnaireId);
 
@@ -72,7 +72,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         #endregion
 
         #region GetResultsGeneral()
-        public IEnumerable<ResultGeneral> GetResultsGeneral(int questionnaireId)
+        public List<ResultGeneral> GetResultsGeneral(int questionnaireId)
         {
             var questionnaire = context.Questionnaires.Find(questionnaireId);
 
@@ -132,6 +132,44 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     AveragePointsEarned = (int)scores.Select(x => x.PointsEarned).DefaultIfEmpty(0).Average(),
                     AverageScoreValue = scores.Select(x => x.Value).DefaultIfEmpty(0).Average()
                 });
+            }
+
+            return model;
+        }
+        #endregion
+
+        #region GetResultsPearsonCorrelations()
+        public List<ResultGeneral> GetResultsPearsonCorrelations()
+        {
+            var model = new List<ResultGeneral>();
+
+            foreach (var dictionary in context.BaseDictionaries)
+            {
+                var intervieweesIds = context.Interviewees
+                    .Where(x =>
+                        x.SexId == dictionary.BaseDictionaryId ||
+                        x.SeniorityId == dictionary.BaseDictionaryId ||
+                        x.EducationId == dictionary.BaseDictionaryId ||
+                        x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
+                        x.MartialStatusId == dictionary.BaseDictionaryId ||
+                        x.AgeId == dictionary.BaseDictionaryId ||
+                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                    .Select(x => x.IntervieweeId).ToList();
+
+                var correlations = GetIntervieweePearsonCorrelations(intervieweesIds);
+                foreach (var correlation in correlations)
+                {
+                    model.Add(new ResultGeneral()
+                    {
+                        BaseDictionaryId = dictionary.BaseDictionaryId,
+                        BaseDictionaryValue = dictionary.Value,
+                        DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
+                        CategoryId = correlations.IndexOf(correlation),
+                        CategoryName = $"{correlation.QuestionnaireA}<br/>{correlation.QuestionnaireB}",
+                        IntervieweeCount = intervieweesIds.Count,
+                        AverageScoreValue = (decimal)correlation.Value
+                    });
+                }
             }
 
             return model;
@@ -245,6 +283,33 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         }
         #endregion
 
+        #region GetIntervieweePearsonCorrelations()
+        public List<PearsonCorrelation> GetIntervieweePearsonCorrelations(List<int> intervieweesIds)
+        {
+            var model = new List<PearsonCorrelation>();
+
+            var combinations = GetQuestionnariesCombinations();
+            foreach (var combination in combinations)
+            {
+                model.Add(new PearsonCorrelation(
+                    questionnaireA: context.Questionnaires.Find(combination.Item1)?.Name,
+                    questionnaireB: context.Questionnaires.Find(combination.Item2)?.Name,
+                    seriesA: context.Scores
+                        .Where(x => x.QuestionnaireId == combination.Item1)
+                        .Where(x => !x.CategoryId.HasValue)
+                        .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                        .Select(x => x.Value),
+                    seriesB: context.Scores
+                        .Where(x => x.QuestionnaireId == combination.Item2)
+                        .Where(x => !x.CategoryId.HasValue)
+                        .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                        .Select(x => x.Value)));
+            }
+
+            return model;
+        }
+        #endregion
+
         #region GenerateRandom()
         public void GenerateRandom()
         {
@@ -289,6 +354,31 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                 scoresRepository.Create(interviewee.IntervieweeId);
             }
         }
+        #endregion
+
+
+        #region Helpers
+
+        private List<Tuple<int, int>> GetQuestionnariesCombinations()
+        {
+            var combinations = new List<Tuple<int, int>>();
+            var questionnaireIds = context.Questionnaires.Select(x => x.QuestionnaireId).ToList();
+            foreach (var questionnaire in context.Questionnaires)
+            {
+                foreach (var id in questionnaireIds.Where(x => x != questionnaire.QuestionnaireId))
+                {
+                    var combinationA = new Tuple<int, int>(questionnaire.QuestionnaireId, id);
+                    var combinationB = new Tuple<int, int>(id, questionnaire.QuestionnaireId);
+                    if (!combinations.Contains(combinationA) && !combinations.Contains(combinationB))
+                    {
+                        combinations.Add(combinationA);
+                    }
+                }
+            }
+
+            return combinations;
+        }
+
         #endregion
     }
 }

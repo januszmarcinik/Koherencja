@@ -1,0 +1,42 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results.ResultsViewModel
+
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    <thead>
+        <tr class="bg-info">
+            <th colspan="@(Model.Options.Count + 1)" class="text-center">@Model.Text</th>
+        </tr>
+        <tr class="bg-info">
+            <th></th>
+            @foreach (var option in Model.Options)
+            {
+                <th class="text-center">@Html.Raw(option)</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        @foreach (var dictionaryGroup in Model.DictionaryGroups)
+            {
+            <tr class="active">
+                <td>
+                    <strong>@dictionaryGroup.GroupName</strong>
+                </td>
+                <td colspan="@Model.Options.Count"></td>
+            </tr>
+
+            foreach (var dictionaryItem in dictionaryGroup.DictionaryItems)
+            {
+                <tr>
+                    <td>
+                        <span class="badge">@dictionaryItem.Badge</span>
+                        @dictionaryItem.ItemName
+                    </td>
+                    @foreach (var answerResult in dictionaryItem.Values)
+                    {
+                        <td>@answerResult.Value</td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>

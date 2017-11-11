@@ -124,6 +124,7 @@
     <Compile Include="Application\Entities\Questionnaires\Answer.cs" />
     <Compile Include="Application\Entities\Questionnaires\Interviewee.cs" />
     <Compile Include="Application\Entities\Questionnaires\Score.cs" />
+    <Compile Include="Application\Models\IntervieweePearsonCorrelation.cs" />
     <Compile Include="Application\Models\KeyType.cs" />
     <Compile Include="Application\Entities\Questionnaires\Question.cs" />
     <Compile Include="Application\Entities\Questionnaires\Questionnaire.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Application\Managers\ImageManager.cs" />
     <Compile Include="Application\Models\IntervieweeResult.cs" />
     <Compile Include="Application\Models\IntervieweeDetail.cs" />
+    <Compile Include="Application\Models\PearsonCorrelation.cs" />
     <Compile Include="Application\Models\RandomResults.cs" />
     <Compile Include="Application\Models\ResultGeneral.cs" />
     <Compile Include="Application\Models\ResultDetail.cs" />

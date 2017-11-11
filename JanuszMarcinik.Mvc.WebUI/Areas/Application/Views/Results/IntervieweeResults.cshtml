@@ -106,6 +106,30 @@
     </table>
 }
 
+<table class="table table-condensed table-bordered table-hover table-responsive">
+    <thead>
+        <tr class="bg-info">
+            <th colspan="4" class="text-center">Korelacja liniowa Pearsona</th>
+        </tr>
+        <tr class="bg-info">
+            <th class="text-center">Ankieta A</th>
+            <th class="text-center">Ankieta B</th>
+            <th class="text-center">Współczynnik korelacji</th>
+        </tr>
+    </thead>
+
+    <tbody class="text-center">
+        @foreach (var correlation in Model.PearsonCorrelations)
+        {
+            <tr>
+                <td>@correlation.QuestionnaireA</td>
+                <td>@correlation.QuestionnaireB</td>
+                <td>@correlation.Value.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <br /><br />
 @Html.ButtonsFooter(
     Html.Bootstrap().BackButton(MVC.Admin.Interviewees.List()))

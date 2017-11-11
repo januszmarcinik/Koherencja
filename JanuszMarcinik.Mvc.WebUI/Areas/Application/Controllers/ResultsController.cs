@@ -38,64 +38,16 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             {
                 Title = "Wyniki wg ankiet",
                 Results = new List<ResultsViewModel>(),
+                PearsonCorrelations = ResultsViewModel.Initialize(0, "Korelacja liniowa Pearsona", _resultsRepository.GetResultsPearsonCorrelations()),
                 Legend = LegendViewModel.General()
             };
 
             foreach (var questionnaire in _questionnairesRepository.GetList())
             {
-                var results = _resultsRepository.GetResultsGeneral(questionnaire.QuestionnaireId);
-
-                var questionnaireResults = new ResultsViewModel()
-                {
-                    Id = questionnaire.QuestionnaireId,
-                    Text = questionnaire.Name,
-                    Options = results.Select(x => x.FullCategoryName).Distinct().ToList(),
-                    Action = MVC.Application.Results.Details(questionnaire.QuestionnaireId),
-                    DictionaryGroups = new List<DictionaryGroupViewModel>()
-                };
-
-                var dictionaryGroupNames = results.Select(x => x.DictionaryTypeName).Distinct();
-                foreach (var dictionaryType in dictionaryGroupNames)
-                {
-                    var dictionaryGroup = new DictionaryGroupViewModel()
-                    {
-                        GroupName = dictionaryType,
-                        DictionaryItems = new List<DictionaryItemViewModel>()
-                    };
-
-                    var dictionaryItemsIds = results.Where(x => x.DictionaryTypeName == dictionaryType).Select(x => x.BaseDictionaryId).Distinct();
-                    foreach (var itemId in dictionaryItemsIds)
-                    {
-                        var resultDictItem = results.First(x => x.BaseDictionaryId == itemId);
-                        var dictionaryItem = new DictionaryItemViewModel()
-                        {
-                            ItemName = resultDictItem.BaseDictionaryValue,
-                            Badge = resultDictItem.IntervieweeCount.ToString(),
-                            Values = new List<ValueViewModel>()
-                        };
-
-                        var categoryIds = results.Select(x => x.CategoryId).Distinct();
-                        foreach (var categoryId in categoryIds)
-                        {
-                            var resultItem = results
-                                .Where(x => x.BaseDictionaryId == itemId)
-                                .Where(x => x.CategoryId == categoryId)
-                                .FirstOrDefault();
-
-                            var value = new ValueViewModel();
-                            value.Badge = $"{resultItem.AveragePointsEarned} / {resultItem.PointsAvailableToGet}";
-                            value.SetValue(resultItem.AverageScoreValue, _scoresRepository.GetScoreValueMark(resultItem.KeyType, categoryId.HasValue, resultItem.AverageScoreValue));
-
-                            dictionaryItem.Values.Add(value);
-                        }
-
-                        dictionaryGroup.DictionaryItems.Add(dictionaryItem);
-                    }
-
-                    questionnaireResults.DictionaryGroups.Add(dictionaryGroup);
-                }
-
-                model.Results.Add(questionnaireResults);
+                model.Results.Add(ResultsViewModel.Initialize(
+                    questionnaireId: questionnaire.QuestionnaireId,
+                    questionnaireName: questionnaire.Name,
+                    results: _resultsRepository.GetResultsGeneral(questionnaire.QuestionnaireId)));
             }
 
             return View(MVC.Application.Results.Views.Results, model);
@@ -203,6 +155,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 seniorityId: seniorityId,
                 sexId: sexId);
             model.IntervieweeQuestionnaireResults = _resultsRepository.GetIntervieweeResults(intervieweesIds);
+            model.PearsonCorrelations = _resultsRepository.GetIntervieweePearsonCorrelations(intervieweesIds);
 
             return View(model);
         }
