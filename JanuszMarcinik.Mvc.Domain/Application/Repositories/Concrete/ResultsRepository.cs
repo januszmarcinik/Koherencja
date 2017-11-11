@@ -167,7 +167,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         CategoryId = correlations.IndexOf(correlation),
                         CategoryName = $"{correlation.XAxisName}<br/>{correlation.YAxisName}",
                         IntervieweeCount = intervieweesIds.Count,
-                        AverageScoreValue = (decimal)correlation.Value
+                        AverageScoreValue = correlation.Value.ToDecimal()
                     });
                 }
             }

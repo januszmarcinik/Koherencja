@@ -475,6 +475,8 @@
     <ProjectReference Include="..\JanuszMarcinik.Mvc.Domain\JanuszMarcinik.Mvc.Domain.csproj">
       <Project>{dd1a95ee-18f7-486d-a821-10b8ce043634}</Project>
       <Name>JanuszMarcinik.Mvc.Domain</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\JanuszMarcinik.Mvc.Extensions\JanuszMarcinik.Mvc.Extensions.csproj">
       <Project>{7554da69-2b19-4cf0-b46b-09742fb7f2ea}</Project>
