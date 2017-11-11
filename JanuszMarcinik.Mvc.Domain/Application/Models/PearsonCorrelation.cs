@@ -6,39 +6,63 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Models
 {
     public class PearsonCorrelation
     {
-        public PearsonCorrelation(string questionnaireA, string questionnaireB, IEnumerable<decimal> seriesA, IEnumerable<decimal> seriesB)
+        public PearsonCorrelation(string title, string xAxisName, string yAxisName, List<double> xAxisSeries, List<double> yAxisSeries,
+            int xAxisMin, int xAxisMax, int yAxisMin, int yAxisMax)
         {
-            QuestionnaireA = questionnaireA;
-            QuestionnaireB = questionnaireB;
-            SeriesA = seriesA.Select(x => (double)x).ToList();
-            SeriesB = seriesB.Select(x => (double)x).ToList();
+            Title = title;
+            XAxisName = xAxisName;
+            YAxisName = yAxisName;
+            XAxisMin = xAxisMin;
+            XAxisMax = xAxisMax;
+            YAxisMin = yAxisMin;
+            YAxisMax = yAxisMax;
 
-            if (SeriesA.Count > 0 && SeriesB.Count > 0 && SeriesA.Count == SeriesB.Count)
+            if (xAxisSeries.Count > 0 && yAxisSeries.Count > 0 && xAxisSeries.Count == yAxisSeries.Count)
             {
-                double count = SeriesA.Count;
-                double seriesASum = SeriesA.Sum();
-                double seriesBSum = SeriesB.Sum();
-                double aPowSum = SeriesA.Sum(x => Math.Pow(x, 2));
-                double bPowSum = SeriesB.Sum(x => Math.Pow(x, 2));
+                var valuesCoordinates = new List<List<int>>();
+                double count = xAxisSeries.Count;
+                double seriesXSum = xAxisSeries.Sum();
+                double seriesYSum = yAxisSeries.Sum();
+                double xPowSum = xAxisSeries.Sum(x => Math.Pow(x, 2));
+                double yPowSum = yAxisSeries.Sum(x => Math.Pow(x, 2));
 
-                double abSum = 0;
+                double xySum = 0;
                 for (int index = 0; index < count; index++)
                 {
-                    abSum += SeriesA[index] * SeriesB[index];
+                    valuesCoordinates.Add(new List<int>() { (int)xAxisSeries[index], (int)yAxisSeries[index] });
+                    xySum += xAxisSeries[index] * yAxisSeries[index];
                 }
 
-                Value = 
-                    (((count * abSum) - (seriesASum * seriesBSum)) /
-                    (Math.Sqrt(((count * aPowSum) - (Math.Pow(seriesASum, 2))) * ((count * bPowSum) - (Math.Pow(seriesBSum, 2))))));
+                ValuesCoordinates = valuesCoordinates.Select(x => x.ToArray()).ToArray();
+
+                Value =
+                    (((count * xySum) - (seriesXSum * seriesYSum)) /
+                    (Math.Sqrt(((count * xPowSum) - (Math.Pow(seriesXSum, 2))) * ((count * yPowSum) - (Math.Pow(seriesYSum, 2))))));
+
+                double b =
+                   (((count * xySum) - (seriesXSum * seriesYSum)) /
+                   ((count * xPowSum) - (Math.Pow(seriesXSum, 2))));
+
+                double a = (seriesYSum / count) - (b * (seriesXSum / count));
+
+                var regressionLineCoordinates = new List<List<int>>();
+                regressionLineCoordinates.Add(new List<int>() { 0, (int)(a) });
+                regressionLineCoordinates.Add(new List<int>() { xAxisMax, (int)(a + (b * xAxisMax)) });
+                RegressionLineCoordinates = regressionLineCoordinates.Select(x => x.ToArray()).ToArray();
             }
         }
 
-        public string QuestionnaireA { get; private set; }
-        public string QuestionnaireB { get; private set; }
+        public string Title { get; }
+        public string XAxisName { get; }
+        public string YAxisName { get; }
 
-        public List<double> SeriesA { get; private set; }
-        public List<double> SeriesB { get; private set; }
+        public double Value { get; }
+        public int[][] ValuesCoordinates { get; }
+        public int[][] RegressionLineCoordinates { get; }
 
-        public double Value { get; private set; }
+        public int XAxisMin { get; }
+        public int XAxisMax { get; }
+        public int YAxisMin { get; }
+        public int YAxisMax { get; }
     }
 }

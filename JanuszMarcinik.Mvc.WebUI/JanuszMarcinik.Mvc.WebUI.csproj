@@ -256,6 +256,8 @@
     <Content Include="Areas\Account\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Account\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Areas\Admin\Views\Questionnaires\List.cshtml" />
+    <Content Include="Scripts\highcharts.exporting.js" />
+    <Content Include="Scripts\highcharts.src.js" />
     <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
     <Content Include="Areas\Admin\Views\Questions\List.cshtml" />
     <Content Include="Areas\Admin\Views\Answers\List.cshtml" />

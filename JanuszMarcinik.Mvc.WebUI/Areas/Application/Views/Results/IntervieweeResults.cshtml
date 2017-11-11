@@ -115,6 +115,7 @@
             <th class="text-center">Ankieta A</th>
             <th class="text-center">Ankieta B</th>
             <th class="text-center">Współczynnik korelacji</th>
+            <th class="text-center">Wykres</th>
         </tr>
     </thead>
 
@@ -122,13 +123,104 @@
         @foreach (var correlation in Model.PearsonCorrelations)
         {
             <tr>
-                <td>@correlation.QuestionnaireA</td>
-                <td>@correlation.QuestionnaireB</td>
+                <td>@correlation.XAxisName</td>
+                <td>@correlation.YAxisName</td>
                 <td>@correlation.Value.ToString("N2")</td>
+                <td>
+                    @(Html.Bootstrap().Button().Text("").PrependIcon(FontAwesome.line_chart).Style(ButtonStyle.Primary).TriggerModal("modalId")
+                        .Data(new { @title = Json.Encode(correlation.Title) })
+                        .Data(new { @xAxisName = correlation.XAxisName })
+                        .Data(new { @yAxisName = correlation.YAxisName })
+                        .Data(new { @seriesData = Json.Encode(correlation.ValuesCoordinates) })
+                        .Data(new { @lineCoordinates = Json.Encode(correlation.RegressionLineCoordinates) })
+                        .Data(new { @xAxisMin = Json.Encode(correlation.XAxisMin) })
+                        .Data(new { @xAxisMax = Json.Encode(correlation.XAxisMax) })
+                        .Data(new { @yAxisMin = Json.Encode(correlation.YAxisMin) })
+                        .Data(new { @yAxisMax = Json.Encode(correlation.YAxisMax) })
+                        .Data(new { @type = "chart-btn" }))
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+@using (var modal = Html.Bootstrap().Begin(new Modal().Size(ModalSize.Large).Closeable().Id("modalId")))
+{
+    using (modal.BeginBody())
+    {
+        <div id="chart-container"></div>
+    }
+}
+
+<script type="text/javascript">
+
+    $("button[data-type='chart-btn']").click(function () {
+
+        var title = $(this).attr('data-title');
+        var xAxisName = $(this).attr('data-xAxisName');
+        var yAxisName = $(this).attr('data-yAxisName');
+        var seriesData = JSON.parse($(this).attr('data-seriesData'));
+        var lineCoordinates = JSON.parse($(this).attr('data-lineCoordinates'));
+        var xAxisMin = parseInt($(this).attr('data-xAxisMin'));
+        var xAxisMax = parseInt($(this).attr('data-xAxisMax'));
+        var yAxisMin = parseInt($(this).attr('data-yAxisMin'));
+        var yAxisMax = parseInt($(this).attr('data-yAxisMax'));
+
+        InitializeChart(title, xAxisName, yAxisName, seriesData, lineCoordinates, xAxisMin, xAxisMax, yAxisMin, yAxisMax);
+    });
+
+    function InitializeChart(title, xAxisName, yAxisName, seriesData, lineCoordinates, xAxisMin, xAxisMax, yAxisMin, yAxisMax) {
+
+        Highcharts.chart('chart-container', {
+            xAxis: {
+                min: xAxisMin,
+                max: xAxisMax,
+                allowDecimals: false,
+                startOnTick: false,
+                tickInterval: 1,
+                title: {
+                    text: xAxisName
+                }
+            },
+            yAxis: {
+                min: yAxisMin,
+                max: yAxisMax,
+                allowDecimals: false,
+                startOnTick: false,
+                tickInterval: 1,
+                title: {
+                    text: yAxisName
+                }
+            },
+            title: {
+                text: title,
+            },
+            series: [
+            {
+                type: 'line',
+                data: lineCoordinates,
+                color: "#393939",
+                lineWidth: 2,
+                name: "Funkcja regresji",
+                marker: {
+                    enabled: false
+                },
+                enableMouseTracking: false
+            },
+            {
+                type: 'scatter',
+                data: seriesData,
+                name: "Rezultaty",
+                marker: {
+                    radius: 4,
+                    fillColor: "#3173ad"
+                }
+            }]
+        });
+
+    }
+</script>
 
 <br /><br />
 @Html.ButtonsFooter(

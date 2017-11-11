@@ -23,7 +23,9 @@ namespace JanuszMarcinik.Mvc.WebUI
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/Assets/js").Include(
-                      "~/Scripts/application.js"));
+                      "~/Scripts/application.js",
+                      "~/Scripts/highcharts.src.js",
+                      "~/Scripts/highcharts.exporting.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

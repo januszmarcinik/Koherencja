@@ -165,7 +165,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         BaseDictionaryValue = dictionary.Value,
                         DictionaryTypeName = dictionary.DictionaryType.GetDescription(),
                         CategoryId = correlations.IndexOf(correlation),
-                        CategoryName = $"{correlation.QuestionnaireA}<br/>{correlation.QuestionnaireB}",
+                        CategoryName = $"{correlation.XAxisName}<br/>{correlation.YAxisName}",
                         IntervieweeCount = intervieweesIds.Count,
                         AverageScoreValue = (decimal)correlation.Value
                     });
@@ -291,19 +291,29 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             var combinations = GetQuestionnariesCombinations();
             foreach (var combination in combinations)
             {
-                model.Add(new PearsonCorrelation(
-                    questionnaireA: context.Questionnaires.Find(combination.Item1)?.Name,
-                    questionnaireB: context.Questionnaires.Find(combination.Item2)?.Name,
-                    seriesA: context.Scores
-                        .Where(x => x.QuestionnaireId == combination.Item1)
-                        .Where(x => !x.CategoryId.HasValue)
-                        .Where(x => intervieweesIds.Contains(x.IntervieweeId))
-                        .Select(x => x.Value),
-                    seriesB: context.Scores
-                        .Where(x => x.QuestionnaireId == combination.Item2)
-                        .Where(x => !x.CategoryId.HasValue)
-                        .Where(x => intervieweesIds.Contains(x.IntervieweeId))
-                        .Select(x => x.Value)));
+                var questionnaireA = context.Questionnaires.Find(combination.Item1);
+                var questionnaireB = context.Questionnaires.Find(combination.Item2);
+                if (questionnaireA != null && questionnaireB != null)
+                {
+                    model.Add(new PearsonCorrelation(
+                        title: $"{questionnaireA.Name} vs {questionnaireB.Name}",
+                        xAxisName: questionnaireA.Name,
+                        yAxisName: questionnaireB.Name,
+                        xAxisSeries: context.Scores
+                            .Where(x => x.QuestionnaireId == combination.Item1)
+                            .Where(x => !x.CategoryId.HasValue)
+                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                            .Select(x => (double)x.Value).ToList(),
+                        yAxisSeries: context.Scores
+                            .Where(x => x.QuestionnaireId == combination.Item2)
+                            .Where(x => !x.CategoryId.HasValue)
+                            .Where(x => intervieweesIds.Contains(x.IntervieweeId))
+                            .Select(x => (double)x.Value).ToList(),
+                        xAxisMin: questionnaireA.KeyType.GetMinRange(false),
+                        xAxisMax: questionnaireA.KeyType.GetMaxRange(false),
+                        yAxisMin: questionnaireB.KeyType.GetMinRange(false),
+                        yAxisMax: questionnaireB.KeyType.GetMaxRange(false)));
+                }
             }
 
             return model;
