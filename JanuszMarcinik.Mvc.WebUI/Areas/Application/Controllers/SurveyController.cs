@@ -90,16 +90,20 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             if (model.Questions.All(x => x.AnswerId > 0))
             {
-                var questionIdValue = model.Questions
-                    .ToDictionary(key => key.QuestionId, val => val.AnswerId);
-
                 var results = (List<Result>)Session[_resultsSessionKey];
                 if (results == null)
                 {
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
 
-                results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
+                results.AddRange(model.Questions
+                    .Select(x => new Result()
+                    {
+                        QuestionnaireId = model.QuestionnaireId,
+                        QuestionId = x.QuestionId,
+                        AnswerId = x.AnswerId
+                    }));
+
                 Session[_resultsSessionKey] = results;
 
                 return RedirectToAction(MVC.Application.Survey.IZZ());
