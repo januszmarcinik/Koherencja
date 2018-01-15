@@ -153,11 +153,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _PearsonCorrelations = "_PearsonCorrelations";
                 public readonly string _ResultValue = "_ResultValue";
                 public readonly string IntervieweeDetails = "IntervieweeDetails";
                 public readonly string IntervieweeResults = "IntervieweeResults";
                 public readonly string Results = "Results";
             }
+            public readonly string _PearsonCorrelations = "~/Areas/Application/Views/Results/_PearsonCorrelations.cshtml";
             public readonly string _ResultValue = "~/Areas/Application/Views/Results/_ResultValue.cshtml";
             public readonly string IntervieweeDetails = "~/Areas/Application/Views/Results/IntervieweeDetails.cshtml";
             public readonly string IntervieweeResults = "~/Areas/Application/Views/Results/IntervieweeResults.cshtml";

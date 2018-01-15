@@ -64,7 +64,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 Session[_intervieweeSessionKey] = interviewee;
                 Session[_resultsSessionKey] = new List<Result>();
 
-                return RedirectToAction(MVC.Application.Survey.LOT());
+                return RedirectToAction(MVC.Application.Survey.SOC29());
             }
 
             model.SetDictionaries(_dictionariesRepository.GetList());
@@ -73,28 +73,32 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
         #endregion
 
-        #region LOT()
-        public virtual ActionResult LOT()
+        #region SOC29()
+        public virtual ActionResult SOC29()
         {
-            var lot = _questionnairesRepository.GetByType(KeyType.LOTR);
-            var model = new LOTViewModel(lot);
+            var soc29 = _questionnairesRepository.GetByType(KeyType.SOC29);
+            var model = new SOC29ViewModel();
+            model.SetQuestionnaire(soc29);
+            model.SelectedValues = new List<int>();
+
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult LOT(LOTViewModel model)
+        public virtual ActionResult SOC29(SOC29ViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model.Questions.All(x => x.AnswerId > 0))
             {
                 var questionIdValue = model.Questions
-                    .ToDictionary(key => key.Id, val => val.Value.Value);
+                    .ToDictionary(key => key.QuestionId, val => val.AnswerId);
 
                 var results = (List<Result>)Session[_resultsSessionKey];
                 if (results == null)
                 {
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
+
                 results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
                 Session[_resultsSessionKey] = results;
 
@@ -102,10 +106,14 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             }
             else
             {
-                model.ErrorProperties = ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .Select(x => x.Key)
-                    .ToArray();
+                if (model.Questions.Any(x => x.AnswerId == 0))
+                {
+                    ModelState.AddModelError("", "Należy odpowiedzieć na wszystkie pytnia");
+                }
+
+                var selectedAnswers = model.Questions.Where(x => x.AnswerId > 0).Select(x => x.AnswerId).ToList();
+                model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.SOC29));
+                model.SelectedValues = selectedAnswers;
 
                 return View(model);
             }
@@ -210,6 +218,46 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         public virtual ActionResult ThankYou()
         {
             return View();
+        }
+        #endregion
+
+
+        #region LOT - abandoned()
+        public virtual ActionResult LOT()
+        {
+            var lot = _questionnairesRepository.GetByType(KeyType.LOTR);
+            var model = new LOTViewModel(lot);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult LOT(LOTViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var questionIdValue = model.Questions
+                    .ToDictionary(key => key.Id, val => val.Value.Value);
+
+                var results = (List<Result>)Session[_resultsSessionKey];
+                if (results == null)
+                {
+                    return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
+                }
+                results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
+                Session[_resultsSessionKey] = results;
+
+                return RedirectToAction(MVC.Application.Survey.IZZ());
+            }
+            else
+            {
+                model.ErrorProperties = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => x.Key)
+                    .ToArray();
+
+                return View(model);
+            }
         }
         #endregion
     }

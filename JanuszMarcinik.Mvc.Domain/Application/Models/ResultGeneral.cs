@@ -15,9 +15,10 @@
 
         public string FullCategoryName
         {
-            get { return $"{CategoryName}<br/>{KeyType.GetRange(CategoryId.HasValue)}"; }
+            get { return $"{CategoryName}<br/>{PointsRange}"; }
         }
 
+        public string PointsRange { get; set; }
         public int AveragePointsEarned { get; set; }
         public int PointsAvailableToGet { get; set; }
         public decimal AverageScoreValue { get; set; }
