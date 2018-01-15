@@ -183,7 +183,11 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         {
             var intervieweeQuestionnaireResults = new List<IntervieweeQuestionnaireResult>();
 
-            foreach (var questionnaire in context.Questionnaires)
+            var questionnaires = context.Questionnaires
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.OrderNumber);
+
+            foreach (var questionnaire in questionnaires)
             {
                 var intervieweeQuestionnaireResult = new IntervieweeQuestionnaireResult
                 {
@@ -373,9 +377,16 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 
         private List<Tuple<int, int>> GetQuestionnariesCombinations()
         {
+            var questionnaires = context.Questionnaires
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.OrderNumber);
+
+            var questionnaireIds = questionnaires
+                .Select(x => x.QuestionnaireId)
+                .ToList();
+
             var combinations = new List<Tuple<int, int>>();
-            var questionnaireIds = context.Questionnaires.Select(x => x.QuestionnaireId).ToList();
-            foreach (var questionnaire in context.Questionnaires)
+            foreach (var questionnaire in questionnaires)
             {
                 foreach (var id in questionnaireIds.Where(x => x != questionnaire.QuestionnaireId))
                 {

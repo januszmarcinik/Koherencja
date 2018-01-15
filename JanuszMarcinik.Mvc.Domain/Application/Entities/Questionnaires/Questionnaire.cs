@@ -20,7 +20,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
 
         public string Name { get; set; }
         public int OrderNumber { get; set; }
-        public string Description { get; set; }
+        public bool IsActive { get; set; }
         public KeyType KeyType { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }

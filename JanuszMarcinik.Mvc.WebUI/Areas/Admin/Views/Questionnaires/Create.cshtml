@@ -20,7 +20,7 @@
 
             @form.FormGroup().TextBoxFor(x => x.Name)
             @form.FormGroup().DropDownListFromEnumFor(x => x.KeyType)
-            @form.FormGroup().TextAreaFor(x => x.Description).Rows(8)
+            @form.FormGroup().CheckBoxFor(x => x.IsActive)
         }
     }
 

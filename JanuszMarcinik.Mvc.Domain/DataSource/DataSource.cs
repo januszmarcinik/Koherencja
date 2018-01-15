@@ -131,6 +131,11 @@ namespace JanuszMarcinik.Mvc.Domain.DataSource
                             var enumValue = (Enum)item.GetType().GetProperty(prop.PropertyName).GetValue(item);
                             cell.Value = enumValue.GetType().GetField(enumValue.ToString()).GetCustomAttribute<DescriptionAttribute>(false).Description;
                         }
+                        else if (prop.DataType == GridDataType.Boolean)
+                        {
+                            var boolValue = (bool)item.GetType().GetProperty(prop.PropertyName).GetValue(item);
+                            cell.Value = boolValue ? "Tak" : "Nie";
+                        }
                         else
                         {
                             cell.Value = item.GetType().GetProperty(prop.PropertyName).GetValue(item).ToString();

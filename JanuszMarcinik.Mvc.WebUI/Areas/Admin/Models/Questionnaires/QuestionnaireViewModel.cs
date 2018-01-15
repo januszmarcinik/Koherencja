@@ -1,7 +1,6 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.DataSource;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires
 {
@@ -22,11 +21,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Questionnaires
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Opis")]
-        [AllowHtml]
-        public string Description { get; set; }
+        [Grid(Order = 3, DataType = GridDataType.Boolean)]
+        [Display(Name = "Aktywna")]
+        public bool IsActive { get; set; }
 
         [Required]
+        [Grid(Order = 4)]
         [Display(Name = "Typ klucza")]
         public KeyType KeyType { get; set; }
     }

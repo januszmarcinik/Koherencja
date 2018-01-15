@@ -17,9 +17,19 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             return context.Questionnaires.Find(id);
         }
 
-        public IEnumerable<Questionnaire> GetList()
+        public IEnumerable<Questionnaire> GetList(bool activeOnly = true)
         {
-            return context.Questionnaires;
+            if (activeOnly)
+            {
+                return context.Questionnaires
+                    .Where(x => x.IsActive)
+                    .OrderBy(x => x.OrderNumber);
+            }
+            else
+            {
+                return context.Questionnaires
+                    .OrderBy(x => x.OrderNumber);
+            }
         }
 
         public Questionnaire Create(Questionnaire entity)
