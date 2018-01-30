@@ -68,6 +68,9 @@
                 <div class="col-sm-4">
                     @form.FormGroup().DropDownListFor(x => x.MaterialStatusId, Model.MaterialStatuses).OptionLabel("-").PrependIcon(FontAwesome.money)
                 </div>
+                <div class="col-sm-4">
+                    @form.FormGroup().DropDownListFor(x => x.WorkplaceId, Model.Workplaces).OptionLabel("-").PrependIcon(FontAwesome.briefcase)
+                </div>
             </div>
         }
 

@@ -1,7 +1,6 @@
 ﻿using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
 using JanuszMarcinik.Mvc.Domain.DataSource;
-using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -131,6 +130,22 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
         public IEnumerable<SelectListItem> MaterialStatuses { get; set; }
         #endregion
 
+        #region Workplaces
+        [Required(ErrorMessage = "Wybierz miejsce pracy")]
+        [Display(Name = "Miejsce pracy")]
+        public int WorkplaceId { get; set; }
+
+        [Display(Name = "Miejsce pracy")]
+        [Grid(Order = 9)]
+        public string WorkplaceName
+        {
+            get { return this.Workplace != null ? this.Workplace.Value : string.Empty; }
+        }
+
+        public BaseDictionary Workplace { get; set; }
+        public IEnumerable<SelectListItem> Workplaces { get; set; }
+        #endregion
+
         public List<IntervieweeQuestionnaireResult> IntervieweeQuestionnaireResults { get; set; }
         public List<IntervieweeDetail> IntervieweeDetails { get; set; }
 
@@ -155,6 +170,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
 
             this.Ages = dictionary.Where(x => x.DictionaryType == DictionaryType.Age)
+                .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
+
+            this.Workplaces = dictionary.Where(x => x.DictionaryType == DictionaryType.Workplace)
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
         }
     }

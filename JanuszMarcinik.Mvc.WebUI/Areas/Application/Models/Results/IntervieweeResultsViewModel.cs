@@ -34,6 +34,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
         public string MaterialStatus { get; set; }
         public int? MaterialStatusId { get; set; }
 
+        [Display(Name = "Miejsce pracy")]
+        public string Workplace { get; set; }
+        public int? WorkplaceId { get; set; }
+
         public List<IntervieweeQuestionnaireResult> IntervieweeQuestionnaireResults { get; set; }
         public List<IntervieweeDetail> IntervieweeDetails { get; set; }
         public List<PearsonCorrelation> PearsonCorrelations { get; set; }

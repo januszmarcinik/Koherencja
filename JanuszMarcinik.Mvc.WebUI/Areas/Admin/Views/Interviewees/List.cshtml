@@ -16,14 +16,7 @@
     {
         using (filters.BeginBody())
         {
-            <div class="row">
-                <div class="col-sm-3">
-                    @form.FormGroup().TextBoxFor(x => x.DateFrom).PrependIcon(FontAwesome.calendar)
-                </div>
-                <div class="col-sm-3">
-                    @form.FormGroup().TextBoxFor(x => x.DateTo).PrependIcon(FontAwesome.calendar)
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-sm-3">
                     @form.FormGroup().DropDownListFor(x => x.SexId, Model.Sexes).OptionLabel("-").PrependIcon(FontAwesome.venus_mars)
@@ -39,6 +32,17 @@
                 </div>
                 <div class="col-sm-3">
                     @form.FormGroup().DropDownListFor(x => x.MartialStatusId, Model.MartialStatuses).OptionLabel("-").PrependIcon(FontAwesome.users)
+                    @form.FormGroup().DropDownListFor(x => x.WorkplaceId, Model.Workplaces).OptionLabel("-").PrependIcon(FontAwesome.briefcase)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    @form.FormGroup().TextBoxFor(x => x.DateFrom).PrependIcon(FontAwesome.calendar)
+                </div>
+                <div class="col-sm-3">
+                    @form.FormGroup().TextBoxFor(x => x.DateTo).PrependIcon(FontAwesome.calendar)
+                </div>
+                <div class="col-sm-offset-3 col-sm-3">
                     <br />
                     <div class="pull-right">
                         @Html.Bootstrap().SubmitFilterButton()
@@ -53,6 +57,6 @@
 
 @Html.ButtonsFooter(
     Html.Bootstrap().BackButton(MVC.Application.Home.Index()),
-    Html.Bootstrap().ActionLinkButton("Zobacz wyniki dla aktualnych filtrów", 
-        MVC.Application.Results.IntervieweeResults(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId))
+    Html.Bootstrap().ActionLinkButton("Zobacz wyniki dla aktualnych filtrów",
+        MVC.Application.Results.IntervieweeResults(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId, Model.WorkplaceId))
         .PrependIcon(FontAwesome.hashtag).Style(ButtonStyle.Primary))

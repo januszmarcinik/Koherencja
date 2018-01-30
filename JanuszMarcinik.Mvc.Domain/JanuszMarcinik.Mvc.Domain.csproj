@@ -205,6 +205,10 @@
     <Compile Include="Migrations\201801151829459_007_remove_description_add_isActive_flag.Designer.cs">
       <DependentUpon>201801151829459_007_remove_description_add_isActive_flag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801301822554_008_add_workplace_dictionary.cs" />
+    <Compile Include="Migrations\201801301822554_008_add_workplace_dictionary.Designer.cs">
+      <DependentUpon>201801301822554_008_add_workplace_dictionary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -241,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801151829459_007_remove_description_add_isActive_flag.resx">
       <DependentUpon>201801151829459_007_remove_description_add_isActive_flag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301822554_008_add_workplace_dictionary.resx">
+      <DependentUpon>201801301822554_008_add_workplace_dictionary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

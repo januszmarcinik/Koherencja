@@ -142,6 +142,13 @@ namespace JanuszMarcinik.Mvc.Domain.Data
                         .HasForeignKey(s => s.AgeId)
                         .WillCascadeOnDelete(false);
 
+            // BaseDictionary -> Interviewees (Workplaces)
+            modelBuilder.Entity<BaseDictionary>()
+                        .HasMany<Interviewee>(s => s.Workplaces)
+                        .WithRequired(s => s.Workplace)
+                        .HasForeignKey(s => s.WorkplaceId)
+                        .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Score>()
                 .Property(x => x.Value).HasPrecision(6, 2);
             #endregion

@@ -11,13 +11,14 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
     {
         public BaseDictionary()
         {
-            this.Sexes = new HashSet<Interviewee>();
-            this.Seniorities = new HashSet<Interviewee>();
-            this.Educations = new HashSet<Interviewee>();
-            this.PlaceOfResidences = new HashSet<Interviewee>();
-            this.MartialStatuses = new HashSet<Interviewee>();
-            this.MaterialStatuses = new HashSet<Interviewee>();
-            this.Ages = new HashSet<Interviewee>();
+            Sexes = new HashSet<Interviewee>();
+            Seniorities = new HashSet<Interviewee>();
+            Educations = new HashSet<Interviewee>();
+            PlaceOfResidences = new HashSet<Interviewee>();
+            MartialStatuses = new HashSet<Interviewee>();
+            MaterialStatuses = new HashSet<Interviewee>();
+            Ages = new HashSet<Interviewee>();
+            Workplaces = new HashSet<Interviewee>();
         }
 
         public int BaseDictionaryId { get; set; }
@@ -31,6 +32,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
         public virtual ICollection<Interviewee> MartialStatuses { get; set; }
         public virtual ICollection<Interviewee> MaterialStatuses { get; set; }
         public virtual ICollection<Interviewee> Ages { get; set; }
+        public virtual ICollection<Interviewee> Workplaces { get; set; }
     }
 
     public enum DictionaryType
@@ -54,6 +56,9 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries
         MaterialStatus = 6,
 
         [Description("Wiek")]
-        Age = 7
+        Age = 7,
+
+        [Description("Miejsce pracy")]
+        Workplace = 8
     }
 }

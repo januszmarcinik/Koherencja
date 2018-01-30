@@ -28,6 +28,7 @@
             </div>
             <div class="col-sm-3">
                 @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MartialStatus).PrependIcon(FontAwesome.users).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Workplace).PrependIcon(FontAwesome.briefcase).Readonly()
             </div>
         </div>
     }
@@ -69,7 +70,7 @@
             <tr class="bg-info">
                 <th>
                     @(Html.Bootstrap().ActionLinkButton("Szczegóły", MVC.Application.Results.IntervieweeDetails(
-                        result.QuestionnaireId, Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId))
+                        result.QuestionnaireId, Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId, Model.WorkplaceId))
                         .PrependIcon(FontAwesome.info).Class("center-block"))
                 </th>
                 <th colspan="8" class="text-center">@result.QuestionnaireName</th>

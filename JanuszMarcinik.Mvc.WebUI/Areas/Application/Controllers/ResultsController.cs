@@ -133,7 +133,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
 
         #region IntervieweeResults()
         public virtual ActionResult IntervieweeResults(int? ageId, int? sexId, int? educationId, int? martialStatusId, 
-            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
         {
             var intervieweesIds = _intervieweesRepository.GetList(
                 ageId: ageId,
@@ -153,7 +153,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 materialStatusId: materialStatusId,
                 placeOfResidenceId: placeOfResidenceId,
                 seniorityId: seniorityId,
-                sexId: sexId);
+                sexId: sexId,
+                workplaceId: workplaceId);
             model.IntervieweeQuestionnaireResults = _resultsRepository.GetIntervieweeResults(intervieweesIds);
             model.PearsonCorrelations = _resultsRepository.GetIntervieweePearsonCorrelations(intervieweesIds);
 
@@ -163,7 +164,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
 
         #region IntervieweeDetails()
         public virtual ActionResult IntervieweeDetails(int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId,
-            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
         {
             var intervieweesIds = _intervieweesRepository.GetList(
                 ageId: ageId,
@@ -183,7 +184,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 materialStatusId: materialStatusId,
                 placeOfResidenceId: placeOfResidenceId,
                 seniorityId: seniorityId,
-                sexId: sexId);
+                sexId: sexId,
+                workplaceId: workplaceId);
             model.IntervieweeDetails = _resultsRepository.GetIntervieweeDetails(questionnaireId, intervieweesIds);
             model.Legend = LegendViewModel.Details();
 
@@ -196,7 +198,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
 
         #region Helpers
         private IntervieweeResultsViewModel GetIntervieweeResultBasicViewModel(int? ageId, int? sexId, int? educationId, int? martialStatusId,
-            int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
         {
             return new IntervieweeResultsViewModel()
             {
@@ -219,7 +221,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 PlaceOfResidence = _dictionariesRepository.GetValueOrEmptyIfNull(placeOfResidenceId),
 
                 SeniorityId = seniorityId,
-                Seniority = _dictionariesRepository.GetValueOrEmptyIfNull(seniorityId)
+                Seniority = _dictionariesRepository.GetValueOrEmptyIfNull(seniorityId),
+
+                WorkplaceId = workplaceId,
+                Workplace = _dictionariesRepository.GetValueOrEmptyIfNull(workplaceId)
             };
         }
         #endregion

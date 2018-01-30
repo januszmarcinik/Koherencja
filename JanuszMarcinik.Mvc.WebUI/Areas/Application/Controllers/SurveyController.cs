@@ -58,7 +58,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     Age = model.Age,
                     MartialStatusId = model.MartialStatusId,
                     MaterialStatusId = model.MaterialStatusId,
-                    AgeId = model.AgeId
+                    AgeId = model.AgeId,
+                    WorkplaceId = model.WorkplaceId
                 };
 
                 Session[_intervieweeSessionKey] = interviewee;

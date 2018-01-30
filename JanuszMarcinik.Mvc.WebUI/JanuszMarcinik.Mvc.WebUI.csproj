@@ -16,7 +16,7 @@
     <RootNamespace>JanuszMarcinik.Mvc.WebUI</RootNamespace>
     <AssemblyName>JanuszMarcinik.Mvc.WebUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -504,9 +504,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56442</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/questionnaire</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/questionnaire</IISAppRootUrl>
+          <IISUrl>http://localhost:51465/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

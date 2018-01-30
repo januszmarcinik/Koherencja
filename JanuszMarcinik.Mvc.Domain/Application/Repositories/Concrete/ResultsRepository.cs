@@ -43,7 +43,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                             x.MartialStatusId == dictionary.BaseDictionaryId ||
                             x.AgeId == dictionary.BaseDictionaryId ||
-                            x.MaterialStatusId == dictionary.BaseDictionaryId)
+                            x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                            x.WorkplaceId == dictionary.BaseDictionaryId)
                         .Select(x => x.IntervieweeId).ToList();
 
                     var results = question.Results.Where(x => intervieweesIds.Contains(x.IntervieweeId));
@@ -88,7 +89,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                         x.MartialStatusId == dictionary.BaseDictionaryId ||
                         x.AgeId == dictionary.BaseDictionaryId ||
-                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                        x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                        x.WorkplaceId == dictionary.BaseDictionaryId)
                     .Select(x => x.IntervieweeId).ToList();
 
                 foreach (var category in questionnaire.Categories)
@@ -155,7 +157,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                         x.MartialStatusId == dictionary.BaseDictionaryId ||
                         x.AgeId == dictionary.BaseDictionaryId ||
-                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                        x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                        x.WorkplaceId == dictionary.BaseDictionaryId)
                     .Select(x => x.IntervieweeId).ToList();
 
                 var correlations = GetIntervieweePearsonCorrelations(intervieweesIds);
@@ -343,7 +346,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     MaterialStatusId = data.RandomInterviewee(DictionaryType.MaterialStatus),
                     PlaceOfResidenceId = data.RandomInterviewee(DictionaryType.PlaceOfResidence),
                     SeniorityId = data.RandomInterviewee(DictionaryType.Seniority),
-                    SexId = data.RandomInterviewee(DictionaryType.Sex)
+                    SexId = data.RandomInterviewee(DictionaryType.Sex),
+                    WorkplaceId = data.RandomInterviewee(DictionaryType.Workplace)
                 };
 
                 context.Interviewees.Add(interviewee);
