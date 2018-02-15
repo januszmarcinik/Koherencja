@@ -127,6 +127,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public readonly string materialStatusId = "materialStatusId";
             public readonly string placeOfResidenceId = "placeOfResidenceId";
             public readonly string seniorityId = "seniorityId";
+            public readonly string workplaceId = "workplaceId";
         }
         static readonly ActionParamsClass_IntervieweeDetails s_params_IntervieweeDetails = new ActionParamsClass_IntervieweeDetails();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -142,6 +143,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public readonly string materialStatusId = "materialStatusId";
             public readonly string placeOfResidenceId = "placeOfResidenceId";
             public readonly string seniorityId = "seniorityId";
+            public readonly string workplaceId = "workplaceId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -153,11 +155,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _PearsonCorrelations = "_PearsonCorrelations";
                 public readonly string _ResultValue = "_ResultValue";
                 public readonly string IntervieweeDetails = "IntervieweeDetails";
                 public readonly string IntervieweeResults = "IntervieweeResults";
                 public readonly string Results = "Results";
             }
+            public readonly string _PearsonCorrelations = "~/Areas/Application/Views/Results/_PearsonCorrelations.cshtml";
             public readonly string _ResultValue = "~/Areas/Application/Views/Results/_ResultValue.cshtml";
             public readonly string IntervieweeDetails = "~/Areas/Application/Views/Results/IntervieweeDetails.cshtml";
             public readonly string IntervieweeResults = "~/Areas/Application/Views/Results/IntervieweeResults.cshtml";
@@ -194,10 +198,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
 
         [NonAction]
-        partial void IntervieweeResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId);
+        partial void IntervieweeResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult IntervieweeResults(int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        public override System.Web.Mvc.ActionResult IntervieweeResults(int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeResults);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ageId", ageId);
@@ -207,15 +211,16 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "materialStatusId", materialStatusId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "placeOfResidenceId", placeOfResidenceId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "seniorityId", seniorityId);
-            IntervieweeResultsOverride(callInfo, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "workplaceId", workplaceId);
+            IntervieweeResultsOverride(callInfo, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId, workplaceId);
             return callInfo;
         }
 
         [NonAction]
-        partial void IntervieweeDetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId);
+        partial void IntervieweeDetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult IntervieweeDetails(int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId)
+        public override System.Web.Mvc.ActionResult IntervieweeDetails(int questionnaireId, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeDetails);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "questionnaireId", questionnaireId);
@@ -226,7 +231,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "materialStatusId", materialStatusId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "placeOfResidenceId", placeOfResidenceId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "seniorityId", seniorityId);
-            IntervieweeDetailsOverride(callInfo, questionnaireId, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "workplaceId", workplaceId);
+            IntervieweeDetailsOverride(callInfo, questionnaireId, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId, workplaceId);
             return callInfo;
         }
 

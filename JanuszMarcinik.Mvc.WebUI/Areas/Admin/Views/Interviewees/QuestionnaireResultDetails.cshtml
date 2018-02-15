@@ -19,20 +19,20 @@
 
             <div class="row">
                 <div class="col-sm-3">
-                    @form.FormGroup().TextBoxFor(x => x.InterviewDate).PrependIcon(FontAwesome.calendar).Readonly()
+                    @form.FormGroup().TextBoxFor(x => x.SexName).PrependIcon(FontAwesome.venus_mars).Readonly()
                     @form.FormGroup().TextBoxFor(x => x.AgeName).PrependIcon(FontAwesome.user_circle).Readonly()
                 </div>
                 <div class="col-sm-3">
-                    @form.FormGroup().TextBoxFor(x => x.SexName).PrependIcon(FontAwesome.venus_mars).Readonly()
                     @form.FormGroup().TextBoxFor(x => x.SeniorityName).PrependIcon(FontAwesome.user_md).Readonly()
+                    @form.FormGroup().TextBoxFor(x => x.MaterialStatusName).PrependIcon(FontAwesome.money).Readonly()
                 </div>
                 <div class="col-sm-3">
-                    @form.FormGroup().TextBoxFor(x => x.EducationName).PrependIcon(FontAwesome.graduation_cap).Readonly()
                     @form.FormGroup().TextBoxFor(x => x.PlaceOfResidenceName).PrependIcon(FontAwesome.building).Readonly()
+                    @form.FormGroup().TextBoxFor(x => x.EducationName).PrependIcon(FontAwesome.graduation_cap).Readonly()
                 </div>
                 <div class="col-sm-3">
                     @form.FormGroup().TextBoxFor(x => x.MartialStatusName).PrependIcon(FontAwesome.users).Readonly()
-                    @form.FormGroup().TextBoxFor(x => x.MaterialStatusName).PrependIcon(FontAwesome.money).Readonly()
+                    @form.FormGroup().TextBoxFor(x => x.WorkplaceName).PrependIcon(FontAwesome.briefcase).Readonly()
                 </div>
             </div>
         }

@@ -23,7 +23,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 
         public void Create(int intervieweeId)
         {
-            CreateForLOTR(intervieweeId);
+            // LOTR was turned off from survey
+            //CreateForLOTR(intervieweeId);
+
+            CreateForSOC29(intervieweeId);
             CreateForIZZ(intervieweeId);
             CreateForWHOQOL(intervieweeId);
 
@@ -194,6 +197,44 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             score.Value = (score.PointsEarned * 4) / whoqol.Questions.Count;
 
             context.Scores.Add(score);
+        }
+        #endregion
+
+        #region CreateForSOC29()
+        private void CreateForSOC29(int intervieweeId)
+        {
+            var soc29 = context.Questionnaires.FirstOrDefault(x => x.KeyType == KeyType.SOC29);
+            var results = context.Results
+                .Where(x => x.QuestionnaireId == soc29.QuestionnaireId)
+                .Where(x => x.IntervieweeId == intervieweeId);
+
+            foreach (var category in soc29.Categories)
+            {
+                var questionsIds = category.Questions.Select(x => x.QuestionId);
+                var categoryPointsEarned = results.Where(x => questionsIds.Contains(x.QuestionId)).Sum(x => x.Answer.Points);
+
+                context.Scores.Add(new Score()
+                {
+                    QuestionnaireId = soc29.QuestionnaireId,
+                    IntervieweeId = intervieweeId,
+                    CategoryId = category.CategoryId,
+                    PointsAvailableToGet = category.Questions.Sum(x => x.Answers.Max(p => p.Points)),
+                    PointsEarned = categoryPointsEarned,
+                    Value = categoryPointsEarned
+                });
+            }
+
+            var pointsEarned = results.Sum(x => x.Answer.Points);
+
+            context.Scores.Add(new Score()
+            {
+                QuestionnaireId = soc29.QuestionnaireId,
+                IntervieweeId = intervieweeId,
+                CategoryId = null,
+                PointsAvailableToGet = soc29.Questions.Sum(x => x.Answers.Max(p => p.Points)),
+                PointsEarned = pointsEarned,
+                Value = pointsEarned
+            });
         }
         #endregion
     }

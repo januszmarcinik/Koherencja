@@ -46,6 +46,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Entities.Questionnaires
         [ForeignKey("MaterialStatusId")]
         public virtual BaseDictionary MaterialStatus { get; set; }
 
+        public int WorkplaceId { get; set; }
+        [ForeignKey("WorkplaceId")]
+        public virtual BaseDictionary Workplace { get; set; }
+
         public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Score> Scores { get; set; }
     }

@@ -9,7 +9,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         Interviewee GetById(int id);
         Interviewee Create(Interviewee entity);
         IEnumerable<Interviewee> GetList(DateTime? dateFrom = null, DateTime? dateTo = null, int? ageId = null, int? sexId = null, 
-            int? educationId = null, int? martialStatusId = null, int? materialStatusId = null, int? placeOfResidenceId = null, int? seniorityId = null);
+            int? educationId = null, int? martialStatusId = null, int? materialStatusId = null, int? placeOfResidenceId = null, int? seniorityId = null, int? workplaceId = null);
         void Delete(int id);
     }
 }

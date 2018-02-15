@@ -25,7 +25,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         }
 
         public IEnumerable<Interviewee> GetList(DateTime? dateFrom = null, DateTime? dateTo = null, int? ageId = null, int? sexId = null,
-            int? educationId = null, int? martialStatusId = null, int? materialStatusId = null, int? placeOfResidenceId = null, int? seniorityId = null)
+            int? educationId = null, int? martialStatusId = null, int? materialStatusId = null, int? placeOfResidenceId = null, int? seniorityId = null, int? workplaceId = null)
         {
             var query = context.Interviewees.AsQueryable();
 
@@ -73,6 +73,11 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             if (seniorityId.HasValue)
             {
                 query = query.Where(x => x.SeniorityId == seniorityId);
+            }
+
+            if (workplaceId.HasValue)
+            {
+                query = query.Where(x => x.WorkplaceId == workplaceId);
             }
 
             return query.AsEnumerable();

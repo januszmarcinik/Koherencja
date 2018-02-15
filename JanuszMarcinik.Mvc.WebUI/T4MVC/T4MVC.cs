@@ -124,6 +124,8 @@ namespace Links
         public static readonly string application_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/application.min.js") ? Url("application.min.js") : Url("application.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string highcharts_exporting_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.exporting.min.js") ? Url("highcharts.exporting.min.js") : Url("highcharts.exporting.js");
+        public static readonly string highcharts_src_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/highcharts.src.min.js") ? Url("highcharts.src.min.js") : Url("highcharts.src.js");
         public static readonly string jquery_3_1_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.1.intellisense.min.js") ? Url("jquery-3.1.1.intellisense.min.js") : Url("jquery-3.1.1.intellisense.js");
         public static readonly string jquery_3_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.1.min.js") ? Url("jquery-3.1.1.min.js") : Url("jquery-3.1.1.js");
         public static readonly string jquery_3_1_1_min_js = Url("jquery-3.1.1.min.js");
@@ -170,6 +172,8 @@ namespace Links
                 public const string application_js = "~/Scripts/application.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
+                public const string highcharts_exporting_js = "~/Scripts/highcharts.exporting.js"; 
+                public const string highcharts_src_js = "~/Scripts/highcharts.src.js"; 
                 public const string jquery_3_1_1_intellisense_js = "~/Scripts/jquery-3.1.1.intellisense.js"; 
                 public const string jquery_3_1_1_js = "~/Scripts/jquery-3.1.1.js"; 
                 public const string jquery_3_1_1_min_js = "~/Scripts/jquery-3.1.1.min.js"; 

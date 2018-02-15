@@ -201,6 +201,14 @@
     <Compile Include="Migrations\201711011515095_006_scores.Designer.cs">
       <DependentUpon>201711011515095_006_scores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801151829459_007_remove_description_add_isActive_flag.cs" />
+    <Compile Include="Migrations\201801151829459_007_remove_description_add_isActive_flag.Designer.cs">
+      <DependentUpon>201801151829459_007_remove_description_add_isActive_flag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801301822554_008_add_workplace_dictionary.cs" />
+    <Compile Include="Migrations\201801301822554_008_add_workplace_dictionary.Designer.cs">
+      <DependentUpon>201801301822554_008_add_workplace_dictionary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -235,10 +243,14 @@
     <EmbeddedResource Include="Migrations\201711011515095_006_scores.resx">
       <DependentUpon>201711011515095_006_scores.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801151829459_007_remove_description_add_isActive_flag.resx">
+      <DependentUpon>201801151829459_007_remove_description_add_isActive_flag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301822554_008_add_workplace_dictionary.resx">
+      <DependentUpon>201801301822554_008_add_workplace_dictionary.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\Keys\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

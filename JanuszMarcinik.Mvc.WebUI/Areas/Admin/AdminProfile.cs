@@ -40,7 +40,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin
                 .Ignore(x => x.Seniorities)
                 .Ignore(x => x.Sexes)
                 .Ignore(x => x.IntervieweeQuestionnaireResults)
-                .Ignore(x => x.IntervieweeDetails);
+                .Ignore(x => x.IntervieweeDetails)
+                .Ignore(x => x.Workplaces);
 
             CreateMap<Category, CategoryViewModel>()
                 .Ignore(x => x.DeleteDisabled)

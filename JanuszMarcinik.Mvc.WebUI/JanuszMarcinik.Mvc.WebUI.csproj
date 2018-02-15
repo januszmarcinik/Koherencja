@@ -16,7 +16,7 @@
     <RootNamespace>JanuszMarcinik.Mvc.WebUI</RootNamespace>
     <AssemblyName>JanuszMarcinik.Mvc.WebUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -278,8 +278,10 @@
     <Content Include="Areas\Application\Views\Results\IntervieweeDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Interviewees\QuestionnaireResultDetails.cshtml" />
     <Content Include="Areas\Application\Views\Results\_PearsonCorrelations.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\SOC29.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ankietujemy.pl - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\koherencja.januszmarcinik.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Images\ep_naturalwhite.png" />
@@ -377,6 +379,7 @@
     <Compile Include="Areas\Application\Models\Results\ResultsViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\IZZViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\LOTViewModel.cs" />
+    <Compile Include="Areas\Application\Models\Survey\SOC29ViewModel.cs" />
     <Compile Include="Areas\Application\Models\Survey\WHOQOLViewModel.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="T4MVC\Account.AccountController.generated.cs">
@@ -475,6 +478,8 @@
     <ProjectReference Include="..\JanuszMarcinik.Mvc.Domain\JanuszMarcinik.Mvc.Domain.csproj">
       <Project>{dd1a95ee-18f7-486d-a821-10b8ce043634}</Project>
       <Name>JanuszMarcinik.Mvc.Domain</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\JanuszMarcinik.Mvc.Extensions\JanuszMarcinik.Mvc.Extensions.csproj">
       <Project>{7554da69-2b19-4cf0-b46b-09742fb7f2ea}</Project>
@@ -499,9 +504,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56442</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/questionnaire</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/questionnaire</IISAppRootUrl>
+          <IISUrl>http://localhost:51465/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

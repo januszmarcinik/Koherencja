@@ -23,7 +23,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
         #region List()
         public virtual ActionResult List(QuestionnaireDataSource datasource = null)
         {
-            datasource.Data = Mapper.Map<List<QuestionnaireViewModel>>(_questionnairesRepository.GetList());
+            datasource.Data = Mapper.Map<List<QuestionnaireViewModel>>(_questionnairesRepository.GetList(activeOnly: false));
             datasource.Initialize();
 
             return View(datasource);
@@ -55,7 +55,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 {
                     OrderNumber = model.OrderNumber,
                     Name = model.Name,
-                    Description = model.Description,
+                    IsActive = model.IsActive,
                     KeyType = model.KeyType
                 };
 
@@ -86,7 +86,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 var questionnaire = _questionnairesRepository.GetById(model.QuestionnaireId);
                 questionnaire.OrderNumber = model.OrderNumber;
                 questionnaire.Name = model.Name;
-                questionnaire.Description = model.Description;
+                questionnaire.IsActive = model.IsActive;
                 questionnaire.KeyType = model.KeyType;
 
                 _questionnairesRepository.Update(questionnaire);

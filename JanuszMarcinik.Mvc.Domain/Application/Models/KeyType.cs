@@ -4,12 +4,13 @@
     {
         LOTR = 1,
         IZZ = 2,
-        WHOQOL = 3
+        WHOQOL = 3,
+        SOC29 = 4
     }
 
     public static class KeyTypeExtensions
     {
-        public static string GetRange(this KeyType keyType, bool isCategorized)
+        public static string GetRange(this KeyType keyType, bool isCategorized, int? questionsInCategoryCount = null)
         {
             switch (keyType)
             {
@@ -24,46 +25,51 @@
                     }
                 case KeyType.WHOQOL:
                     return "4 - 20";
+                case KeyType.SOC29:
+                    {
+                        if (isCategorized && questionsInCategoryCount.HasValue)
+                        {
+                            return $"{questionsInCategoryCount.Value} - {questionsInCategoryCount.Value * 7}";
+                        }
+                        else
+                        {
+                            return "29 - 203";
+                        }
+                    }
                 default:
                     return string.Empty;
             }
         }
 
-        public static int GetMinRange(this KeyType keyType, bool isCategorized)
+        public static int GetMinRange(this KeyType keyType)
         {
             switch (keyType)
             {
                 case KeyType.LOTR:
                     return 1;
                 case KeyType.IZZ:
-                    {
-                        if (isCategorized)
-                            return 1;
-                        else
-                            return 1;
-                    }
+                    return 1;
                 case KeyType.WHOQOL:
                     return 4;
+                case KeyType.SOC29:
+                    return 29;
                 default:
                     return 0;
             }
         }
 
-        public static int GetMaxRange(this KeyType keyType, bool isCategorized)
+        public static int GetMaxRange(this KeyType keyType)
         {
             switch (keyType)
             {
                 case KeyType.LOTR:
                     return 10;
                 case KeyType.IZZ:
-                    {
-                        if (isCategorized)
-                            return 5;
-                        else
-                            return 10;
-                    }
+                    return 10;
                 case KeyType.WHOQOL:
                     return 20;
+                case KeyType.SOC29:
+                    return 203;
                 default:
                     return 0;
             }

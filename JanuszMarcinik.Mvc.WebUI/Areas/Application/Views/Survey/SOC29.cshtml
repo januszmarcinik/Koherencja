@@ -1,0 +1,84 @@
+﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey.SOC29ViewModel
+
+@{
+    ViewBag.Title = Model.QuestionnaireName;
+}
+
+@using (var form = Html.Bootstrap().Begin(new Form()))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.QuestionnaireName)
+    @Html.HiddenFor(x => x.QuestionnaireId)
+
+    <br />
+
+    @Html.Bootstrap().ValidationSummary()
+
+    using (var panel = Html.Bootstrap().Begin(new Panel().Style(TwitterBootstrapMVC.Infrastructure.Enums.PanelStyle.Primary)))
+    {
+        @panel.Heading(Model.QuestionnaireName)
+
+        using (panel.BeginBody())
+        {
+            <p style="font-weight: bold; font-size: 1.2em">
+                Poniżej znajduje się 29 twierdzeń, a pod każdym z nich cyfry od 1 do 7. <br />
+                Oznaczają one twoje odczucia, cyfra 4 jest neutralna. <br />
+                Zaznacz cyfrę, która jest dla ciebie najbardziej charakterystyczna. <br />
+                Staraj się unikać cyfry 4.
+            </p>
+            <hr />
+
+            for (int questionIndex = 0; questionIndex < Model.Questions.Count(); questionIndex++)
+            {
+                <h4>
+                    <strong>@string.Format("{0}. {1}", questionIndex + 1, Model.Questions[questionIndex].Text)</strong>
+                </h4>
+
+                @Html.HiddenFor(x => x.Questions[questionIndex].QuestionId)
+                @Html.HiddenFor(x => x.Questions[questionIndex].Text)
+
+                @(Html.Bootstrap()
+                    .RadioButtonListFor(m => m.Questions[questionIndex].AnswerId,
+                        m => m.Questions[questionIndex].Answers,
+                        answer => answer.Value, answer => answer.Text).AsButtonGroup(ButtonStyle.Default).ContainerClass("btn-group-justified"))
+
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <td width="42.9%">
+                            @Model.Questions[questionIndex].Answers.First().Description
+                        </td>
+                        <td width="14.2%">&nbsp;</td>
+                        <td width="42.9%">
+                            @Model.Questions[questionIndex].Answers.Last().Description
+                        </td>
+                    </tr>
+                </table>
+            }
+        }
+
+        using (panel.BeginFooter())
+        {
+            @Html.Bootstrap().SubmitButton().Text("Dalej").PrependIcon(FontAwesome.arrow_right).Style(ButtonStyle.Primary)
+        }
+    }
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        var selectedValues = [];
+
+        @foreach (var d in Model.SelectedValues)
+        {
+            @:selectedValues.push("@d");
+        }
+
+        for (i = 0; i < selectedValues.length; i++)
+        {
+            $("input[value='" + selectedValues[i] + "']").parent().addClass("active");
+        }
+    })
+
+</script>

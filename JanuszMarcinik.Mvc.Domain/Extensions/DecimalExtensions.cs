@@ -13,5 +13,17 @@
                 return value.ToString("N2");
             }
         }
+
+        public static decimal ToDecimal(this double value)
+        {
+            try
+            {
+                return (decimal)value;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

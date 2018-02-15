@@ -47,6 +47,10 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
         [Display(Name = "Ocena swojego stanu materialnego")]
         public int? MaterialStatusId { get; set; }
         public IEnumerable<SelectListItem> MaterialStatuses { get; set; }
+
+        [Display(Name = "Miejsce pracy")]
+        public int? WorkplaceId { get; set; }
+        public IEnumerable<SelectListItem> Workplaces { get; set; }
         #endregion
 
         protected override void Filter()
@@ -83,6 +87,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
 
             this.Ages = dictionary.Where(x => x.DictionaryType == DictionaryType.Age)
+                .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
+
+            this.Workplaces = dictionary.Where(x => x.DictionaryType == DictionaryType.Workplace)
                 .Select(x => new SelectListItem() { Text = x.Value, Value = x.BaseDictionaryId.ToString() });
         }
         #endregion

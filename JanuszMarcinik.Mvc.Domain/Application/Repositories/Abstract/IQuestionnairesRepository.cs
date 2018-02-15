@@ -7,7 +7,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
     public interface IQuestionnairesRepository
     {
         Questionnaire GetById(long id);
-        IEnumerable<Questionnaire> GetList();
+        IEnumerable<Questionnaire> GetList(bool activeOnly = true);
         Questionnaire Create(Questionnaire entity);
         Questionnaire Update(Questionnaire entity);
         void Delete(long id);

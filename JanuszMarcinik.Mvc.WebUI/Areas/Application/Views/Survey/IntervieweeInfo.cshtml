@@ -1,7 +1,7 @@
 ﻿@model JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees.IntervieweeViewModel
 
 @{
-    ViewBag.Title = "Informacje podstawowe";
+    ViewBag.Title = "Ankieta - Marta Przytuła";
 }
 
 <br />
@@ -67,6 +67,9 @@
             <div class="row">
                 <div class="col-sm-4">
                     @form.FormGroup().DropDownListFor(x => x.MaterialStatusId, Model.MaterialStatuses).OptionLabel("-").PrependIcon(FontAwesome.money)
+                </div>
+                <div class="col-sm-4">
+                    @form.FormGroup().DropDownListFor(x => x.WorkplaceId, Model.Workplaces).OptionLabel("-").PrependIcon(FontAwesome.briefcase)
                 </div>
             </div>
         }

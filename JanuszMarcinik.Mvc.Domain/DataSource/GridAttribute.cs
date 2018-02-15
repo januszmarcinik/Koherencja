@@ -26,6 +26,7 @@ namespace JanuszMarcinik.Mvc.Domain.DataSource
         Time,
         Link,
         PrimaryKey,
-        Enum
+        Enum,
+        Boolean
     }
 }

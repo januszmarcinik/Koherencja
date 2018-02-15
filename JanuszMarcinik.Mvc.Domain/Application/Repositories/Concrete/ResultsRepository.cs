@@ -43,7 +43,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                             x.MartialStatusId == dictionary.BaseDictionaryId ||
                             x.AgeId == dictionary.BaseDictionaryId ||
-                            x.MaterialStatusId == dictionary.BaseDictionaryId)
+                            x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                            x.WorkplaceId == dictionary.BaseDictionaryId)
                         .Select(x => x.IntervieweeId).ToList();
 
                     var results = question.Results.Where(x => intervieweesIds.Contains(x.IntervieweeId));
@@ -88,7 +89,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                         x.MartialStatusId == dictionary.BaseDictionaryId ||
                         x.AgeId == dictionary.BaseDictionaryId ||
-                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                        x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                        x.WorkplaceId == dictionary.BaseDictionaryId)
                     .Select(x => x.IntervieweeId).ToList();
 
                 foreach (var category in questionnaire.Categories)
@@ -110,7 +112,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         IntervieweeCount = intervieweesIds.Count,
                         PointsAvailableToGet = category.Questions.Sum(x => x.Answers.Max(p => p.Points)),
                         AveragePointsEarned = (int)catogryScores.Select(x => x.PointsEarned).DefaultIfEmpty(0).Average(),
-                        AverageScoreValue = catogryScores.Select(x => x.Value).DefaultIfEmpty(0).Average()
+                        AverageScoreValue = catogryScores.Select(x => x.Value).DefaultIfEmpty(0).Average(),
+                        PointsRange = questionnaire.KeyType.GetRange(true, category.Questions.Count)
                     });
                 }
 
@@ -130,7 +133,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     IntervieweeCount = intervieweesIds.Count,
                     PointsAvailableToGet = questionnaire.Questions.Sum(x => x.Answers.Max(p => p.Points)),
                     AveragePointsEarned = (int)scores.Select(x => x.PointsEarned).DefaultIfEmpty(0).Average(),
-                    AverageScoreValue = scores.Select(x => x.Value).DefaultIfEmpty(0).Average()
+                    AverageScoreValue = scores.Select(x => x.Value).DefaultIfEmpty(0).Average(),
+                    PointsRange = questionnaire.KeyType.GetRange(false)
                 });
             }
 
@@ -153,7 +157,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         x.PlaceOfResidenceId == dictionary.BaseDictionaryId ||
                         x.MartialStatusId == dictionary.BaseDictionaryId ||
                         x.AgeId == dictionary.BaseDictionaryId ||
-                        x.MaterialStatusId == dictionary.BaseDictionaryId)
+                        x.MaterialStatusId == dictionary.BaseDictionaryId ||
+                        x.WorkplaceId == dictionary.BaseDictionaryId)
                     .Select(x => x.IntervieweeId).ToList();
 
                 var correlations = GetIntervieweePearsonCorrelations(intervieweesIds);
@@ -167,7 +172,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                         CategoryId = correlations.IndexOf(correlation),
                         CategoryName = $"{correlation.XAxisName}<br/>{correlation.YAxisName}",
                         IntervieweeCount = intervieweesIds.Count,
-                        AverageScoreValue = (decimal)correlation.Value
+                        AverageScoreValue = correlation.Value.ToDecimal()
                     });
                 }
             }
@@ -181,7 +186,11 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
         {
             var intervieweeQuestionnaireResults = new List<IntervieweeQuestionnaireResult>();
 
-            foreach (var questionnaire in context.Questionnaires)
+            var questionnaires = context.Questionnaires
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.OrderNumber);
+
+            foreach (var questionnaire in questionnaires)
             {
                 var intervieweeQuestionnaireResult = new IntervieweeQuestionnaireResult
                 {
@@ -202,7 +211,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     {
                         CategoryId = category.CategoryId,
                         CategoryName = category.Name,
-                        ResultRange = questionnaire.KeyType.GetRange(true)
+                        ResultRange = questionnaire.KeyType.GetRange(true, category.Questions.Count)
                     };
                     categoryResult.SetScores(categoryValues);
 
@@ -309,10 +318,10 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                             .Where(x => !x.CategoryId.HasValue)
                             .Where(x => intervieweesIds.Contains(x.IntervieweeId))
                             .Select(x => (double)x.Value).ToList(),
-                        xAxisMin: questionnaireA.KeyType.GetMinRange(false),
-                        xAxisMax: questionnaireA.KeyType.GetMaxRange(false),
-                        yAxisMin: questionnaireB.KeyType.GetMinRange(false),
-                        yAxisMax: questionnaireB.KeyType.GetMaxRange(false)));
+                        xAxisMin: questionnaireA.KeyType.GetMinRange(),
+                        xAxisMax: questionnaireA.KeyType.GetMaxRange(),
+                        yAxisMin: questionnaireB.KeyType.GetMinRange(),
+                        yAxisMax: questionnaireB.KeyType.GetMaxRange()));
                 }
             }
 
@@ -337,7 +346,8 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
                     MaterialStatusId = data.RandomInterviewee(DictionaryType.MaterialStatus),
                     PlaceOfResidenceId = data.RandomInterviewee(DictionaryType.PlaceOfResidence),
                     SeniorityId = data.RandomInterviewee(DictionaryType.Seniority),
-                    SexId = data.RandomInterviewee(DictionaryType.Sex)
+                    SexId = data.RandomInterviewee(DictionaryType.Sex),
+                    WorkplaceId = data.RandomInterviewee(DictionaryType.Workplace)
                 };
 
                 context.Interviewees.Add(interviewee);
@@ -371,9 +381,16 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 
         private List<Tuple<int, int>> GetQuestionnariesCombinations()
         {
+            var questionnaires = context.Questionnaires
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.OrderNumber);
+
+            var questionnaireIds = questionnaires
+                .Select(x => x.QuestionnaireId)
+                .ToList();
+
             var combinations = new List<Tuple<int, int>>();
-            var questionnaireIds = context.Questionnaires.Select(x => x.QuestionnaireId).ToList();
-            foreach (var questionnaire in context.Questionnaires)
+            foreach (var questionnaire in questionnaires)
             {
                 foreach (var id in questionnaireIds.Where(x => x != questionnaire.QuestionnaireId))
                 {
