@@ -32,7 +32,7 @@
                 @Html.Bootstrap().Alert("Należy odpowiedzieć na wszystkie pytnia.").Closeable().Style(AlertColor.Danger)
             }
 
-            <p><strong>Zapytam Pana / Panią o sprawy życia z ostatnich czterech tygodni.</strong></p>
+            <h3><strong>Zapytam Pana / Panią o sprawy życia z ostatnich czterech tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 0;
                 ViewBag.LastQuestionIndex = 0;
@@ -44,14 +44,14 @@
             }
             @Html.Partial("_WHOQOL_PartTable")
 
-            <p><strong>Następne pytanie dotyczą nasilenia stanów, których Pan / Pani doznawał/a w ciągu 4 tygodni.</strong></p>
+            <h3><strong>Następne pytanie dotyczą nasilenia stanów, których Pan / Pani doznawał/a w ciągu 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 2;
                 ViewBag.LastQuestionIndex = 8;
             }
             @Html.Partial("_WHOQOL_PartTable");
 
-            <p><strong>Poniższe pytania dotyczą tego jak Pan / Pani czuje się i jak się Panu / Pani wiodło w ciągu ostatnich 4 tygodni.</strong></p>
+            <h3><strong>Poniższe pytania dotyczą tego jak Pan / Pani czuje się i jak się Panu / Pani wiodło w ciągu ostatnich 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 9;
                 ViewBag.LastQuestionIndex = 13;
@@ -68,7 +68,7 @@
             }
             @Html.Partial("_WHOQOL_PartTable")
 
-            <p><strong>Poniższe pytanie odnosi się do częstotliwości doznań, jakich Pan / Pani doświadczał/a w okresie ostatnich 4 tygodni.</strong></p>
+            <h3><strong>Poniższe pytanie odnosi się do częstotliwości doznań, jakich Pan / Pani doświadczał/a w okresie ostatnich 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 25;
                 ViewBag.LastQuestionIndex = 25;

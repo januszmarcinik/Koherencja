@@ -1,32 +1,55 @@
 ﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
 @model WHOQOLViewModel
 
-@{ 
+@{
     int firstIndex = ViewBag.FirstQuestionIndex;
     int lastIndex = ViewBag.LastQuestionIndex;
 }
 
-<table class="table table-bordered">
-    <tr>
-        <td colspan="2"></td>
-        @foreach (var item in Model.Questions[firstIndex].Answers)
+<div class="hidden-sm hidden-xs">
+    <table class="table table-bordered">
+        <tr>
+            <td colspan="2"></td>
+            @foreach (var item in Model.Questions[firstIndex].Answers)
+            {
+                <td class="text-center" width="125">@item.Description</td>
+            }
+        </tr>
+        @for (int questionIndex = firstIndex; questionIndex <= lastIndex; questionIndex++)
         {
-            <td class="text-center" width="125">@item.Description</td>
+            @Html.HiddenFor(x => x.Questions[questionIndex].QuestionId)
+            @Html.HiddenFor(x => x.Questions[questionIndex].Text)
+
+            <tr>
+                <td width="40">@(Model.Questions[questionIndex].OrderNumber).</td>
+                <td>@Model.Questions[questionIndex].Text</td>
+                <td colspan="5" class="text-center radio-buttons-cell">
+                    @(Html.Bootstrap().RadioButtonListFor(m => m.Questions[questionIndex].AnswerId,
+                                        m => m.Questions[questionIndex].Answers,
+                                        answer => answer.Value, answer => answer.Text).ContainerClass("btn-group-justified").DisplayInColumns(5, 121))
+                </td>
+            </tr>
         }
-    </tr>
+    </table>
+</div>
+
+<div class="visible-sm visible-xs">
     @for (int questionIndex = firstIndex; questionIndex <= lastIndex; questionIndex++)
     {
         @Html.HiddenFor(x => x.Questions[questionIndex].QuestionId)
         @Html.HiddenFor(x => x.Questions[questionIndex].Text)
 
-        <tr>
-            <td width="40">@(Model.Questions[questionIndex].OrderNumber).</td>
-            <td>@Model.Questions[questionIndex].Text</td>
-            <td colspan="5" class="text-center radio-buttons-cell">
-                @(Html.Bootstrap().RadioButtonListFor(m => m.Questions[questionIndex].AnswerId,
-                    m => m.Questions[questionIndex].Answers,
-                    answer => answer.Value, answer => answer.Text).ContainerClass("btn-group-justified").DisplayInColumns(5, 121))
-            </td>
-        </tr>
+        <p>
+            <strong>
+                <span>
+                    @(Model.Questions[questionIndex].OrderNumber).
+                </span>
+                <span>
+                    @Model.Questions[questionIndex].Text
+                </span>
+            </strong>
+            @Html.Bootstrap().DropDownListFor(m => m.Questions[questionIndex].AnswerId, Model.Questions[questionIndex].AnswersAsDropDown).OptionLabel("-")
+        </p>
     }
-</table>
+    <hr />
+</div>
