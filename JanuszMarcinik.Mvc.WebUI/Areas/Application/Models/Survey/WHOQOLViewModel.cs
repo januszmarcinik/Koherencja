@@ -27,7 +27,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
                     QuestionId = question.QuestionId,
                     OrderNumber = question.OrderNumber,
                     Text = question.Text,
-                    Answers = new List<DescriptionedSelectListItem>()
+                    Answers = new List<DescriptionedSelectListItem>(),
+                    AnswersAsDropDown = new List<SelectListItem>()
                 };
 
                 foreach (var answer in question.Answers.OrderBy(x => x.OrderNumber))
@@ -38,6 +39,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
                         Value = answer.AnswerId.ToString(),
                         Selected = selectedAnswers != null ? selectedAnswers.Any(x => x == answer.AnswerId) : false,
                         Description = answer.Description
+                    });
+                    questionViewModel.AnswersAsDropDown.Add(new SelectListItem()
+                    {
+                        Text = $"{answer.Value.ToString()} - {answer.Description}",
+                        Value = answer.AnswerId.ToString(),
+                        Selected = selectedAnswers != null ? selectedAnswers.Any(x => x == answer.AnswerId) : false
                     });
                 }
 
@@ -55,6 +62,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
         [Required]
         public int AnswerId { get; set; }
         public List<DescriptionedSelectListItem> Answers { get; set; }
+        public List<SelectListItem> AnswersAsDropDown { get; set; }
     }
 
     public class DescriptionedSelectListItem : SelectListItem
