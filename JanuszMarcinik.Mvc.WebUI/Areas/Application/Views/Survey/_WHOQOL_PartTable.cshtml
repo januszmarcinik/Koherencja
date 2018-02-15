@@ -19,7 +19,7 @@
         @Html.HiddenFor(x => x.Questions[questionIndex].QuestionId)
         @Html.HiddenFor(x => x.Questions[questionIndex].Text)
 
-        <tr>
+        <tr questionId="@Model.Questions[questionIndex].QuestionId">
             <td width="40">@(Model.Questions[questionIndex].OrderNumber).</td>
             <td>@Model.Questions[questionIndex].Text</td>
             <td colspan="5" class="text-center radio-buttons-cell">

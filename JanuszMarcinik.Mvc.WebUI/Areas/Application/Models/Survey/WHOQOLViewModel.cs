@@ -13,6 +13,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey
         public List<WHOQOLQuestionViewModel> Questions { get; set; }
 
         public List<int> SelectedValues { get; set; }
+        public List<int> UnselectedQuestions { get; set; }
 
         public void SetQuestionnaire(Questionnaire questionnaire, List<int> selectedAnswers = null)
         {

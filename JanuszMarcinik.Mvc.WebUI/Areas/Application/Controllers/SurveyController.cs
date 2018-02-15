@@ -81,6 +81,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var model = new SOC29ViewModel();
             model.SetQuestionnaire(soc29);
             model.SelectedValues = new List<int>();
+            model.UnselectedQuestions = new List<int>();
 
             return View(model);
         }
@@ -116,9 +117,13 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     ModelState.AddModelError("", "Należy odpowiedzieć na wszystkie pytnia");
                 }
 
-                var selectedAnswers = model.Questions.Where(x => x.AnswerId > 0).Select(x => x.AnswerId).ToList();
+                var selectedValues = model.Questions.Where(x => x.AnswerId > 0).Select(x => x.AnswerId).ToList();
+                var unselectedQuestions = model.Questions.Where(x => x.AnswerId == 0).Select(x => x.QuestionId).ToList();
+
                 model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.SOC29));
-                model.SelectedValues = selectedAnswers;
+
+                model.SelectedValues = selectedValues;
+                model.UnselectedQuestions = unselectedQuestions;
 
                 return View(model);
             }
@@ -170,6 +175,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             var model = new WHOQOLViewModel();
             model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.WHOQOL));
             model.SelectedValues = new List<int>();
+            model.UnselectedQuestions = new List<int>();
 
             return View(model);
         }
@@ -211,8 +217,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 }
 
                 var selectedAnswers = model.Questions.Where(x => x.AnswerId > 0).Select(x => x.AnswerId).ToList();
+                var unselectedQuestions = model.Questions.Where(x => x.AnswerId == 0).Select(x => x.QuestionId).ToList();
+
                 model.SetQuestionnaire(_questionnairesRepository.GetByType(KeyType.WHOQOL));
+
                 model.SelectedValues = selectedAnswers;
+                model.UnselectedQuestions = unselectedQuestions;
 
                 return View(model);
             }

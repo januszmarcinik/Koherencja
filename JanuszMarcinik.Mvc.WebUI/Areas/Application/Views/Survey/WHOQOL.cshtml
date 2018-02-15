@@ -26,7 +26,7 @@
                 Pytania dotyczą spraw życia z ostatnich czterech tygodni.
             </p>
             <hr />
-            
+
             if ((bool?)ViewBag.WHOQOLModelError == true)
             {
                 @Html.Bootstrap().Alert("Należy odpowiedzieć na wszystkie pytnia.").Closeable().Style(AlertColor.Danger)
@@ -94,15 +94,22 @@
         });
 
         var selectedValues = [];
+        var unselectedQuestions = [];
 
         @foreach (var d in Model.SelectedValues)
         {
             @:selectedValues.push("@d");
         }
-
-        for (i = 0; i < selectedValues.length; i++)
+        @foreach (var d in Model.UnselectedQuestions)
         {
+            @:unselectedQuestions.push("@d");
+        }
+
+        for (i = 0; i < selectedValues.length; i++) {
             $("input[value='" + selectedValues[i] + "']").parent().addClass("active");
+        }
+        for (i = 0; i < unselectedQuestions.length; i++) {
+            $("tr[questionId='" + unselectedQuestions[i] + "']").addClass("bg-danger");
         }
     })
 
