@@ -19,7 +19,7 @@
 
         using (panel.BeginBody())
         {
-            <p>
+            <p style="font-weight: bold; font-size: 1.2em">
                 Kolejne pytania dotyczą jakości Pana/i życia, zdrowia i innych dziedzin.<br />
                 Proszę wybrać najbardziej właściwą odpowiedź. Jeśli nie jest Pan/i pewien/a, która z odpowiedzi jest właściwa, to proszę podać pierwszą o której Pan/i pomyślał/a, z zasady jest ona najbliższa prawdy. <br />
                 Proszę myśleć o swoim poziomie życia, nadziejach, przyjemnościach i troskach. <br />
@@ -109,7 +109,8 @@
             $("input[value='" + selectedValues[i] + "']").parent().addClass("active");
         }
         for (i = 0; i < unselectedQuestions.length; i++) {
-            $("tr[questionId='" + unselectedQuestions[i] + "']").addClass("bg-danger");
+            $("tr[questionIdRow='" + unselectedQuestions[i] + "']").addClass("bg-danger");
+            $("strong[questionIdText='" + unselectedQuestions[i] + "']").addClass("text-danger");
         }
     })
 
