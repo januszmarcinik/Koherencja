@@ -1,8 +1,0 @@
-admin@januszmarcinik.pl
-[standard]
-
-moderator@januszmarcinik.pl
-Marti2000Moderator
-
-ankieter@januszmarcinik.pl
-Marti2000Ankieter
