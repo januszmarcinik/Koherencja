@@ -19,20 +19,20 @@
 
         using (panel.BeginBody())
         {
-            <p>
+            <p style="font-weight: bold; font-size: 1.2em">
                 Kolejne pytania dotyczą jakości Pana/i życia, zdrowia i innych dziedzin.<br />
                 Proszę wybrać najbardziej właściwą odpowiedź. Jeśli nie jest Pan/i pewien/a, która z odpowiedzi jest właściwa, to proszę podać pierwszą o której Pan/i pomyślał/a, z zasady jest ona najbliższa prawdy. <br />
                 Proszę myśleć o swoim poziomie życia, nadziejach, przyjemnościach i troskach. <br />
                 Pytania dotyczą spraw życia z ostatnich czterech tygodni.
             </p>
             <hr />
-            
+
             if ((bool?)ViewBag.WHOQOLModelError == true)
             {
                 @Html.Bootstrap().Alert("Należy odpowiedzieć na wszystkie pytnia.").Closeable().Style(AlertColor.Danger)
             }
 
-            <p><strong>Zapytam Pana / Panią o sprawy życia z ostatnich czterech tygodni.</strong></p>
+            <h3><strong>Zapytam Pana / Panią o sprawy życia z ostatnich czterech tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 0;
                 ViewBag.LastQuestionIndex = 0;
@@ -44,14 +44,14 @@
             }
             @Html.Partial("_WHOQOL_PartTable")
 
-            <p><strong>Następne pytanie dotyczą nasilenia stanów, których Pan / Pani doznawał/a w ciągu 4 tygodni.</strong></p>
+            <h3><strong>Następne pytanie dotyczą nasilenia stanów, których Pan / Pani doznawał/a w ciągu 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 2;
                 ViewBag.LastQuestionIndex = 8;
             }
             @Html.Partial("_WHOQOL_PartTable");
 
-            <p><strong>Poniższe pytania dotyczą tego jak Pan / Pani czuje się i jak się Panu / Pani wiodło w ciągu ostatnich 4 tygodni.</strong></p>
+            <h3><strong>Poniższe pytania dotyczą tego jak Pan / Pani czuje się i jak się Panu / Pani wiodło w ciągu ostatnich 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 9;
                 ViewBag.LastQuestionIndex = 13;
@@ -68,7 +68,7 @@
             }
             @Html.Partial("_WHOQOL_PartTable")
 
-            <p><strong>Poniższe pytanie odnosi się do częstotliwości doznań, jakich Pan / Pani doświadczał/a w okresie ostatnich 4 tygodni.</strong></p>
+            <h3><strong>Poniższe pytanie odnosi się do częstotliwości doznań, jakich Pan / Pani doświadczał/a w okresie ostatnich 4 tygodni.</strong></h3>
             {
                 ViewBag.FirstQuestionIndex = 25;
                 ViewBag.LastQuestionIndex = 25;
@@ -94,15 +94,23 @@
         });
 
         var selectedValues = [];
+        var unselectedQuestions = [];
 
         @foreach (var d in Model.SelectedValues)
         {
             @:selectedValues.push("@d");
         }
-
-        for (i = 0; i < selectedValues.length; i++)
+        @foreach (var d in Model.UnselectedQuestions)
         {
+            @:unselectedQuestions.push("@d");
+        }
+
+        for (i = 0; i < selectedValues.length; i++) {
             $("input[value='" + selectedValues[i] + "']").parent().addClass("active");
+        }
+        for (i = 0; i < unselectedQuestions.length; i++) {
+            $("tr[questionIdRow='" + unselectedQuestions[i] + "']").addClass("bg-danger");
+            $("strong[questionIdText='" + unselectedQuestions[i] + "']").addClass("text-danger");
         }
     })
 
