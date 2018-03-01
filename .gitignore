@@ -248,3 +248,4 @@ ModelManifest.xml
 /JanuszMarcinik.Mvc.WebUI/Properties/PublishProfiles/ankietujemy.pl - Web Deploy.pubxml
 /JanuszMarcinik.Mvc.WebUI/ConnectionString.config
 /Deploy
+/db_backups
