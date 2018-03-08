@@ -142,7 +142,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 materialStatusId: materialStatusId,
                 placeOfResidenceId: placeOfResidenceId,
                 seniorityId: seniorityId,
-                sexId: sexId)
+                sexId: sexId,
+                workplaceId: workplaceId)
                 .Select(x => x.IntervieweeId)
                 .ToList();
 
@@ -173,7 +174,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 materialStatusId: materialStatusId,
                 placeOfResidenceId: placeOfResidenceId,
                 seniorityId: seniorityId,
-                sexId: sexId)
+                sexId: sexId,
+                workplaceId: workplaceId)
                 .Select(x => x.IntervieweeId)
                 .ToList();
 
