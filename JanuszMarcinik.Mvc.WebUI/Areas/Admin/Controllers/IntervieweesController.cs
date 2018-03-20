@@ -2,7 +2,6 @@
 using JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models;
 using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees;
-using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -39,7 +38,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
                 materialStatusId: datasource.MaterialStatusId,
                 placeOfResidenceId: datasource.PlaceOfResidenceId,
                 seniorityId: datasource.SeniorityId,
-                sexId: datasource.SexId));
+                sexId: datasource.SexId,
+                workplaceId: datasource.WorkplaceId));
             datasource.Initialize();
             datasource.SetDictionaries(_dictionariesRepository.GetList());
 

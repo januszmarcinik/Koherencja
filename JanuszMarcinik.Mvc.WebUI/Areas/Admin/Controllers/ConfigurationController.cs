@@ -25,11 +25,5 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Admin.Controllers
             _scoresRepository.RecalculateScores();
             return RedirectToAction(MVC.Admin.Configuration.Index());
         }
-
-        public virtual ActionResult GenerateRandomResults()
-        {
-            _resultsRepository.GenerateRandom();
-            return RedirectToAction(MVC.Admin.Configuration.Index());
-        }
     }
 }

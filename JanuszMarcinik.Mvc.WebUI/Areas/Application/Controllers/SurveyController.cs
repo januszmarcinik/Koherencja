@@ -98,6 +98,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
 
+                results.RemoveAll(x => x.QuestionnaireId == model.QuestionnaireId);
                 results.AddRange(model.Questions
                     .Select(x => new Result()
                     {
@@ -152,6 +153,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 {
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
+
+                results.RemoveAll(x => x.QuestionnaireId == model.QuestionnaireId);
                 results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
                 Session[_resultsSessionKey] = results;
 
@@ -191,6 +194,9 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 {
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
+
+                results.RemoveAll(x => x.QuestionnaireId == model.QuestionnaireId);
+
                 foreach (var question in model.Questions)
                 {
                     results.Add(new Result()
@@ -259,6 +265,8 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
                 {
                     return RedirectToAction(MVC.Application.Survey.IntervieweeInfo());
                 }
+
+                results.RemoveAll(x => x.QuestionnaireId == model.QuestionnaireId);
                 results.AddRange(_resultsRepository.GetResultsByDict(model.QuestionnaireId, questionIdValue));
                 Session[_resultsSessionKey] = results;
 

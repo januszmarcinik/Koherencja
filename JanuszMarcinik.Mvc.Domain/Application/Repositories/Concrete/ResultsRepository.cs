@@ -5,7 +5,6 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
 using System;
-using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -326,53 +325,6 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             }
 
             return model;
-        }
-        #endregion
-
-        #region GenerateRandom()
-        public void GenerateRandom()
-        {
-            var data = new RandomResults(context.Questionnaires, context.BaseDictionaries);
-            IScoresRepository scoresRepository = new ScoresRepository();
-
-            for (int i = 0; i < 25; i++)
-            {
-                var interviewee = new Interviewee()
-                {
-                    InterviewDate = DateTime.Now,
-                    AgeId = data.RandomInterviewee(DictionaryType.Age),
-                    EducationId = data.RandomInterviewee(DictionaryType.Education),
-                    MartialStatusId = data.RandomInterviewee(DictionaryType.MartialStatus),
-                    MaterialStatusId = data.RandomInterviewee(DictionaryType.MaterialStatus),
-                    PlaceOfResidenceId = data.RandomInterviewee(DictionaryType.PlaceOfResidence),
-                    SeniorityId = data.RandomInterviewee(DictionaryType.Seniority),
-                    SexId = data.RandomInterviewee(DictionaryType.Sex),
-                    WorkplaceId = data.RandomInterviewee(DictionaryType.Workplace)
-                };
-
-                context.Interviewees.Add(interviewee);
-                context.SaveChanges();
-
-                var random = new Random();
-
-                foreach (var questionnaire in data.Questionnaires)
-                {
-                    foreach (var question in questionnaire.Questions)
-                    {
-                        context.Results.Add(new Result()
-                        {
-                            IntervieweeId = interviewee.IntervieweeId,
-                            QuestionnaireId = questionnaire.QuestionnaireId,
-                            QuestionId = question.QuestionId,
-                            AnswerId = question.Random()
-                        });
-                    }
-                }
-
-                context.SaveChanges();
-
-                scoresRepository.Create(interviewee.IntervieweeId);
-            }
         }
         #endregion
 
