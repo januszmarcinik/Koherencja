@@ -49,6 +49,22 @@
 
     $(document).ready(function () {
 
+        Highcharts.setOptions({
+            colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                return {
+                    radialGradient: {
+                        cx: 0.5,
+                        cy: 0.3,
+                        r: 0.7
+                    },
+                    stops: [
+                        [0, color],
+                        [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                    ]
+                };
+            })
+        });
+
         for (i = 1; i <= 8; i++) {
             var name = $('#chart-' + i).attr('data-chart-name');
             var values = JSON.parse($('#chart-' + i).attr('data-chart-values'));
@@ -85,9 +101,13 @@
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        },
+                        connectorColor: 'silver'
+                    }
                 }
             },
             series: [{
