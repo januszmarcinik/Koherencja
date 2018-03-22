@@ -74,6 +74,12 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.IntervieweeDetails);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DictionaryCharts()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DictionaryCharts);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ResultsController Actions { get { return MVC.Application.Results; } }
@@ -94,6 +100,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public readonly string Details = "Details";
             public readonly string IntervieweeResults = "IntervieweeResults";
             public readonly string IntervieweeDetails = "IntervieweeDetails";
+            public readonly string DictionaryCharts = "DictionaryCharts";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -103,6 +110,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public const string Details = "Details";
             public const string IntervieweeResults = "IntervieweeResults";
             public const string IntervieweeDetails = "IntervieweeDetails";
+            public const string DictionaryCharts = "DictionaryCharts";
         }
 
 
@@ -145,6 +153,21 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             public readonly string seniorityId = "seniorityId";
             public readonly string workplaceId = "workplaceId";
         }
+        static readonly ActionParamsClass_DictionaryCharts s_params_DictionaryCharts = new ActionParamsClass_DictionaryCharts();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DictionaryCharts DictionaryChartsParams { get { return s_params_DictionaryCharts; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DictionaryCharts
+        {
+            public readonly string ageId = "ageId";
+            public readonly string sexId = "sexId";
+            public readonly string educationId = "educationId";
+            public readonly string martialStatusId = "martialStatusId";
+            public readonly string materialStatusId = "materialStatusId";
+            public readonly string placeOfResidenceId = "placeOfResidenceId";
+            public readonly string seniorityId = "seniorityId";
+            public readonly string workplaceId = "workplaceId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -157,12 +180,14 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             {
                 public readonly string _PearsonCorrelations = "_PearsonCorrelations";
                 public readonly string _ResultValue = "_ResultValue";
+                public readonly string DictionaryCharts = "DictionaryCharts";
                 public readonly string IntervieweeDetails = "IntervieweeDetails";
                 public readonly string IntervieweeResults = "IntervieweeResults";
                 public readonly string Results = "Results";
             }
             public readonly string _PearsonCorrelations = "~/Areas/Application/Views/Results/_PearsonCorrelations.cshtml";
             public readonly string _ResultValue = "~/Areas/Application/Views/Results/_ResultValue.cshtml";
+            public readonly string DictionaryCharts = "~/Areas/Application/Views/Results/DictionaryCharts.cshtml";
             public readonly string IntervieweeDetails = "~/Areas/Application/Views/Results/IntervieweeDetails.cshtml";
             public readonly string IntervieweeResults = "~/Areas/Application/Views/Results/IntervieweeResults.cshtml";
             public readonly string Results = "~/Areas/Application/Views/Results/Results.cshtml";
@@ -233,6 +258,25 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "seniorityId", seniorityId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "workplaceId", workplaceId);
             IntervieweeDetailsOverride(callInfo, questionnaireId, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId, workplaceId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DictionaryChartsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DictionaryCharts(int? ageId, int? sexId, int? educationId, int? martialStatusId, int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DictionaryCharts);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ageId", ageId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sexId", sexId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "educationId", educationId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "martialStatusId", martialStatusId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "materialStatusId", materialStatusId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "placeOfResidenceId", placeOfResidenceId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "seniorityId", seniorityId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "workplaceId", workplaceId);
+            DictionaryChartsOverride(callInfo, ageId, sexId, educationId, martialStatusId, materialStatusId, placeOfResidenceId, seniorityId, workplaceId);
             return callInfo;
         }
 

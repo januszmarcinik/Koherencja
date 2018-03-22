@@ -41,6 +41,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
         public List<IntervieweeQuestionnaireResult> IntervieweeQuestionnaireResults { get; set; }
         public List<IntervieweeDetail> IntervieweeDetails { get; set; }
         public List<PearsonCorrelation> PearsonCorrelations { get; set; }
+        public List<DictionaryChart> DictionaryCharts { get; set; }
 
         public LegendViewModel Legend { get; set; }
     }

@@ -5,6 +5,7 @@ using JanuszMarcinik.Mvc.Domain.Data;
 using System.Linq;
 using JanuszMarcinik.Mvc.Domain.Application.Models;
 using System;
+using JanuszMarcinik.Mvc.Domain.Application.Entities.Dictionaries;
 
 namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
 {
@@ -325,6 +326,39 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Concrete
             }
 
             return model;
+        }
+        #endregion
+
+        #region GetDictionaryCharts()
+        public List<DictionaryChart> GetDictionaryCharts(List<int> intervieweesIds)
+        {
+            var dictionaries = context.BaseDictionaries.ToList();
+            var interviewees = context.Interviewees.Where(x => intervieweesIds.Contains(x.IntervieweeId)).ToList();
+            return new List<DictionaryChart>
+            {
+                GetDictionaryChartByProperty(x => x.AgeId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.Age)),
+                GetDictionaryChartByProperty(x => x.EducationId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.Education)),
+                GetDictionaryChartByProperty(x => x.MartialStatusId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.MartialStatus)),
+                GetDictionaryChartByProperty(x => x.MaterialStatusId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.MaterialStatus)),
+                GetDictionaryChartByProperty(x => x.PlaceOfResidenceId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.PlaceOfResidence)),
+                GetDictionaryChartByProperty(x => x.SeniorityId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.Seniority)),
+                GetDictionaryChartByProperty(x => x.SexId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.Sex)),
+                GetDictionaryChartByProperty(x => x.WorkplaceId, interviewees, dictionaries.Where(x => x.DictionaryType == DictionaryType.Workplace))
+            };
+        }
+
+        private DictionaryChart GetDictionaryChartByProperty(
+            Func<Interviewee, int> property, 
+            IEnumerable<Interviewee> interviewees, 
+            IEnumerable<BaseDictionary> dictionaries)
+        {
+            return new DictionaryChart()
+            {
+                DictionaryType = dictionaries.First().DictionaryType,
+                Values = dictionaries.ToDictionary(
+                    key => key.Value,
+                    val => interviewees.Where(x => property(x) == val.BaseDictionaryId).Count())
+            };
         }
         #endregion
 

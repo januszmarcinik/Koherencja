@@ -1,0 +1,104 @@
+﻿@using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Results
+@using JanuszMarcinik.Mvc
+@model IntervieweeResultsViewModel
+
+@{
+    ViewBag.Title = "Wykresy metryczka";
+}
+
+<h2 class="center-block">
+    <span class="label label-primary center-block">@ViewBag.Title</span>
+</h2>
+
+@using (var panel = Html.Bootstrap().Begin(new Panel()))
+{
+    using (panel.BeginBody())
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Sex).PrependIcon(FontAwesome.venus_mars).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Age).PrependIcon(FontAwesome.user_circle).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Seniority).PrependIcon(FontAwesome.user_md).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MaterialStatus).PrependIcon(FontAwesome.money).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.PlaceOfResidence).PrependIcon(FontAwesome.building).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Education).PrependIcon(FontAwesome.graduation_cap).Readonly()
+            </div>
+            <div class="col-sm-3">
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.MartialStatus).PrependIcon(FontAwesome.users).Readonly()
+                @Html.Bootstrap().FormGroup().TextBoxFor(x => x.Workplace).PrependIcon(FontAwesome.briefcase).Readonly()
+            </div>
+        </div>
+    }
+}
+
+@foreach (var chart in Model.DictionaryCharts)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="hidden" id="chart-@((int)(chart.DictionaryType))" data-chart-name="@chart.DictionaryType.GetDescription()" data-chart-values="@Json.Encode(chart.Values)"/>
+            <div id="dictionaryChart-@((int)(chart.DictionaryType))"></div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        for (i = 1; i <= 8; i++) {
+            var name = $('#chart-' + i).attr('data-chart-name');
+            var values = JSON.parse($('#chart-' + i).attr('data-chart-values'));
+            var keys = Object.keys(values);
+            var data = new Array(keys.length);
+            for (k = 0; k < keys.length; k++) {
+                data[k] = {
+                    name: keys[k],
+                    y: values[keys[k]]
+                };
+            }
+
+            InitializeChart('dictionaryChart-' + i, name, data);
+        }
+    });
+
+    function InitializeChart(id, title, data) {
+
+        Highcharts.chart(id, {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: title
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Udział',
+                colorByPoint: true,
+                data: data
+            }]
+        });
+    }
+</script>
+
+<br /><br /><br /><br />
+@Html.ButtonsFooter(
+    Html.Bootstrap().BackButton(MVC.Admin.Interviewees.List()))

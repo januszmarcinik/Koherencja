@@ -14,6 +14,7 @@ namespace JanuszMarcinik.Mvc.Domain.Application.Repositories.Abstract
         List<IntervieweeQuestionnaireResult> GetIntervieweeResults(List<int> intervieweesIds);
         List<IntervieweeDetail> GetIntervieweeDetails(int questionnaireId, List<int> intervieweesIds);
         List<PearsonCorrelation> GetIntervieweePearsonCorrelations(List<int> intervieweesIds);
+        List<DictionaryChart> GetDictionaryCharts(List<int> intervieweesIds);
 
         List<Result> GetResultsByDict(int questionnaireId, Dictionary<int, int> questionIdValue);
     }

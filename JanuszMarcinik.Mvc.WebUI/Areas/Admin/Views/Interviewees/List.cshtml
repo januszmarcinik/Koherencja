@@ -59,4 +59,7 @@
     Html.Bootstrap().BackButton(MVC.Application.Home.Index()),
     Html.Bootstrap().ActionLinkButton("Zobacz wyniki dla aktualnych filtrów",
         MVC.Application.Results.IntervieweeResults(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId, Model.WorkplaceId))
-        .PrependIcon(FontAwesome.hashtag).Style(ButtonStyle.Primary))
+        .PrependIcon(FontAwesome.hashtag).Style(ButtonStyle.Primary),
+    Html.Bootstrap().ActionLinkButton("Wykresy metryczka",
+        MVC.Application.Results.DictionaryCharts(Model.AgeId, Model.SexId, Model.EducationId, Model.MartialStatusId, Model.MaterialStatusId, Model.PlaceOfResidenceId, Model.SeniorityId, Model.WorkplaceId))
+        .PrependIcon(FontAwesome.pie_chart).Style(ButtonStyle.Success))

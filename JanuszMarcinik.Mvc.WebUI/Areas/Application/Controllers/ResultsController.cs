@@ -197,6 +197,38 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
         }
         #endregion
 
+        #region DictionaryCharts()
+        public virtual ActionResult DictionaryCharts(int? ageId, int? sexId, int? educationId, int? martialStatusId,
+            int? materialStatusId, int? placeOfResidenceId, int? seniorityId, int? workplaceId)
+        {
+            var intervieweesIds = _intervieweesRepository.GetList(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId,
+                workplaceId: workplaceId)
+                .Select(x => x.IntervieweeId)
+                .ToList();
+
+            var model = GetIntervieweeResultBasicViewModel(
+                ageId: ageId,
+                educationId: educationId,
+                martialStatusId: martialStatusId,
+                materialStatusId: materialStatusId,
+                placeOfResidenceId: placeOfResidenceId,
+                seniorityId: seniorityId,
+                sexId: sexId,
+                workplaceId: workplaceId);
+
+            model.DictionaryCharts = _resultsRepository.GetDictionaryCharts(intervieweesIds);
+
+            return View(model);
+        }
+        #endregion
+
 
         #region Helpers
         private IntervieweeResultsViewModel GetIntervieweeResultBasicViewModel(int? ageId, int? sexId, int? educationId, int? martialStatusId,
