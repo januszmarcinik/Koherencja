@@ -281,6 +281,7 @@
     <Content Include="Areas\Application\Views\Survey\SOC29.cshtml" />
     <Content Include="ConnectionString.config" />
     <Content Include="Areas\Application\Views\Results\DictionaryCharts.cshtml" />
+    <Content Include="Areas\Application\Views\Survey\Blocked.cshtml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ankietapoczuciakoherencji - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ankietujemy.pl - Web Deploy.pubxml" />

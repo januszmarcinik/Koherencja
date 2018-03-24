@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Ankieta została zamknięta.";
+}
+
+<br />
+@using (var panel = Html.Bootstrap().Begin(new Panel().Style(TwitterBootstrapMVC.Infrastructure.Enums.PanelStyle.Primary)))
+{
+    using (panel.BeginBody())
+    {
+        <br />
+        <br />
+        <br />
+        <h1 class="text-center">
+            <strong>@ViewBag.Title</strong>
+        </h1>
+        <hr />
+        <br />
+        <br />
+        <br />
+    }
+}

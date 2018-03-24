@@ -5,6 +5,7 @@ using JanuszMarcinik.Mvc.WebUI.Areas.Admin.Models.Interviewees;
 using JanuszMarcinik.Mvc.WebUI.Areas.Application.Models.Survey;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
     {
         private const string _intervieweeSessionKey = "IntervieweeSessionKey";
         private const string _resultsSessionKey = "ResultsSessionKey";
+        private readonly bool _surveyIsBlocked;
 
         #region SurveyController
         private IQuestionnairesRepository _questionnairesRepository;
@@ -30,12 +32,18 @@ namespace JanuszMarcinik.Mvc.WebUI.Areas.Application.Controllers
             this._intervieweesRepository = intervieweesRepository;
             this._resultsRepository = resultsRepository;
             this._scoresRepository = scoresRepository;
+            this._surveyIsBlocked = bool.Parse(ConfigurationManager.AppSettings["SurveyIsBlocked"].ToString());
         }
         #endregion
 
         #region IntervieweeInfo()
         public virtual ActionResult IntervieweeInfo()
         {
+            if (_surveyIsBlocked)
+            {
+                return View("Blocked");
+            }
+
             var model = new IntervieweeViewModel();
             model.SetDictionaries(_dictionariesRepository.GetList());
 
